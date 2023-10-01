@@ -1,0 +1,54 @@
+{
+    "name": "PlayerInputManager",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "abeed5c0-2f10-4360-a194-86920d7d1802",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "c42da3ce-3272-4256-94b9-b2258f926414",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LockCamera",
+                    "type": "Button",
+                    "id": "edff973f-f9c3-4348-bc37-594ab7bb8235",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4f0144ee-b096-4464-9a28-fd1c1b2d16ab",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6bb5fb4-31b7-4b3f-ad4f-a0a658a39c37",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LockCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
