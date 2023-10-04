@@ -44,5 +44,15 @@ namespace PawsAndClaws.Player
 
         public float attackSpeed;
         public float attackSpeedMultiplier;
+
+        public GameObject prefab;
+
+        public GameObject Spawn(Transform transform, ref CharacterStats stats)
+        {
+            var character = Instantiate(prefab, transform);
+            stats.Initialize(this);
+
+            return character;
+        }
     }
 }
