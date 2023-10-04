@@ -724,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c41192189c0e0b4ea3f1ab39ece53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   text: {fileID: 1405317565}
 --- !u!1 &378711706
 GameObject:
@@ -2663,7 +2664,7 @@ MonoBehaviour:
   player: {fileID: 496052627}
   playerCamera: {fileID: 628416533}
   inputHandler: {fileID: 1031680486}
-  characterData: {fileID: 0}
+  characterData: {fileID: 11400000, guid: 1b4140663f241444cac2399d619e3bcc, type: 2}
 --- !u!114 &1031680486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2797,6 +2798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c41192189c0e0b4ea3f1ab39ece53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   text: {fileID: 1874045727}
 --- !u!1 &1089598665
 GameObject:
@@ -38227,6 +38229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c41192189c0e0b4ea3f1ab39ece53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
   text: {fileID: 834397576}
 --- !u!1 &1646455547
 GameObject:
