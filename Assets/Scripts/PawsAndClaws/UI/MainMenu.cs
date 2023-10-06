@@ -18,9 +18,35 @@ public class MainMenu : MonoBehaviour
 
     public TMP_InputField ipinput;
 
+    public ProtocolType protocol = ProtocolType.Tcp;
+    public SocketType socketType = SocketType.Stream;
+
+    public void OnProtocolChanged(int value)
+    {
+        // 0 TCP
+        // 1 UDP
+
+        switch (value)
+        {
+            case 0:
+                {
+                    protocol = ProtocolType.Tcp;
+                    socketType = SocketType.Stream;
+                }
+                break;
+            case 1:
+                {
+                    protocol = ProtocolType.Udp;
+                    socketType = SocketType.Dgram;
+                }
+                break;
+        }
+
+        NetworkData.protocolType = protocol;
+    }
     public void OnHostClick()
     {
-        Socket listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        Socket listenSocket = new Socket(AddressFamily.InterNetwork, socketType, protocol);
 
         IPAddress hostIP = IPAddress.Parse("127.0.0.1");
 
@@ -30,7 +56,8 @@ public class MainMenu : MonoBehaviour
 
         NetworkData.netSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());
 
-        SceneManager.LoadScene("Lobby");
+
+        OpenLobby();
     }
 
     public void OnConnectClick()
@@ -42,7 +69,7 @@ public class MainMenu : MonoBehaviour
     public void MakeConnection()
     {
         // Check if IP is not empty
-        if(ipinput.text == "")
+        if (ipinput.text == "")
         {
             Debug.Log("Trying to connect to an empty IP address.");
             return;
@@ -62,24 +89,39 @@ public class MainMenu : MonoBehaviour
         // Make connection
         IPEndPoint remoteIP = new IPEndPoint(ipaddr, NetworkData.PORT);
 
-        Socket clientSocket = new Socket(ipaddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        Socket clientSocket = new Socket(ipaddr.AddressFamily, socketType, protocol);
 
-        try
+
+        if (protocol == ProtocolType.Tcp)
         {
-            clientSocket.Connect(remoteIP);
+            try
+            {
+                clientSocket.Connect(remoteIP);
 
-            Debug.Log("Connected to " + clientSocket.RemoteEndPoint.ToString());
+                Debug.Log("Connected to " + clientSocket.RemoteEndPoint.ToString());
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error on connecting to server." + e.ToString());
+                return;
+            }
         }
-        catch(Exception e)
-        {
-            Debug.Log("Error on connecting to server." + e.ToString());
-            return;
-        }
-
         // After connection has been made, set data
         NetworkData.netSocket = new NetworkSocket(clientSocket, ipaddr, ipinput.text);
 
+        OpenLobby();
+    }
+
+    private void OpenLobby()
+    {
         // Go to lobby
-        SceneManager.LoadScene("Lobby");
+        if (protocol == ProtocolType.Tcp)
+        {
+            SceneManager.LoadScene("LobbyTCP");
+        }
+        else
+        {
+            SceneManager.LoadScene("LobbyUDP");
+        }
     }
 }

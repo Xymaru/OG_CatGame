@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
@@ -10,9 +11,13 @@ public class NetworkManager : MonoBehaviour
         {
             gameObject.AddComponent<NetClient>();
         }
+        else if (NetworkData.protocolType == ProtocolType.Udp)
+        {
+            gameObject.AddComponent<NetServerUDP>();
+        }
         else
         {
-            gameObject.AddComponent<NetServer>();
+            gameObject.AddComponent<NetServerTCP>();
         }
     }
 }

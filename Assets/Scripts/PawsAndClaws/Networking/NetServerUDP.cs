@@ -1,0 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using UnityEngine;
+
+public class NetServerUDP : MonoBehaviour
+{
+    private NetworkServerSocket _serverSocket;
+    private Thread _updateThread;
+
+    private byte[] _data = new byte[1024];
+
+    public void Start()
+    {
+        _serverSocket = (NetworkServerSocket)NetworkData.netSocket;
+        _updateThread = new Thread(UpdateThread);
+    }
+
+    void UpdateThread()
+    {
+        EndPoint endPoint = new IPEndPoint(IPAddress.Any, NetworkData.PORT);
+        while (true)
+        {
+            int revSize = _serverSocket.socket.ReceiveFrom(_data, ref endPoint);
+            string msg = Encoding.ASCII.GetString(_data, 0, revSize);
+            Debug.Log($"Server recieved from client [{msg}]");
+            _data = Encoding.ASCII.GetBytes("Hola chikilicuatre!");
+            _serverSocket.socket.SendTo(_data, revSize, SocketFlags.None, endPoint);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_updateThread.IsAlive)
+        {
+            _updateThread.Abort();
+
+            _serverSocket.socket.Shutdown(SocketShutdown.Both);
+            _serverSocket.socket.Close();
+        }
+    }
+}

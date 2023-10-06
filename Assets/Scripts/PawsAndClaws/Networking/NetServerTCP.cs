@@ -8,7 +8,7 @@ using System.Text;
 
 using System.Threading;
 
-public class NetServer : MonoBehaviour
+public class NetServerTCP : MonoBehaviour
 {
     NetworkServerSocket serversocket;
 
@@ -26,8 +26,6 @@ public class NetServer : MonoBehaviour
         // Accept incoming connections job
         m_AcceptThread = new Thread(AcceptJob);
         m_AcceptThread.Start();
-
-
     }
 
     void Update()

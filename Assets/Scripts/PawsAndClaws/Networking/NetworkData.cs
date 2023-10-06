@@ -37,9 +37,11 @@ public class NetworkServerSocket : NetworkSocket
 
 public static class NetworkData
 {
-    public const int PORT = 50420;
+    public const int PORT = 3154;
 
     public static NetworkSocket netSocket;
+
+    public static ProtocolType protocolType;
 
     public static string public_name = "Player";
 }
