@@ -73,6 +73,7 @@ public class MainMenu : MonoBehaviour
         catch(Exception e)
         {
             Debug.Log("Error on connecting to server." + e.ToString());
+            return;
         }
 
         // After connection has been made, set data

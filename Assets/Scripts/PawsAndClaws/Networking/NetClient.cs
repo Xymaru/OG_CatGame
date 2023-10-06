@@ -29,4 +29,10 @@ public class NetClient : MonoBehaviour
             Application.Quit();
         }
     }
+
+    private void OnDestroy()
+    {
+        NetworkData.netSocket.socket.Shutdown(SocketShutdown.Both);
+        NetworkData.netSocket.socket.Close();
+    }
 }
