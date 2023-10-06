@@ -70,6 +70,7 @@ public class NetServer : MonoBehaviour
             m_AcceptThread.Abort();
 
             serversocket.socket.Shutdown(SocketShutdown.Both);
+            serversocket.socket.Close();
         }
     }
 }
