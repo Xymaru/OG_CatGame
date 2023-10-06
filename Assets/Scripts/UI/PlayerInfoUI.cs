@@ -12,22 +12,26 @@ namespace PawsAndClaws.UI
 
         public Image playerImage;
         public AbilitiesUI abilitiesUI;
-        public BarUI healthBar;
-        public BarUI manaBar;
+        public RegenBarUI healthBar;
+        public RegenBarUI manaBar;
         public BarUI levelBar;
 
         private void OnEnable()
         {
-            manager.onHealthChange += healthBar.UpdateBar;
-            manager.onManaChange += manaBar.UpdateBar;
-            manager.onExpChange += levelBar.UpdateBar;
+            manager.onHealthChange          += healthBar.UpdateBar;
+            manager.onHealthRegenChange     += healthBar.UpdateRegen;
+            manager.onManaChange            += manaBar.UpdateBar;
+            manager.onManaRegenChange       += manaBar.UpdateRegen;
+            manager.onExpChange             += levelBar.UpdateBar;
         }
 
         private void OnDisable()
         {
-            manager.onHealthChange -= healthBar.UpdateBar;
-            manager.onManaChange -= manaBar.UpdateBar;
-            manager.onExpChange -= levelBar.UpdateBar;
+            manager.onHealthChange          -= healthBar.UpdateBar;
+            manager.onHealthRegenChange     -= healthBar.UpdateRegen;
+            manager.onManaChange            -= manaBar.UpdateBar;
+            manager.onManaRegenChange       -= manaBar.UpdateRegen;
+            manager.onExpChange             -= levelBar.UpdateBar;
         }
     }
 }

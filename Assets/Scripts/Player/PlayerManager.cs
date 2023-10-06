@@ -6,87 +6,87 @@ namespace PawsAndClaws.Player
 {
     public struct CharacterStats
     {
-        public const int maxLevel = 9;
+        private const int MaxLevel = 9;
 
-        public float health;
-        public float maxHealth;
-        public float healthRegen;
+        public float Health;
+        public float MaxHealth;
+        public float HealthRegen;
 
-        public float mana;
-        public float maxMana;
-        public float manaRegen;
+        public float Mana;
+        public float MaxMana;
+        public float ManaRegen;
 
-        public float damage;
-        public float damageMultiplier;
+        public float Damage;
+        public float DamageMultiplier;
 
-        public float shield;
-        public float shieldMultiplier;
+        public float Shield;
+        public float ShieldMultiplier;
 
-        public int level;
-        public int experience;
-        public int expToNextLevel;
+        public int Level;
+        public int Experience;
+        public int ExpToNextLevel;
 
         // Multipliers for passives / ultimates
-        public float healthRegenMultiplier;
-        public float manaRegenMultiplier;
+        public float HealthRegenMultiplier;
+        public float ManaRegenMultiplier;
 
-        private CharacterDataSO data;
+        private CharacterDataSO _data;
 
         public void Initialize(CharacterDataSO data)
         {
-            this.data = data;
-            health = maxHealth = data.startingHealth;
-            healthRegen = data.healthRegen;
-            mana = maxMana = data.startingMana;
-            manaRegen = data.manaRegen;
-            damage = data.startingDamage;
-            shield = data.startingShield;
+            _data = data;
+            Health = MaxHealth = data.startingHealth;
+            HealthRegen = data.healthRegen;
+            Mana = MaxMana = data.startingMana;
+            ManaRegen = data.manaRegen;
+            Damage = data.startingDamage;
+            Shield = data.startingShield;
 
-            level = 1;
-            experience = 0;
+            Level = 1;
+            Experience = 0;
             CalcNextLevelExp();
-            healthRegenMultiplier = 1;
-            manaRegenMultiplier = 1;
+            HealthRegenMultiplier = 1;
+            ManaRegenMultiplier = 1;
         }
 
 
-        public void AddXP(int xp)
+        public void AddXp(int xp)
         {
-            experience += xp;
+            Experience += xp;
 
-            if (experience >= expToNextLevel && level >= maxLevel)
+            if (Experience >= ExpToNextLevel && Level >= MaxLevel)
                 LevelUp();
         }
 
-        void LevelUp()
+        private void LevelUp()
         {
-            level++;
-            if (level >= maxLevel)
-                level = maxLevel;
+            Level++;
+            if (Level >= MaxLevel)
+                Level = MaxLevel;
 
-            experience = 0;
+            Experience = 0;
 
             CalcNextLevelExp();
-            UgradeStats();
+            UpgradeStats();
         }
 
-        void UgradeStats()
+        private void UpgradeStats()
         {
-            health *= data.healthLevelMultiplier;
-            maxHealth *= data.healthLevelMultiplier;
-            healthRegen *= data.healthRegenLevelMultiplier;
+            Health *= _data.healthLevelMultiplier;
+            MaxHealth *= _data.healthLevelMultiplier;
+            HealthRegen *= _data.healthRegenLevelMultiplier;
 
-            mana *= data.manaLevelMultiplier;
-            maxMana *= data.manaLevelMultiplier;
-            manaRegen *= data.manaRegenLevelMultiplier;
+            Mana *= _data.manaLevelMultiplier;
+            MaxMana *= _data.manaLevelMultiplier;
+            ManaRegen *= _data.manaRegenLevelMultiplier;
 
-            damage *= data.damageLevelMultiplier;
-            shield *= data.shieldLevelMultiplier;
+            Damage *= _data.damageLevelMultiplier;
+            Shield *= _data.shieldLevelMultiplier;
         }
 
-        void CalcNextLevelExp()
+        private void CalcNextLevelExp()
         {
-            expToNextLevel = (int)((expToNextLevel + 10) * 1.1f);
+            ExpToNextLevel = (int)((ExpToNextLevel + 10) * 1.1f);
         }
     }
 
@@ -97,20 +97,23 @@ namespace PawsAndClaws.Player
         [SerializeField] private GameObject player;
         [SerializeField] private GameObject playerCamera;
         [SerializeField] private PlayerInputHandler inputHandler;
-
         public CharacterDataSO characterData;
-        public CharacterStats characterStats;
+        private CharacterStats _characterStats;
 
         private PlayerCameraController _playerCameraController;
         private PlayerMovementController _playerMovementController;
         private Camera _playerCameraComp;
+        private GameObject _character;
 
         public Action<float, float> onHealthChange;
+        public Action<float> onHealthRegenChange;
         public Action<float, float> onManaChange;
+        public Action<float> onManaRegenChange;
+        
         public Action<float, float> onExpChange;
         public Action<int> onLevelUp;
 
-        void Awake()
+        private void Awake()
         {
             _playerCameraController = playerCamera.GetComponent<PlayerCameraController>();
             _playerMovementController = player.GetComponent<PlayerMovementController>();
@@ -126,18 +129,20 @@ namespace PawsAndClaws.Player
 
 
             // Spawn the character
-            characterData.Spawn(player.transform, ref characterStats);
+            _character = characterData.Spawn(player.transform, ref _characterStats);
 
             // Update the UI
             NotifyUIStats();
         }
 
-        public void NotifyUIStats()
+        private void NotifyUIStats()
         {
-            onHealthChange?.Invoke(characterStats.health, characterStats.maxHealth);
-            onManaChange?.Invoke(characterStats.mana, characterStats.maxMana);
-            onExpChange?.Invoke(characterStats.experience, characterStats.expToNextLevel);
-            onLevelUp?.Invoke(characterStats.level);
+            onHealthChange?.Invoke(_characterStats.Health, _characterStats.MaxHealth);
+            onHealthRegenChange?.Invoke(_characterStats.HealthRegen);
+            onManaChange?.Invoke(_characterStats.Mana, _characterStats.MaxMana);
+            onManaRegenChange?.Invoke(_characterStats.ManaRegen);
+            onExpChange?.Invoke(_characterStats.Experience, _characterStats.ExpToNextLevel);
+            onLevelUp?.Invoke(_characterStats.Level);
         }
 
     }

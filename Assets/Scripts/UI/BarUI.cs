@@ -7,15 +7,10 @@ namespace PawsAndClaws.UI
     {
         [SerializeField] private Slider slider;
         [SerializeField] private TMPro.TextMeshProUGUI text;
-        private void Awake()
-        {
-            slider = GetComponent<Slider>();
-        }
         public void UpdateBar(float value, float maxValue)
         {
-            slider.value = value / maxValue;
             slider.maxValue = maxValue;
-
+            slider.value = value;
             text.text = $"{value} / {maxValue}";
         }
     }

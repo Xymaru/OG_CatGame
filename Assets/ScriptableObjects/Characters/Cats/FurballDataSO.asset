@@ -13,20 +13,25 @@ MonoBehaviour:
   m_Name: FurballDataSO
   m_EditorClassIdentifier: 
   name: FurBall
-  image: {fileID: 0}
+  sprite: {fileID: 0}
+  passiveImage: {fileID: 0}
+  ability1Sprite: {fileID: 0}
+  ability2Sprite: {fileID: 0}
+  ultimateSprite: {fileID: 0}
   team: 0
-  startingHealth: 0
-  healthLevelMultiplier: 0
-  healthRegen: 0
-  healthRegenLevelMultiplier: 0
-  startingDamage: 0
-  damageLevelMultiplier: 0
-  startingShield: 0
-  shieldLevelMultiplier: 0
-  startingMana: 0
-  manaLevelMultiplier: 0
-  manaRegen: 0
-  manaRegenLevelMultiplier: 0
-  range: 0
-  attackSpeed: 0
-  attackSpeedMultiplier: 0
+  startingHealth: 100
+  healthLevelMultiplier: 2
+  healthRegen: 2
+  healthRegenLevelMultiplier: 1.1
+  startingDamage: 10
+  damageLevelMultiplier: 1
+  startingShield: 10
+  shieldLevelMultiplier: 1
+  startingMana: 50
+  manaLevelMultiplier: 1
+  manaRegen: 1.4
+  manaRegenLevelMultiplier: 1.1
+  range: 100
+  attackSpeed: 0.3
+  attackSpeedMultiplier: 1.4
+  prefab: {fileID: 8164089564192595539, guid: 3d6f4f8b0128077429d0b2cb0f8da5d3, type: 3}
