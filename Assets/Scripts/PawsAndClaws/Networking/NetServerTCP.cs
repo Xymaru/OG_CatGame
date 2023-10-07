@@ -58,7 +58,7 @@ public class NetServerTCP : MonoBehaviour
 
             string msg = Encoding.ASCII.GetString(data);
 
-            Debug.Log("Received message [" + msg + "] from IP [" + clientsocket.IPAddr + "]");
+            Debug.Log($"Received message [{msg}] from IP [{clientsocket.IPAddr}]");
         }
     }
 

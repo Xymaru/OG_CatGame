@@ -17,6 +17,7 @@ public class NetServerUDP : MonoBehaviour
     {
         _serverSocket = (NetworkServerSocket)NetworkData.NetSocket;
         _updateThread = new Thread(UpdateThread);
+        _updateThread.Start();
     }
 
     void UpdateThread()
@@ -26,9 +27,7 @@ public class NetServerUDP : MonoBehaviour
         {
             int revSize = _serverSocket.Socket.ReceiveFrom(_data, ref endPoint);
             string msg = Encoding.ASCII.GetString(_data, 0, revSize);
-            Debug.Log($"Server recieved from client [{msg}]");
-            _data = Encoding.ASCII.GetBytes("Hola chikilicuatre!");
-            _serverSocket.Socket.SendTo(_data, revSize, SocketFlags.None, endPoint);
+            Debug.Log($"Server recieved from client [{msg}] from [{endPoint.ToString()}]");
         }
     }
 

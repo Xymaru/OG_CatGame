@@ -41,6 +41,8 @@ public static class NetworkData
 
     public static NetworkSocket NetSocket;
 
+    public static EndPoint ServerEndPoint;
+
     public static ProtocolType ProtocolType = ProtocolType.Tcp;
 
     public static string PublicName = "Player";

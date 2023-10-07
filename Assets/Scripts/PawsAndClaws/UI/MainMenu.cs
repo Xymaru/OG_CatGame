@@ -87,24 +87,20 @@ public class MainMenu : MonoBehaviour
         }
 
         // Make connection
-        IPEndPoint remoteIP = new IPEndPoint(ipaddr, NetworkData.Port);
+        NetworkData.ServerEndPoint = new IPEndPoint(ipaddr, NetworkData.Port);
 
         Socket clientSocket = new Socket(ipaddr.AddressFamily, socketType, protocol);
 
-
-        if (protocol == ProtocolType.Tcp)
+        
+        try
         {
-            try
-            {
-                clientSocket.Connect(remoteIP);
-
-                Debug.Log("Connected to " + clientSocket.RemoteEndPoint.ToString());
-            }
-            catch (Exception e)
-            {
-                Debug.Log("Error on connecting to server." + e.ToString());
-                return;
-            }
+            clientSocket.Connect(NetworkData.ServerEndPoint);
+            Debug.Log("Connected to " + clientSocket.RemoteEndPoint.ToString());
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error on connecting to server." + e.ToString());
+            return;
         }
         // After connection has been made, set data
         NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipinput.text);

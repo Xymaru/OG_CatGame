@@ -17,9 +17,9 @@ public class NetClient : MonoBehaviour
     void Start()
     {
         IPHostEntry entry = Dns.GetHostEntry(Dns.GetHostName());
-
-        _endPoint = new IPEndPoint(entry.AddressList[0], NetworkData.Port);
+        _endPoint = NetworkData.ServerEndPoint;
         _thread = new Thread(UpdateData);
+        _thread.Start();
     }
 
     void Update()
@@ -35,13 +35,11 @@ public class NetClient : MonoBehaviour
     }
     private void UpdateData()
     {
-        
         while (true)
         {
             int recv = NetworkData.NetSocket.Socket.ReceiveFrom(_data, ref _endPoint);
             string msg = Encoding.ASCII.GetString(_data, 0, recv);
             Debug.Log($"Client recieved from server [{msg}]");
-
         }
     }
 
@@ -50,14 +48,13 @@ public class NetClient : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             byte[] buff = Encoding.ASCII.GetBytes("Hola xikilicuatre");
-
-            NetworkData.NetSocket.Socket.SendTo(buff, _endPoint);
+            Debug.Log("Sending packet");
+            NetworkData.NetSocket.Socket.SendTo(buff, buff.Length, SocketFlags.None, _endPoint);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             NetworkData.NetSocket.Socket.Shutdown(SocketShutdown.Both);
-
             Application.Quit();
         }
     }
