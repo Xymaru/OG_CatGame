@@ -72,13 +72,12 @@ public class NetClient : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            NetworkData.netSocket.socket.Shutdown(SocketShutdown.Both);
-
+            CloseConnections();
             Application.Quit();
         }
     }
 
-    private void OnDestroy()
+    private void CloseConnections()
     {
         if (_thread.IsAlive)
         {
@@ -87,5 +86,12 @@ public class NetClient : MonoBehaviour
         }
         NetworkData.netSocket.socket.Shutdown(SocketShutdown.Both);
         NetworkData.netSocket.socket.Close();
+
+        Debug.Log("Closing connection socket.");
+    }
+
+    private void OnDestroy()
+    {
+        CloseConnections();
     }
 }

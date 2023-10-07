@@ -48,9 +48,9 @@ public class MainMenu : MonoBehaviour
     {
         Socket listenSocket = new Socket(AddressFamily.InterNetwork, socketType, protocol);
 
-        IPAddress hostIP = IPAddress.Parse("127.0.0.1");
+        IPAddress hostIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
 
-        IPEndPoint ep = new IPEndPoint(hostIP, NetworkData.PORT);
+        IPEndPoint ep = new IPEndPoint(IPAddress.Any, NetworkData.PORT);
 
         listenSocket.Bind(ep);
 
