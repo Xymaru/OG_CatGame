@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -12,7 +13,7 @@ public class NetServerUDP : MonoBehaviour
     private Thread _updateThread;
 
     private byte[] _data = new byte[1024];
-
+    public static Action<string> OnMessageReceived; 
     public void Start()
     {
         _serverSocket = (NetworkServerSocket)NetworkData.NetSocket;
@@ -27,7 +28,7 @@ public class NetServerUDP : MonoBehaviour
         {
             int revSize = _serverSocket.Socket.ReceiveFrom(_data, ref endPoint);
             string msg = Encoding.ASCII.GetString(_data, 0, revSize);
-            Debug.Log($"Server recieved from client [{msg}] from [{endPoint.ToString()}]");
+            OnMessageReceived?.Invoke(msg);
         }
     }
 

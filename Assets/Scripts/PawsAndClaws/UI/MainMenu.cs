@@ -48,10 +48,19 @@ public class MainMenu : MonoBehaviour
     {
         Socket listenSocket = new Socket(AddressFamily.InterNetwork, socketType, protocol);
 
-        IPAddress hostIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
         
         IPEndPoint ep = new IPEndPoint(IPAddress.Any, NetworkData.Port);
 
+        IPAddress hostIP = IPAddress.Any;
+        foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+        {
+            // Get the last IP as is always the local IP
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                hostIP = ip;
+            }
+        }
+       
         listenSocket.Bind(ep);
 
         NetworkData.NetSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());

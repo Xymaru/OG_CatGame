@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-
 public class NetServerTCP : MonoBehaviour
 {
     private NetworkManager _networkManager;
@@ -15,11 +14,12 @@ public class NetServerTCP : MonoBehaviour
 
     private Thread _acceptThread;
 
-    private readonly List<NetworkSocket> _connectedClients = new List<NetworkSocket>();
-    private readonly List<Thread> _clientThreads = new List<Thread>();
+    private readonly List<NetworkSocket> _connectedClients = new();
+    private readonly List<Thread> _clientThreads = new();
 
-    private readonly object _clientMutex = new object();
-
+    private readonly object _clientMutex = new();
+    public static Action<string> OnMessageReceived;
+    private readonly List<string> _lastMessagesReceived = new();   
     void Start()
     {
         _networkManager = GetComponent<NetworkManager>();
@@ -35,6 +35,16 @@ public class NetServerTCP : MonoBehaviour
     void Update()
     {
         UpdateIPList();
+        UpdateChat();
+    }
+
+    private void UpdateChat()
+    {
+        foreach (var msg in _lastMessagesReceived)
+        {
+            OnMessageReceived?.Invoke(msg);
+        }
+        _lastMessagesReceived.Clear();
     }
 
     void UpdateIPList()
@@ -71,15 +81,16 @@ public class NetServerTCP : MonoBehaviour
             {
                 lock (_clientMutex)
                 {
-                    Debug.Log($"Client [{clientsocket.IPAddr}] disconnected!");
+                    _lastMessagesReceived.Add($"Disconnected client from IP [{clientsocket.IPAddr}]");
                     _connectedClients.Remove(clientsocket);
                 }
                 break;
             }
 
-            string msg = Encoding.ASCII.GetString(data);
-
-            Debug.Log($"Received message [{msg}] from IP [{clientsocket.IPAddr}]");
+            lock (_clientMutex)
+            {
+                _lastMessagesReceived.Add(Encoding.ASCII.GetString(data));
+            }
         }
     }
 
@@ -91,9 +102,7 @@ public class NetServerTCP : MonoBehaviour
 
         IPAddress addr = ((IPEndPoint)client.RemoteEndPoint).Address;
         int port = ((IPEndPoint)client.RemoteEndPoint).Port;
-
-        Debug.Log("Client connected from IP [" + addr.ToString() + "] and port [" + port + "]");
-
+        _lastMessagesReceived.Add("Client connected from IP [" + addr.ToString() + "] and port [" + port + "]");
         IPAddress clientaddr = IPAddress.Parse(addr.ToString());
 
         NetworkSocket clientnsocket = new NetworkSocket(client, clientaddr, ipaddr_str);

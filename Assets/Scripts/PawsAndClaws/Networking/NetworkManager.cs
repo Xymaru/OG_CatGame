@@ -29,7 +29,7 @@ public class NetworkManager : MonoBehaviour
 
     public void SetServerInfo()
     {
-        lobbyInfoText.text = $"Server \nHosting at IP: {NetworkData.NetSocket.IPAddrStr} \nConnection mode {NetworkData.ProtocolType.ToString()}";
+        lobbyInfoText.text = $"Server \nHosting at IP: {NetworkData.NetSocket.IPAddr.MapToIPv4()} \nConnection mode {NetworkData.ProtocolType.ToString()}";
     }
     
     public void SetClientInfo()
