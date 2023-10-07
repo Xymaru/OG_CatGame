@@ -49,7 +49,7 @@ public class MainMenu : MonoBehaviour
         Socket listenSocket = new Socket(AddressFamily.InterNetwork, socketType, protocol);
 
         IPAddress hostIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
-
+        
         IPEndPoint ep = new IPEndPoint(IPAddress.Any, NetworkData.Port);
 
         listenSocket.Bind(ep);

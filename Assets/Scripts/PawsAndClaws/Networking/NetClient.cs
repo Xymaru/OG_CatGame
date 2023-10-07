@@ -45,12 +45,12 @@ public class NetClient : MonoBehaviour
 
     private void InputUDP()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             byte[] buff = Encoding.ASCII.GetBytes("Hola xikilicuatre");
             Debug.Log("Sending packet");
             NetworkData.NetSocket.Socket.SendTo(buff, buff.Length, SocketFlags.None, _endPoint);
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -60,12 +60,12 @@ public class NetClient : MonoBehaviour
     }
     private void InputTCP()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             byte[] buff = Encoding.ASCII.GetBytes("Hola xikilicuatre");
 
             NetworkData.NetSocket.Socket.Send(buff);
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
