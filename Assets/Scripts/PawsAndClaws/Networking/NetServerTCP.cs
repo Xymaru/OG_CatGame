@@ -1,37 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-
 using System.Threading;
 
 public class NetServerTCP : MonoBehaviour
 {
-    NetworkServerSocket serversocket;
+    private NetworkManager _networkManager;
+    private TMPro.TextMeshProUGUI _ipsText;
+    private NetworkServerSocket _serverSocket;
 
-    Thread m_AcceptThread;
+    private Thread _acceptThread;
 
-    List<NetworkSocket> m_ConnectedClients = new List<NetworkSocket>();
-    List<Thread> m_ClientThreads = new List<Thread>();
+    private readonly List<NetworkSocket> _connectedClients = new List<NetworkSocket>();
+    private readonly List<Thread> _clientThreads = new List<Thread>();
 
-    object m_ClientMutex = new object();
+    private readonly object _clientMutex = new object();
 
     void Start()
     {
-        serversocket = (NetworkServerSocket)NetworkData.NetSocket;
-        serversocket.Socket.Listen(10);
+        _networkManager = GetComponent<NetworkManager>();
+        _ipsText = _networkManager.ipsText;
+        _serverSocket = (NetworkServerSocket)NetworkData.NetSocket;
+        _serverSocket.Socket.Listen(10);
 
         // Accept incoming connections job
-        m_AcceptThread = new Thread(AcceptJob);
-        m_AcceptThread.Start();
+        _acceptThread = new Thread(AcceptJob);
+        _acceptThread.Start();
     }
 
     void Update()
     {
+        UpdateIPList();
+    }
 
+    void UpdateIPList()
+    {
+        _ipsText.text = "Connected IPs\n";
+
+        lock (_clientMutex)
+        {
+            foreach (var client in _connectedClients)
+            {
+                _ipsText.text += $"{client.IPAddrStr}\n";
+            }
+        }
     }
 
     void AcceptJob()
@@ -51,7 +67,7 @@ public class NetServerTCP : MonoBehaviour
         {
             int rbytes = clientsocket.Socket.Receive(data);
 
-            if(rbytes == 0)
+            if (rbytes == 0)
             {
                 break;
             }
@@ -64,7 +80,7 @@ public class NetServerTCP : MonoBehaviour
 
     void AcceptConnections()
     {
-        Socket client = serversocket.Socket.Accept();
+        Socket client = _serverSocket.Socket.Accept();
 
         string ipaddr_str = client.RemoteEndPoint.ToString();
 
@@ -78,11 +94,11 @@ public class NetServerTCP : MonoBehaviour
         NetworkSocket clientnsocket = new NetworkSocket(client, clientaddr, ipaddr_str);
 
         Thread clientthread = new Thread(() => ReceiveJob(clientnsocket));
-        
-        lock (m_ClientMutex)
+
+        lock (_clientMutex)
         {
-            m_ConnectedClients.Add(clientnsocket);
-            m_ClientThreads.Add(clientthread);
+            _connectedClients.Add(clientnsocket);
+            _clientThreads.Add(clientthread);
         }
 
         clientthread.Start();
@@ -90,28 +106,30 @@ public class NetServerTCP : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (m_AcceptThread.IsAlive)
+        if (_acceptThread.IsAlive)
         {
-            m_AcceptThread.Abort();
+            _acceptThread.Abort();
 
-            if (serversocket.Socket.Connected)
+            if (_serverSocket.Socket.Connected)
             {
-                serversocket.Socket.Shutdown(SocketShutdown.Both);
+                _serverSocket.Socket.Shutdown(SocketShutdown.Both);
             }
-            serversocket.Socket.Close();
+
+            _serverSocket.Socket.Close();
         }
 
-        for(int i = 0; i < m_ConnectedClients.Count; i++)
+        for (int i = 0; i < _connectedClients.Count; i++)
         {
-            NetworkSocket clientsock = m_ConnectedClients[i];
+            NetworkSocket clientsock = _connectedClients[i];
 
             if (clientsock.Socket.Connected)
             {
                 clientsock.Socket.Shutdown(SocketShutdown.Both);
             }
+
             clientsock.Socket.Close();
 
-            Thread thr = m_ClientThreads[i];
+            Thread thr = _clientThreads[i];
 
             if (thr.IsAlive)
             {

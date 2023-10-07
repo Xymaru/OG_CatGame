@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
+    public TMPro.TextMeshProUGUI ipsText;
     void Start()
     {
         if(NetworkData.NetSocket.NetCon == NetCon.Client)
