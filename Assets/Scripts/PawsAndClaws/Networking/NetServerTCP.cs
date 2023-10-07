@@ -69,6 +69,11 @@ public class NetServerTCP : MonoBehaviour
 
             if (rbytes == 0)
             {
+                lock (_clientMutex)
+                {
+                    Debug.Log($"Client [{clientsocket.IPAddr}] disconnected!");
+                    _connectedClients.Remove(clientsocket);
+                }
                 break;
             }
 
