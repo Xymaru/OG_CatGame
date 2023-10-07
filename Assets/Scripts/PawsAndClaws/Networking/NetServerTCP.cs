@@ -21,8 +21,8 @@ public class NetServerTCP : MonoBehaviour
 
     void Start()
     {
-        serversocket = (NetworkServerSocket)NetworkData.netSocket;
-        serversocket.socket.Listen(10);
+        serversocket = (NetworkServerSocket)NetworkData.NetSocket;
+        serversocket.Socket.Listen(10);
 
         // Accept incoming connections job
         m_AcceptThread = new Thread(AcceptJob);
@@ -49,7 +49,7 @@ public class NetServerTCP : MonoBehaviour
 
         while (true)
         {
-            int rbytes = clientsocket.socket.Receive(data);
+            int rbytes = clientsocket.Socket.Receive(data);
 
             if(rbytes == 0)
             {
@@ -58,13 +58,13 @@ public class NetServerTCP : MonoBehaviour
 
             string msg = Encoding.ASCII.GetString(data);
 
-            Debug.Log("Received message [" + msg + "] from IP [" + clientsocket.ip_addr_str + "]");
+            Debug.Log("Received message [" + msg + "] from IP [" + clientsocket.IPAddr + "]");
         }
     }
 
     void AcceptConnections()
     {
-        Socket client = serversocket.socket.Accept();
+        Socket client = serversocket.Socket.Accept();
 
         string ipaddr_str = client.RemoteEndPoint.ToString();
 
@@ -94,22 +94,22 @@ public class NetServerTCP : MonoBehaviour
         {
             m_AcceptThread.Abort();
 
-            if (serversocket.socket.Connected)
+            if (serversocket.Socket.Connected)
             {
-                serversocket.socket.Shutdown(SocketShutdown.Both);
+                serversocket.Socket.Shutdown(SocketShutdown.Both);
             }
-            serversocket.socket.Close();
+            serversocket.Socket.Close();
         }
 
         for(int i = 0; i < m_ConnectedClients.Count; i++)
         {
             NetworkSocket clientsock = m_ConnectedClients[i];
 
-            if (clientsock.socket.Connected)
+            if (clientsock.Socket.Connected)
             {
-                clientsock.socket.Shutdown(SocketShutdown.Both);
+                clientsock.Socket.Shutdown(SocketShutdown.Both);
             }
-            clientsock.socket.Close();
+            clientsock.Socket.Close();
 
             Thread thr = m_ClientThreads[i];
 
