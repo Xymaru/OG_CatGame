@@ -20,8 +20,8 @@ public class NetServerTCP : MonoBehaviour
 
     void Start()
     {
-        serversocket = (NetworkServerSocket)NetworkData.netSocket;
-        serversocket.socket.Listen(10);
+        serversocket = (NetworkServerSocket)NetworkData.NetSocket;
+        serversocket.Socket.Listen(10);
 
         // Accept incoming connections job
         m_AcceptThread = new Thread(AcceptJob);
@@ -44,7 +44,7 @@ public class NetServerTCP : MonoBehaviour
 
     void AcceptConnections()
     {
-        Socket client = serversocket.socket.Accept();
+        Socket client = serversocket.Socket.Accept();
 
         string ipaddr_str = client.RemoteEndPoint.ToString();
 
@@ -67,8 +67,8 @@ public class NetServerTCP : MonoBehaviour
         {
             m_AcceptThread.Abort();
 
-            serversocket.socket.Shutdown(SocketShutdown.Both);
-            serversocket.socket.Close();
+            serversocket.Socket.Shutdown(SocketShutdown.Both);
+            serversocket.Socket.Close();
         }
     }
 }

@@ -6,42 +6,42 @@ using System.Net.Sockets;
 
 public enum NetCon
 {
-    CLIENT,
-    HOST
+    Client,
+    Host
 }
 
 public class NetworkSocket
 {
-    public string ip_addr_str = "localhost";
-    public NetCon netcon = NetCon.CLIENT;
-    public IPAddress ip_addr;
-    public Socket socket;
+    public string IPAddrStr = "localhost";
+    public NetCon NetCon = NetCon.Client;
+    public IPAddress IPAddr;
+    public Socket Socket;
 
-    public NetworkSocket(Socket s, IPAddress ipaddr, string ipstr)
+    public NetworkSocket(Socket s, IPAddress ipaddr, string ipStr)
     {
-        socket = s;
-        ip_addr_str = ipstr;
-        ip_addr = ipaddr;
+        Socket = s;
+        IPAddrStr = ipStr;
+        IPAddr = ipaddr;
     }
 }
 
 public class NetworkServerSocket : NetworkSocket
 {
-    public Socket[] connectedSockets;
+    public Socket[] ConnectedSockets;
 
-    public NetworkServerSocket(Socket s, IPAddress ipaddr, string ipstr) : base(s, ipaddr, ipstr)
+    public NetworkServerSocket(Socket s, IPAddress ipaddr, string ipStr) : base(s, ipaddr, ipStr)
     {
-        netcon = NetCon.HOST;
+        NetCon = NetCon.Host;
     }
 }
 
 public static class NetworkData
 {
-    public const int PORT = 3154;
+    public const int Port = 3154;
 
-    public static NetworkSocket netSocket;
+    public static NetworkSocket NetSocket;
 
-    public static ProtocolType protocolType;
+    public static ProtocolType ProtocolType = ProtocolType.Tcp;
 
-    public static string public_name = "Player";
+    public static string PublicName = "Player";
 }

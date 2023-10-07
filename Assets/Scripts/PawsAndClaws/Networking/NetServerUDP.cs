@@ -15,20 +15,20 @@ public class NetServerUDP : MonoBehaviour
 
     public void Start()
     {
-        _serverSocket = (NetworkServerSocket)NetworkData.netSocket;
+        _serverSocket = (NetworkServerSocket)NetworkData.NetSocket;
         _updateThread = new Thread(UpdateThread);
     }
 
     void UpdateThread()
     {
-        EndPoint endPoint = new IPEndPoint(IPAddress.Any, NetworkData.PORT);
+        EndPoint endPoint = new IPEndPoint(IPAddress.Any, NetworkData.Port);
         while (true)
         {
-            int revSize = _serverSocket.socket.ReceiveFrom(_data, ref endPoint);
+            int revSize = _serverSocket.Socket.ReceiveFrom(_data, ref endPoint);
             string msg = Encoding.ASCII.GetString(_data, 0, revSize);
             Debug.Log($"Server recieved from client [{msg}]");
             _data = Encoding.ASCII.GetBytes("Hola chikilicuatre!");
-            _serverSocket.socket.SendTo(_data, revSize, SocketFlags.None, endPoint);
+            _serverSocket.Socket.SendTo(_data, revSize, SocketFlags.None, endPoint);
         }
     }
 
@@ -38,8 +38,8 @@ public class NetServerUDP : MonoBehaviour
         {
             _updateThread.Abort();
 
-            _serverSocket.socket.Shutdown(SocketShutdown.Both);
-            _serverSocket.socket.Close();
+            _serverSocket.Socket.Shutdown(SocketShutdown.Both);
+            _serverSocket.Socket.Close();
         }
     }
 }

@@ -42,19 +42,17 @@ public class MainMenu : MonoBehaviour
                 break;
         }
 
-        NetworkData.protocolType = protocol;
+        NetworkData.ProtocolType = protocol;
     }
     public void OnHostClick()
     {
         Socket listenSocket = new Socket(AddressFamily.InterNetwork, socketType, protocol);
 
-        IPAddress hostIP = IPAddress.Parse("127.0.0.1");
-
-        IPEndPoint ep = new IPEndPoint(hostIP, NetworkData.PORT);
+        IPEndPoint ep = new IPEndPoint(IPAddress.Any, NetworkData.Port);
 
         listenSocket.Bind(ep);
 
-        NetworkData.netSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());
+        NetworkData.NetSocket = new NetworkServerSocket(listenSocket, IPAddress.Any, IPAddress.Any.ToString());
 
 
         OpenLobby();
@@ -87,7 +85,7 @@ public class MainMenu : MonoBehaviour
         }
 
         // Make connection
-        IPEndPoint remoteIP = new IPEndPoint(ipaddr, NetworkData.PORT);
+        IPEndPoint remoteIP = new IPEndPoint(ipaddr, NetworkData.Port);
 
         Socket clientSocket = new Socket(ipaddr.AddressFamily, socketType, protocol);
 
@@ -107,7 +105,7 @@ public class MainMenu : MonoBehaviour
             }
         }
         // After connection has been made, set data
-        NetworkData.netSocket = new NetworkSocket(clientSocket, ipaddr, ipinput.text);
+        NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipinput.text);
 
         OpenLobby();
     }

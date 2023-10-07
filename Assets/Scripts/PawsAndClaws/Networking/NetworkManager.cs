@@ -7,11 +7,11 @@ public class NetworkManager : MonoBehaviour
 {
     void Start()
     {
-        if(NetworkData.netSocket.netcon == NetCon.CLIENT)
+        if(NetworkData.NetSocket.NetCon == NetCon.Client)
         {
             gameObject.AddComponent<NetClient>();
         }
-        else if (NetworkData.protocolType == ProtocolType.Udp)
+        else if (NetworkData.ProtocolType == ProtocolType.Udp)
         {
             gameObject.AddComponent<NetServerUDP>();
         }
