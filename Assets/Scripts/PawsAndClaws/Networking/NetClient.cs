@@ -10,7 +10,7 @@ using System.Threading;
 
 public class NetClient : MonoBehaviour
 {
-    public ProtocolType protocolType = NetworkData.ProtocolType;
+    public ProtocolType protocolType = NetworkData.protocolType;
     private EndPoint _endPoint;
     private Thread _thread;
     private byte[] _data = new byte[1024];
@@ -18,7 +18,7 @@ public class NetClient : MonoBehaviour
     {
         IPHostEntry entry = Dns.GetHostEntry(Dns.GetHostName());
 
-        _endPoint = new IPEndPoint(entry.AddressList[0], NetworkData.Port);
+        _endPoint = new IPEndPoint(entry.AddressList[0], NetworkData.PORT);
         _thread = new Thread(UpdateData);
     }
 
@@ -38,7 +38,7 @@ public class NetClient : MonoBehaviour
         
         while (true)
         {
-            int recv = NetworkData.NetSocket.Socket.ReceiveFrom(_data, ref _endPoint);
+            int recv = NetworkData.netSocket.socket.ReceiveFrom(_data, ref _endPoint);
             string msg = Encoding.ASCII.GetString(_data, 0, recv);
             Debug.Log($"Client recieved from server [{msg}]");
 
@@ -51,12 +51,12 @@ public class NetClient : MonoBehaviour
         {
             byte[] buff = Encoding.ASCII.GetBytes("Hola xikilicuatre");
 
-            NetworkData.NetSocket.Socket.SendTo(buff, _endPoint);
+            NetworkData.netSocket.socket.SendTo(buff, _endPoint);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            NetworkData.NetSocket.Socket.Shutdown(SocketShutdown.Both);
+            NetworkData.netSocket.socket.Shutdown(SocketShutdown.Both);
 
             Application.Quit();
         }
@@ -66,26 +66,32 @@ public class NetClient : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             byte[] buff = Encoding.ASCII.GetBytes("Hola xikilicuatre");
-            Debug.Log("Sending TCP packet");
-            NetworkData.NetSocket.Socket.Send(buff);
+
+            NetworkData.netSocket.socket.Send(buff);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            NetworkData.NetSocket.Socket.Shutdown(SocketShutdown.Both);
-
+            CloseConnections();
             Application.Quit();
         }
     }
 
-    private void OnDestroy()
+    private void CloseConnections()
     {
         if (_thread.IsAlive)
         {
             _thread.Abort();
             _thread = null;
         }
-        NetworkData.NetSocket.Socket.Shutdown(SocketShutdown.Both);
-        NetworkData.NetSocket.Socket.Close();
+        NetworkData.netSocket.socket.Shutdown(SocketShutdown.Both);
+        NetworkData.netSocket.socket.Close();
+
+        Debug.Log("Closing connection socket.");
+    }
+
+    private void OnDestroy()
+    {
+        CloseConnections();
     }
 }
