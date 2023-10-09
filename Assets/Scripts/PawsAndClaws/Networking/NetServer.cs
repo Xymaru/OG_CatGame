@@ -25,6 +25,6 @@ namespace PawsAndClaws.Networking
 
         protected abstract int ReceivePacket(NetworkSocket socket);
         
-        protected abstract int SendPacket(object packet, NetworkSocket socket);
+        public abstract int SendPacket(object packet, NetworkSocket socket);
     }
 }

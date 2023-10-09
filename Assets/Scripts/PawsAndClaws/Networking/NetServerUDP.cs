@@ -44,7 +44,7 @@ namespace PawsAndClaws.Networking
             return socket.Socket.ReceiveFrom(PacketBytes, ref _endPoint);
         }
 
-        protected override int SendPacket(object packet, NetworkSocket socket)
+        public override int SendPacket(object packet, NetworkSocket socket)
         {
             OnPacketSend?.Invoke();
             PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);

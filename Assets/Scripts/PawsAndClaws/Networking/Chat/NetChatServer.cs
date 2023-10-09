@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PawsAndClaws.Networking
 {
-    public class NetChatServer : MonoBehaviour
+    public class NetChatServer : MonoBehaviour, INetChat
     {
         public static Action<string> OnMessageReceived;
 
@@ -48,6 +48,11 @@ namespace PawsAndClaws.Networking
                 string msg = Utils.BinaryUtils.ByteArrayToObject<string>(_server.PacketBytes);
                 _chatMessages.Add(msg);
             }
+        }
+
+        public void SendMessageChat(string message)
+        {
+           
         }
     }
 }

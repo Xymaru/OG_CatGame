@@ -6,6 +6,6 @@ namespace PawsAndClaws.Networking
 {
     public interface INetChat
     {
-        public void SendMessage(string message);
+        public void SendMessageChat(string message);
     }
 }

@@ -59,7 +59,10 @@ namespace PawsAndClaws.Networking
                 }
             }
         }
+        public void SendPacket(object packet)
+        {
 
+        }
         private void CloseConnections()
         {
             if (_thread.IsAlive)
