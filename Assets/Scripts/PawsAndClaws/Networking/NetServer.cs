@@ -17,6 +17,11 @@ namespace PawsAndClaws.Networking
         protected NetworkServerSocket _serverSocket;
         protected NetworkManager _networkManager;
 
+        public readonly List<NetworkSocket> ConnectedClients = new();
+
+        public static Action<NetworkSocket> OnConnectionAccept;
+        public static Action<NetworkSocket> OnClientDisconnect;
+
         private void Awake()
         {
             _serverSocket = (NetworkServerSocket)NetworkData.NetSocket;
@@ -25,6 +30,6 @@ namespace PawsAndClaws.Networking
 
         protected abstract int ReceivePacket(NetworkSocket socket);
         
-        public abstract int SendPacket(object packet, NetworkSocket socket);
+        public abstract int SendPacket(NetPacket packet, NetworkSocket socket);
     }
 }

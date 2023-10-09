@@ -12,32 +12,36 @@ namespace PawsAndClaws.UI
         [SerializeField] private Button sendButton;
         [SerializeField] private TMPro.TMP_InputField inputField;
         [SerializeField] private TMPro.TextMeshProUGUI chatBox;
+        [SerializeField] private NetworkManager manager;
+        private INetChat _chat;
 
         private void OnEnable()
         {
-            NetChatClient.OnMessageReceived += AddChatMessage;
-            NetChatServer.OnMessageReceived += AddChatMessage;
+            NetChatClient.OnMessageAdd += AddChatMessage;
+            NetChatServer.OnMessageAdd += AddChatMessage;
         }
 
         private void OnDisable()
         {
-            NetChatClient.OnMessageReceived -= AddChatMessage;
-            NetChatServer.OnMessageReceived -= AddChatMessage;
+            NetChatClient.OnMessageAdd -= AddChatMessage;
+            NetChatServer.OnMessageAdd -= AddChatMessage;
         }
 
-        private void Awake()
+        private void Start()
         {
+            _chat = manager.GetComponent<INetChat>();
             sendButton.onClick.AddListener(SendMessage);
         }
 
         private void SendMessage()
         {
-            
+            _chat.SendMessageChat(inputField.text);
+            Debug.Log($"Sending message {inputField.text}");
         }
 
         private void AddChatMessage(string msg)
         {
-            chatBox.text += $"{msg} \n";
+            chatBox.text += $"{msg}\n";
         }
     }
 }

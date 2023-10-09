@@ -246,6 +246,7 @@ MonoBehaviour:
   sendButton: {fileID: 679264188}
   inputField: {fileID: 2014251394}
   chatBox: {fileID: 190867072}
+  manager: {fileID: 1408247847}
 --- !u!1 &190867070
 GameObject:
   m_ObjectHideFlags: 0

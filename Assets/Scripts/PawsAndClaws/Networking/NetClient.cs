@@ -5,27 +5,28 @@ using System.Net;
 using System.Threading;
 using UnityEngine.SceneManagement;
 using System;
+using System.IO;
 
 namespace PawsAndClaws.Networking
 {
     public class NetClient : MonoBehaviour
     {
-        public static Action OnPacketReceived;
-        public static Action OnPacketSend;
+        public Action onPacketReceived;
+        public Action onPacketSend;
         
         public ProtocolType protocolType = NetworkData.ProtocolType;
         private EndPoint _endPoint;
         private Thread _thread;
 
-        private byte[] _packetBytes = new byte[2048];
+        public byte[] PacketBytes { get; private set; } = new byte[2048];
         private bool _connected = false;
 
         void Start()
         {
-            IPHostEntry entry = Dns.GetHostEntry(Dns.GetHostName());
             _endPoint = NetworkData.ServerEndPoint;
             _thread = new Thread(UpdateData);
             _thread.Start();
+
             _connected = true;
         }
 
@@ -46,12 +47,10 @@ namespace PawsAndClaws.Networking
         {
             while (true)
             {
-                int recv = NetworkData.NetSocket.Socket.ReceiveFrom(_packetBytes, ref _endPoint);
-                OnPacketReceived?.Invoke();
-                Debug.Log($"Client received packet from server with size {recv}");
+                int bytesReceived = ReceivePacket();
 
                 // The host disconnected
-                if (recv <= 0)
+                if (bytesReceived <= 0)
                 {
                     Debug.Log("Host disconnected return to main menu!");
                     _connected = false;
@@ -59,9 +58,33 @@ namespace PawsAndClaws.Networking
                 }
             }
         }
-        public void SendPacket(object packet)
-        {
 
+        private int ReceivePacket()
+        {
+            int bytesReceived = NetworkData.NetSocket.Socket.ReceiveFrom(PacketBytes, ref _endPoint);
+            var targetStream = new MemoryStream();
+
+            NetPacket packet = Utils.BinaryUtils.ByteArrayToObject<NetPacket>(PacketBytes);
+
+            while (bytesReceived < packet.size)
+            {
+                int bytes = NetworkData.NetSocket.Socket.ReceiveFrom(PacketBytes, ref _endPoint);
+                bytesReceived += bytes;
+                targetStream.Write(PacketBytes, 0, bytes);
+                Debug.Log($"Writting bytes {bytes}");
+            }
+            Debug.Log($"Client received packet from server with size {bytesReceived}");
+            
+            PacketBytes = targetStream.ToArray();
+            onPacketReceived?.Invoke();
+            return bytesReceived;
+        }
+
+        public void SendPacket(NetPacket packet)
+        {
+            PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
+            NetworkData.NetSocket.Socket.Send(PacketBytes);
+            onPacketSend?.Invoke();
         }
         private void CloseConnections()
         {

@@ -11,15 +11,15 @@ namespace PawsAndClaws.Networking
 {
     public class NetServerUDP : NetServer
     {
-        private Thread _updateThread;
+        private Thread _receiveThread;
         private EndPoint _endPoint = new IPEndPoint(IPAddress.Any, NetworkData.Port);
         public void Start()
         {
-            _updateThread = new Thread(UpdateThread);
-            _updateThread.Start();
+            _receiveThread = new Thread(ReceiveJob);
+            _receiveThread.Start();
         }
 
-        void UpdateThread()
+        void ReceiveJob()
         {
             while (true)
             {
@@ -30,9 +30,9 @@ namespace PawsAndClaws.Networking
 
         private void OnDestroy()
         {
-            if (_updateThread.IsAlive)
+            if (_receiveThread.IsAlive)
             {
-                _updateThread.Abort();
+                _receiveThread.Abort();
                 _serverSocket.Socket.Shutdown(SocketShutdown.Both);
                 _serverSocket.Socket.Close();
             }
@@ -44,7 +44,7 @@ namespace PawsAndClaws.Networking
             return socket.Socket.ReceiveFrom(PacketBytes, ref _endPoint);
         }
 
-        public override int SendPacket(object packet, NetworkSocket socket)
+        public override int SendPacket(NetPacket packet, NetworkSocket socket)
         {
             OnPacketSend?.Invoke();
             PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);

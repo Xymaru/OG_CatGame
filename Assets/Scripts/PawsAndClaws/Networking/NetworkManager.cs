@@ -9,7 +9,7 @@ namespace PawsAndClaws.Networking
     {
         public TMPro.TextMeshProUGUI ipsText;
         public TMPro.TextMeshProUGUI lobbyInfoText;
-        void Start()
+        void Awake()
         {
             if (NetworkData.NetSocket.NetCon == NetCon.Client)
             {

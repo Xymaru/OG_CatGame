@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.IO;
 
 namespace PawsAndClaws.Networking
 {
@@ -14,14 +15,11 @@ namespace PawsAndClaws.Networking
         private TMPro.TextMeshProUGUI _ipsText;
 
         private Thread _acceptThread;
-
-        private readonly List<NetworkSocket> _connectedClients = new();
         private readonly List<Thread> _clientThreads = new();
 
         private readonly object _clientMutex = new();
 
-        public static Action<NetworkSocket> OnConnectionAccept;
-        public static Action<NetworkSocket> OnClientDisconnect;
+      
 
         void Start()
         {
@@ -45,7 +43,7 @@ namespace PawsAndClaws.Networking
 
             lock (_clientMutex)
             {
-                foreach (var client in _connectedClients)
+                foreach (var client in ConnectedClients)
                 {
                     _ipsText.text += $"{client.IPAddrStr}\n";
                 }
@@ -67,13 +65,15 @@ namespace PawsAndClaws.Networking
             {
                 int rbytes = ReceivePacket(clientSocket);
                 Debug.Log($"Server received packet from client {clientSocket.IPAddrStr} with size {rbytes}");
+
+
                 if (rbytes == 0)
                 {
                     lock (_clientMutex)
                     {
                         Debug.Log($"Disconnected client from IP [{clientSocket.IPAddr}]");
                         OnClientDisconnect?.Invoke(clientSocket);
-                        _connectedClients.Remove(clientSocket);
+                        ConnectedClients.Remove(clientSocket);
                     }
                     break;
                 }
@@ -100,7 +100,7 @@ namespace PawsAndClaws.Networking
 
             lock (_clientMutex)
             {
-                _connectedClients.Add(clientSocket);
+                ConnectedClients.Add(clientSocket);
                 _clientThreads.Add(clientThread);
             }
 
@@ -121,9 +121,9 @@ namespace PawsAndClaws.Networking
                 _serverSocket.Socket.Close();
             }
 
-            for (int i = 0; i < _connectedClients.Count; i++)
+            for (int i = 0; i < ConnectedClients.Count; i++)
             {
-                NetworkSocket clientsock = _connectedClients[i];
+                NetworkSocket clientsock = ConnectedClients[i];
 
                 if (clientsock.Socket.Connected)
                 {
@@ -143,11 +143,27 @@ namespace PawsAndClaws.Networking
 
         protected override int ReceivePacket(NetworkSocket socket)
         {
+            int bytesReceived = socket.Socket.Receive(PacketBytes);
+            var memoryStream = new MemoryStream();
+            NetPacket packet = Utils.BinaryUtils.ByteArrayToObject<NetPacket>(PacketBytes);
+
+            Debug.Log($"Bytes received {bytesReceived}, packet size {packet.size}");
+
+            while(bytesReceived < packet.size)
+            {
+                int bytes = socket.Socket.Receive(PacketBytes);
+                bytesReceived += bytes;
+                memoryStream.Write(PacketBytes, 0, bytes);
+                Debug.Log($"Writting bytes {bytes}");
+            }
+
+            Debug.Log($"Received packet with size {packet.size}");
+
             OnPacketReceived?.Invoke();
-            return socket.Socket.Receive(PacketBytes);
+            return bytesReceived;
         }
 
-        public override int SendPacket(object packet, NetworkSocket socket)
+        public override int SendPacket(NetPacket packet, NetworkSocket socket)
         {
             OnPacketSend?.Invoke();
             PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
