@@ -6,149 +6,148 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-public class NetServerTCP : MonoBehaviour
+
+namespace PawsAndClaws.Networking
 {
-    private NetworkManager _networkManager;
-    private TMPro.TextMeshProUGUI _ipsText;
-    private NetworkServerSocket _serverSocket;
-
-    private Thread _acceptThread;
-
-    private readonly List<NetworkSocket> _connectedClients = new();
-    private readonly List<Thread> _clientThreads = new();
-
-    private readonly object _clientMutex = new();
-    public static Action<string> OnMessageReceived;
-    private readonly List<string> _lastMessagesReceived = new();   
-    void Start()
+    public class NetServerTCP : NetServer
     {
-        _networkManager = GetComponent<NetworkManager>();
-        _ipsText = _networkManager.ipsText;
-        _serverSocket = (NetworkServerSocket)NetworkData.NetSocket;
-        _serverSocket.Socket.Listen(10);
+        private TMPro.TextMeshProUGUI _ipsText;
 
-        // Accept incoming connections job
-        _acceptThread = new Thread(AcceptJob);
-        _acceptThread.Start();
-    }
+        private Thread _acceptThread;
 
-    void Update()
-    {
-        UpdateIPList();
-        UpdateChat();
-    }
+        private readonly List<NetworkSocket> _connectedClients = new();
+        private readonly List<Thread> _clientThreads = new();
 
-    private void UpdateChat()
-    {
-        foreach (var msg in _lastMessagesReceived)
+        private readonly object _clientMutex = new();
+        void Start()
         {
-            OnMessageReceived?.Invoke(msg);
+            _ipsText = _networkManager.ipsText;
+            _serverSocket.Socket.Listen(10);
+            // Accept incoming connections job
+            _acceptThread = new Thread(AcceptJob);
+            _acceptThread.Start();
         }
-        _lastMessagesReceived.Clear();
-    }
 
-    void UpdateIPList()
-    {
-        _ipsText.text = "Connected IPs\n";
-
-        lock (_clientMutex)
+        void Update()
         {
-            foreach (var client in _connectedClients)
-            {
-                _ipsText.text += $"{client.IPAddrStr}\n";
-            }
+            UpdateIPList();
         }
-    }
 
-    void AcceptJob()
-    {
-        // Loop to listen for connections
-        while (true)
+
+        void UpdateIPList()
         {
-            AcceptConnections();
-        }
-    }
-
-    void ReceiveJob(NetworkSocket clientsocket)
-    {
-        byte[] data = new byte[2048];
-
-        while (true)
-        {
-            int rbytes = clientsocket.Socket.Receive(data);
-
-            if (rbytes == 0)
-            {
-                lock (_clientMutex)
-                {
-                    _lastMessagesReceived.Add($"Disconnected client from IP [{clientsocket.IPAddr}]");
-                    _connectedClients.Remove(clientsocket);
-                }
-                break;
-            }
+            _ipsText.text = "Connected IPs\n";
 
             lock (_clientMutex)
             {
-                _lastMessagesReceived.Add(Encoding.ASCII.GetString(data));
+                foreach (var client in _connectedClients)
+                {
+                    _ipsText.text += $"{client.IPAddrStr}\n";
+                }
             }
         }
-    }
 
-    void AcceptConnections()
-    {
-        Socket client = _serverSocket.Socket.Accept();
-
-        string ipaddr_str = client.RemoteEndPoint.ToString();
-
-        IPAddress addr = ((IPEndPoint)client.RemoteEndPoint).Address;
-        int port = ((IPEndPoint)client.RemoteEndPoint).Port;
-        _lastMessagesReceived.Add("Client connected from IP [" + addr.ToString() + "] and port [" + port + "]");
-        IPAddress clientaddr = IPAddress.Parse(addr.ToString());
-
-        NetworkSocket clientnsocket = new NetworkSocket(client, clientaddr, ipaddr_str);
-
-        Thread clientthread = new Thread(() => ReceiveJob(clientnsocket));
-
-        lock (_clientMutex)
+        void AcceptJob()
         {
-            _connectedClients.Add(clientnsocket);
-            _clientThreads.Add(clientthread);
+            // Loop to listen for connections
+            while (true)
+            {
+                AcceptConnections();
+            }
         }
 
-        clientthread.Start();
-    }
-
-    private void OnDestroy()
-    {
-        if (_acceptThread.IsAlive)
+        void ReceiveJob(NetworkSocket clientsocket)
         {
-            _acceptThread.Abort();
-
-            if (_serverSocket.Socket.Connected)
+            while (true)
             {
-                _serverSocket.Socket.Shutdown(SocketShutdown.Both);
-            }
+                int rbytes = ReceivePacket(clientsocket);
 
-            _serverSocket.Socket.Close();
+                if (rbytes == 0)
+                {
+                    lock (_clientMutex)
+                    {
+                        //_lastMessagesReceived.Add($"Disconnected client from IP [{clientsocket.IPAddr}]");
+                        _connectedClients.Remove(clientsocket);
+                    }
+                    break;
+                }
+
+                lock (_clientMutex)
+                {
+                    //_lastMessagesReceived.Add(Encoding.ASCII.GetString(data));
+                }
+            }
         }
 
-        for (int i = 0; i < _connectedClients.Count; i++)
+        void AcceptConnections()
         {
-            NetworkSocket clientsock = _connectedClients[i];
+            Socket client = _serverSocket.Socket.Accept();
 
-            if (clientsock.Socket.Connected)
+            string ipAddrStr = client.RemoteEndPoint.ToString();
+
+            IPAddress addr = ((IPEndPoint)client.RemoteEndPoint).Address;
+            int port = ((IPEndPoint)client.RemoteEndPoint).Port;
+            //_lastMessagesReceived.Add("Client connected from IP [" + addr.ToString() + "] and port [" + port + "]");
+            IPAddress clientAddr = IPAddress.Parse(addr.ToString());
+
+            NetworkSocket clientSocket = new NetworkSocket(client, clientAddr, ipAddrStr);
+
+            Thread clientThread = new Thread(() => ReceiveJob(clientSocket));
+
+            lock (_clientMutex)
             {
-                clientsock.Socket.Shutdown(SocketShutdown.Both);
+                _connectedClients.Add(clientSocket);
+                _clientThreads.Add(clientThread);
             }
 
-            clientsock.Socket.Close();
+            clientThread.Start();
+        }
 
-            Thread thr = _clientThreads[i];
-
-            if (thr.IsAlive)
+        private void OnDestroy()
+        {
+            if (_acceptThread.IsAlive)
             {
-                thr.Abort();
+                _acceptThread.Abort();
+
+                if (_serverSocket.Socket.Connected)
+                {
+                    _serverSocket.Socket.Shutdown(SocketShutdown.Both);
+                }
+
+                _serverSocket.Socket.Close();
             }
+
+            for (int i = 0; i < _connectedClients.Count; i++)
+            {
+                NetworkSocket clientsock = _connectedClients[i];
+
+                if (clientsock.Socket.Connected)
+                {
+                    clientsock.Socket.Shutdown(SocketShutdown.Both);
+                }
+
+                clientsock.Socket.Close();
+
+                Thread thr = _clientThreads[i];
+
+                if (thr.IsAlive)
+                {
+                    thr.Abort();
+                }
+            }
+        }
+
+        protected override int ReceivePacket(NetworkSocket socket)
+        {
+            OnPacketReceived?.Invoke();
+            return socket.Socket.Receive(PacketBytes);
+        }
+
+        protected override int SendPacket(object packet, NetworkSocket socket)
+        {
+            OnPacketSend?.Invoke();
+            PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
+            return socket.Socket.Send(PacketBytes);
         }
     }
 }

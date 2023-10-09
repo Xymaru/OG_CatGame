@@ -1,8 +1,10 @@
+using PawsAndClaws.Networking;
 using System;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using PawsAndClaws.Networking;
 
 namespace PawsAndClaws.UI
 {
@@ -14,14 +16,14 @@ namespace PawsAndClaws.UI
 
         private void OnEnable()
         {
-            NetServerTCP.OnMessageReceived += AddChatMessage;
-            NetServerUDP.OnMessageReceived += AddChatMessage;
+            NetChatClient.OnMessageReceived += AddChatMessage;
+            NetChatServer.OnMessageReceived += AddChatMessage;
         }
 
         private void OnDisable()
         {
-            NetServerTCP.OnMessageReceived -= AddChatMessage;
-            NetServerUDP.OnMessageReceived -= AddChatMessage;
+            NetChatClient.OnMessageReceived -= AddChatMessage;
+            NetChatServer.OnMessageReceived -= AddChatMessage;
         }
 
         private void Awake()
@@ -32,8 +34,16 @@ namespace PawsAndClaws.UI
         private void SendMessage()
         {
             byte[] buff = Encoding.ASCII.GetBytes(inputField.text);
-            if(NetworkData.ProtocolType == ProtocolType.Tcp)
-                NetworkData.NetSocket.Socket.Send(buff);
+
+            switch (NetworkData.ProtocolType)
+            {
+                case ProtocolType.Tcp:
+                    NetworkData.NetSocket.Socket.Send(buff); break;
+                case ProtocolType.Udp:
+                    {
+                        // TODO: UDP Chat signal
+                    }break;
+            }
         }
 
         private void AddChatMessage(string msg)

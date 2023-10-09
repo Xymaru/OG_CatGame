@@ -7,39 +7,48 @@ using System.Text;
 using System.Threading;
 using UnityEngine;
 
-public class NetServerUDP : MonoBehaviour
+namespace PawsAndClaws.Networking
 {
-    private NetworkServerSocket _serverSocket;
-    private Thread _updateThread;
-
-    private byte[] _data = new byte[1024];
-    public static Action<string> OnMessageReceived; 
-    public void Start()
+    public class NetServerUDP : NetServer
     {
-        _serverSocket = (NetworkServerSocket)NetworkData.NetSocket;
-        _updateThread = new Thread(UpdateThread);
-        _updateThread.Start();
-    }
-
-    void UpdateThread()
-    {
-        EndPoint endPoint = new IPEndPoint(IPAddress.Any, NetworkData.Port);
-        while (true)
+        private Thread _updateThread;
+        private EndPoint _endPoint = new IPEndPoint(IPAddress.Any, NetworkData.Port);
+        public void Start()
         {
-            int revSize = _serverSocket.Socket.ReceiveFrom(_data, ref endPoint);
-            string msg = Encoding.ASCII.GetString(_data, 0, revSize);
-            OnMessageReceived?.Invoke(msg);
+            _updateThread = new Thread(UpdateThread);
+            _updateThread.Start();
         }
-    }
 
-    private void OnDestroy()
-    {
-        if (_updateThread.IsAlive)
+        void UpdateThread()
         {
-            _updateThread.Abort();
+            while (true)
+            {
+                int revSize = ReceivePacket(_serverSocket);
+                Debug.Log($"Packet received with size {revSize}");
+            }
+        }
 
-            _serverSocket.Socket.Shutdown(SocketShutdown.Both);
-            _serverSocket.Socket.Close();
+        private void OnDestroy()
+        {
+            if (_updateThread.IsAlive)
+            {
+                _updateThread.Abort();
+                _serverSocket.Socket.Shutdown(SocketShutdown.Both);
+                _serverSocket.Socket.Close();
+            }
+        }
+
+        protected override int ReceivePacket(NetworkSocket socket)
+        {
+            OnPacketReceived?.Invoke();
+            return socket.Socket.ReceiveFrom(PacketBytes, ref _endPoint);
+        }
+
+        protected override int SendPacket(object packet, NetworkSocket socket)
+        {
+            OnPacketSend?.Invoke();
+            PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
+            return socket.Socket.SendTo(PacketBytes, _endPoint);
         }
     }
 }
