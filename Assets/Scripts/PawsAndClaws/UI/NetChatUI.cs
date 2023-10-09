@@ -4,7 +4,6 @@ using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
-using PawsAndClaws.Networking;
 
 namespace PawsAndClaws.UI
 {
@@ -33,17 +32,7 @@ namespace PawsAndClaws.UI
 
         private void SendMessage()
         {
-            byte[] buff = Encoding.ASCII.GetBytes(inputField.text);
-
-            switch (NetworkData.ProtocolType)
-            {
-                case ProtocolType.Tcp:
-                    NetworkData.NetSocket.Socket.Send(buff); break;
-                case ProtocolType.Udp:
-                    {
-                        // TODO: UDP Chat signal
-                    }break;
-            }
+            
         }
 
         private void AddChatMessage(string msg)

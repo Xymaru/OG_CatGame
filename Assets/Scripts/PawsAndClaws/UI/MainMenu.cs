@@ -10,124 +10,127 @@ using System;
 using System.Text;
 
 using UnityEngine.SceneManagement;
-using PawsAndClaws.Encrypting;
+using PawsAndClaws.Networking;
 
-public class MainMenu : MonoBehaviour
+namespace PawsAndClaws.UI
 {
-    public GameObject menuPanel;
-    public GameObject connectPanel;
-
-    public TMP_InputField ipinput;
-
-    public ProtocolType protocol = ProtocolType.Tcp;
-    public SocketType socketType = SocketType.Stream;
-
-    public void OnProtocolChanged(int value)
+    public class MainMenu : MonoBehaviour
     {
-        // 0 TCP
-        // 1 UDP
+        public GameObject menuPanel;
+        public GameObject connectPanel;
 
-        switch (value)
+        public TMP_InputField ipinput;
+
+        public ProtocolType protocol = ProtocolType.Tcp;
+        public SocketType socketType = SocketType.Stream;
+
+        public void OnProtocolChanged(int value)
         {
-            case 0:
-                {
-                    protocol = ProtocolType.Tcp;
-                    socketType = SocketType.Stream;
-                }
-                break;
-            case 1:
-                {
-                    protocol = ProtocolType.Udp;
-                    socketType = SocketType.Dgram;
-                }
-                break;
-        }
+            // 0 TCP
+            // 1 UDP
 
-        NetworkData.ProtocolType = protocol;
-    }
-    public void OnHostClick()
-    {
-        Socket listenSocket = new Socket(AddressFamily.InterNetwork, socketType, protocol);
-
-        
-        IPEndPoint ep = new IPEndPoint(IPAddress.Any, NetworkData.Port);
-
-        IPAddress hostIP = IPAddress.Any;
-        foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
-        {
-            // Get the last IP as is always the local IP
-            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            switch (value)
             {
-                hostIP = ip;
+                case 0:
+                    {
+                        protocol = ProtocolType.Tcp;
+                        socketType = SocketType.Stream;
+                    }
+                    break;
+                case 1:
+                    {
+                        protocol = ProtocolType.Udp;
+                        socketType = SocketType.Dgram;
+                    }
+                    break;
             }
+
+            NetworkData.ProtocolType = protocol;
         }
-       
-        listenSocket.Bind(ep);
-
-        NetworkData.NetSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());
-
-
-        OpenLobby();
-    }
-
-    public void OnConnectClick()
-    {
-        menuPanel.SetActive(false);
-        connectPanel.SetActive(true);
-    }
-
-    public void MakeConnection()
-    {
-        // Check if IP is not empty
-        if (ipinput.text == "")
+        public void OnHostClick()
         {
-            Debug.Log("Trying to connect to an empty IP address.");
-            return;
-        }
+            Socket listenSocket = new Socket(AddressFamily.InterNetwork, socketType, protocol);
 
-        // Parse ip address
-        IPAddress ipaddr;
 
-        bool valid = IPAddress.TryParse(ipinput.text, out ipaddr);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Any, NetworkData.Port);
 
-        if (!valid)
-        {
-            Debug.Log("Couldn't parse ip address.");
-            return;
+            IPAddress hostIP = IPAddress.Any;
+            foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+            {
+                // Get the last IP as is always the local IP
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    hostIP = ip;
+                }
+            }
+
+            listenSocket.Bind(ep);
+
+            NetworkData.NetSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());
+
+
+            OpenLobby();
         }
 
-        // Make connection
-        NetworkData.ServerEndPoint = new IPEndPoint(ipaddr, NetworkData.Port);
-
-        Socket clientSocket = new Socket(ipaddr.AddressFamily, socketType, protocol);
-
-        
-        try
+        public void OnConnectClick()
         {
-            clientSocket.Connect(NetworkData.ServerEndPoint);
-            Debug.Log("Connected to " + clientSocket.RemoteEndPoint.ToString());
+            menuPanel.SetActive(false);
+            connectPanel.SetActive(true);
         }
-        catch (Exception e)
-        {
-            Debug.Log("Error on connecting to server." + e.ToString());
-            return;
-        }
-        // After connection has been made, set data
-        NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipinput.text);
 
-        OpenLobby();
-    }
+        public void MakeConnection()
+        {
+            // Check if IP is not empty
+            if (ipinput.text == "")
+            {
+                Debug.Log("Trying to connect to an empty IP address.");
+                return;
+            }
 
-    private void OpenLobby()
-    {
-        // Go to lobby
-        if (protocol == ProtocolType.Tcp)
-        {
-            SceneManager.LoadScene("LobbyTCP");
+            // Parse ip address
+            IPAddress ipaddr;
+
+            bool valid = IPAddress.TryParse(ipinput.text, out ipaddr);
+
+            if (!valid)
+            {
+                Debug.Log("Couldn't parse ip address.");
+                return;
+            }
+
+            // Make connection
+            NetworkData.ServerEndPoint = new IPEndPoint(ipaddr, NetworkData.Port);
+
+            Socket clientSocket = new Socket(ipaddr.AddressFamily, socketType, protocol);
+
+
+            try
+            {
+                clientSocket.Connect(NetworkData.ServerEndPoint);
+                Debug.Log("Connected to " + clientSocket.RemoteEndPoint.ToString());
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error on connecting to server." + e.ToString());
+                return;
+            }
+            // After connection has been made, set data
+            NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipinput.text);
+
+            OpenLobby();
         }
-        else
+
+        private void OpenLobby()
         {
-            SceneManager.LoadScene("LobbyUDP");
+            // Go to lobby
+            if (protocol == ProtocolType.Tcp)
+            {
+                SceneManager.LoadScene("LobbyTCP");
+            }
+            else
+            {
+                SceneManager.LoadScene("LobbyUDP");
+            }
         }
     }
 }

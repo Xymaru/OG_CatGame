@@ -8,12 +8,14 @@ namespace PawsAndClaws.Networking
 {
     public abstract class NetServer : MonoBehaviour
     {
-        protected NetworkServerSocket _serverSocket;
-        protected NetworkManager _networkManager;
         public byte[] PacketBytes { get; protected set; } = new byte[2048];
 
+        
         public static Action OnPacketReceived;
         public static Action OnPacketSend;
+
+        protected NetworkServerSocket _serverSocket;
+        protected NetworkManager _networkManager;
 
         private void Awake()
         {

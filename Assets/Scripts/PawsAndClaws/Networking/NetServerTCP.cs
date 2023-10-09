@@ -19,10 +19,15 @@ namespace PawsAndClaws.Networking
         private readonly List<Thread> _clientThreads = new();
 
         private readonly object _clientMutex = new();
+
+        public static Action<NetworkSocket> OnConnectionAccept;
+        public static Action<NetworkSocket> OnClientDisconnect;
+
         void Start()
         {
             _ipsText = _networkManager.ipsText;
             _serverSocket.Socket.Listen(10);
+
             // Accept incoming connections job
             _acceptThread = new Thread(AcceptJob);
             _acceptThread.Start();
@@ -56,25 +61,21 @@ namespace PawsAndClaws.Networking
             }
         }
 
-        void ReceiveJob(NetworkSocket clientsocket)
+        void ReceiveJob(NetworkSocket clientSocket)
         {
             while (true)
             {
-                int rbytes = ReceivePacket(clientsocket);
-
+                int rbytes = ReceivePacket(clientSocket);
+                Debug.Log($"Server received packet from client {clientSocket.IPAddrStr} with size {rbytes}");
                 if (rbytes == 0)
                 {
                     lock (_clientMutex)
                     {
-                        //_lastMessagesReceived.Add($"Disconnected client from IP [{clientsocket.IPAddr}]");
-                        _connectedClients.Remove(clientsocket);
+                        Debug.Log($"Disconnected client from IP [{clientSocket.IPAddr}]");
+                        OnClientDisconnect?.Invoke(clientSocket);
+                        _connectedClients.Remove(clientSocket);
                     }
                     break;
-                }
-
-                lock (_clientMutex)
-                {
-                    //_lastMessagesReceived.Add(Encoding.ASCII.GetString(data));
                 }
             }
         }
@@ -87,10 +88,13 @@ namespace PawsAndClaws.Networking
 
             IPAddress addr = ((IPEndPoint)client.RemoteEndPoint).Address;
             int port = ((IPEndPoint)client.RemoteEndPoint).Port;
-            //_lastMessagesReceived.Add("Client connected from IP [" + addr.ToString() + "] and port [" + port + "]");
+
+            Debug.Log($"Client connected from IP [{addr}] and port [{port}]");
+
             IPAddress clientAddr = IPAddress.Parse(addr.ToString());
 
             NetworkSocket clientSocket = new NetworkSocket(client, clientAddr, ipAddrStr);
+            OnConnectionAccept?.Invoke(clientSocket);
 
             Thread clientThread = new Thread(() => ReceiveJob(clientSocket));
 
@@ -147,6 +151,7 @@ namespace PawsAndClaws.Networking
         {
             OnPacketSend?.Invoke();
             PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
+            Debug.Log($"Server sent packet to IP: {socket.IPAddr}");
             return socket.Socket.Send(PacketBytes);
         }
     }
