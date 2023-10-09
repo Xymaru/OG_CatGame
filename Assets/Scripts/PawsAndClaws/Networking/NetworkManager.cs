@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 
+using PawsAndClaws.Networking;
+
 public class NetworkManager : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI ipsText;

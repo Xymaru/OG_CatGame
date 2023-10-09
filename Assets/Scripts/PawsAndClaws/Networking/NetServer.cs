@@ -10,7 +10,7 @@ namespace PawsAndClaws.Networking
     {
         protected NetworkServerSocket _serverSocket;
         protected NetworkManager _networkManager;
-        public byte[] PacketBytes { get; private set; } = new byte[2048];
+        public byte[] PacketBytes { get; protected set; } = new byte[2048];
 
         public static Action OnPacketReceived;
         public static Action OnPacketSend;
