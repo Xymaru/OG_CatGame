@@ -48,6 +48,7 @@ namespace PawsAndClaws.Networking
         {
             OnPacketSend?.Invoke();
             PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
+            Debug.Log($"Server send packet to IP: {socket.IPAddr}");
             return socket.Socket.SendTo(PacketBytes, _endPoint);
         }
     }

@@ -4,20 +4,21 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using UnityEngine.SceneManagement;
-
+using System;
 
 namespace PawsAndClaws.Networking
 {
     public class NetClient : MonoBehaviour
     {
+        public static Action OnPacketReceived;
+        public static Action OnPacketSend;
+        
         public ProtocolType protocolType = NetworkData.ProtocolType;
         private EndPoint _endPoint;
         private Thread _thread;
 
-        private byte[] _packetBytes = new byte[1024];
+        private byte[] _packetBytes = new byte[2048];
         private bool _connected = false;
-
-
 
         void Start()
         {
@@ -46,6 +47,8 @@ namespace PawsAndClaws.Networking
             while (true)
             {
                 int recv = NetworkData.NetSocket.Socket.ReceiveFrom(_packetBytes, ref _endPoint);
+                OnPacketReceived?.Invoke();
+                Debug.Log($"Client received packet from server with size {recv}");
 
                 // The host disconnected
                 if (recv <= 0)
@@ -54,9 +57,6 @@ namespace PawsAndClaws.Networking
                     _connected = false;
                     break;
                 }
-
-                string msg = Encoding.ASCII.GetString(_packetBytes, 0, recv);
-                Debug.Log($"Client recieved from server [{msg}]");
             }
         }
 
