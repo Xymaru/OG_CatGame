@@ -54,5 +54,10 @@ namespace PawsAndClaws.Player
 
             return character;
         }
+
+        public GameObject Respawn(Transform transform)
+        {
+            return Instantiate(prefab, transform);
+        }
     }
 }
