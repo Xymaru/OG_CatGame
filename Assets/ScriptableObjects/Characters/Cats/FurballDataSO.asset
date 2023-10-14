@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FurballDataSO
   m_EditorClassIdentifier: 
   name: FurBall
-  sprite: {fileID: 0}
+  sprite: {fileID: -1416882108, guid: d9d96b7dc41fba248b409074a3054440, type: 3}
   passiveImage: {fileID: 0}
   ability1Sprite: {fileID: 0}
   ability2Sprite: {fileID: 0}

@@ -24,7 +24,7 @@ namespace PawsAndClaws.Entities.Tower
 
         public override void UpdateLogic()
         {
-            if (_stateMachine.Target == null)
+            if (_stateMachine.Target is not { IsAlive: true })
             {
                 _stateMachine.ChangeState(_stateMachine.IdleState);
                 return;
@@ -43,8 +43,11 @@ namespace PawsAndClaws.Entities.Tower
         public override void Exit()
         {
             _towerManager.ResetTimers();
-            _stateMachine.StopCoroutine(_attackCoroutine);
-            _attackCoroutine = null;
+            if (_attackCoroutine != null)
+            {
+                _stateMachine.StopCoroutine(_attackCoroutine);
+                _attackCoroutine = null;
+            }
         }
 
         public override void OnTriggerExit2D(Collider2D other)

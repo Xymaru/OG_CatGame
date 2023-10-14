@@ -20,7 +20,7 @@ namespace PawsAndClaws.Entities.Tower
 
         public override void UpdateLogic()
         {
-            if (_stateMachine.Target == null)
+            if (_stateMachine.Target is not { IsAlive: true })
                 return;
             
             _stateMachine.ChangeState(_stateMachine.AttackState);

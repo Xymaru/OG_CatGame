@@ -12,6 +12,6 @@ namespace PawsAndClaws.UI
         public Button ability2Button;
         public Button ultimateButton;
 
-
+        
     }
 }

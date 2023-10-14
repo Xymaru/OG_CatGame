@@ -39,7 +39,8 @@ namespace PawsAndClaws.Entities.Tower
         private void Awake()
         {
             _currentHealth = maxHealth;
-            GetComponent<CircleCollider2D>().radius = range;
+            var collider = GetComponent<CircleCollider2D>();
+            collider.radius = range;
         }
 
         private void Start()
@@ -89,6 +90,19 @@ namespace PawsAndClaws.Entities.Tower
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position, range);
+        }
+
+
+        private void OnMouseOver()
+        {
+            if(GameManager.Instance.playerTeam != team)
+                PlayerInputHandler.SetCursorAttack();
+        }
+
+        private void OnMouseExit()
+        {
+            if(GameManager.Instance.playerTeam != team)
+                PlayerInputHandler.SetCursorDefault();
         }
     }
 }

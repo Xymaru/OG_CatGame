@@ -32,6 +32,8 @@ namespace PawsAndClaws.Player
         public Action<float> onManaRegenChange;
         public Action<float, float> onExpChange;
         public Action<int> onLevelUp;
+        public Action<float> onPlayerDied;
+        public Action onPlayerSpawn;
     
         // Respawn variables
         private const float BaseRespawnTime = 30f;
@@ -69,6 +71,8 @@ namespace PawsAndClaws.Player
 
             // Spawn the character
             _character = characterData.Spawn(transform, ref _characterStats);
+
+            GameManager.Instance.playerTeam = characterData.team;
         }
 
         private void Start()
@@ -94,14 +98,15 @@ namespace PawsAndClaws.Player
         {
             var finalDamage =  Mathf.Max(1f, damage - _characterStats.Shield);
             _characterStats.Health -= finalDamage;
-            UpdateHealthUI();
-            
             if (_characterStats.Health <= 0)
             {
                 _characterStats.Health = 0;
                 Die();
+                UpdateHealthUI();
                 return true;
             }
+            
+            UpdateHealthUI();
             Debug.Log($"Damaging player manager with {finalDamage} damage, {_characterStats.Health} health remaining");
             return false;
         }
@@ -114,10 +119,10 @@ namespace PawsAndClaws.Player
 
         public void Die()
         {
+            _isAlive = false;
             Destroy(_character);
             _character = null;
             _respawnCoroutine ??= StartCoroutine(RespawnCoroutine());
-            _isAlive = false;
         }
 
         private IEnumerator RespawnCoroutine()
@@ -131,7 +136,8 @@ namespace PawsAndClaws.Player
             
             float timeToSpawn = BaseRespawnTime + (_characterStats.Level - 1) * LevelRespawnMultiplier;
             Debug.Log($"Player respawn in {timeToSpawn} seconds");
-            // TODO: Notify UI
+            onPlayerDied?.Invoke(timeToSpawn);
+            
             yield return new WaitForSeconds(timeToSpawn);
             
             // Disable necessary components
@@ -139,11 +145,25 @@ namespace PawsAndClaws.Player
             _healthBar.gameObject.SetActive(true);
             
             // TODO: Set the screen to normal
+            
             _character = characterData.Respawn(transform);
             _characterStats.Health = _characterStats.MaxHealth;
-            
-            _playerMovementController.enabled = false;
+            NotifyUIStats();
+            onPlayerSpawn?.Invoke();
             _isAlive = true;
+        }
+        
+        
+        private void OnMouseOver()
+        {
+            if(GameManager.Instance.playerTeam != characterData.team)
+                PlayerInputHandler.SetCursorAttack();
+        }
+
+        private void OnMouseExit()
+        {
+            if(GameManager.Instance.playerTeam != characterData.team)
+                PlayerInputHandler.SetCursorDefault();
         }
     }
 }

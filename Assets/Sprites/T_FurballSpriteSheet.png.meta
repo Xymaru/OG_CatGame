@@ -1,0 +1,1688 @@
+fileFormatVersion: 2
+guid: d9d96b7dc41fba248b409074a3054440
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 3084
+        width: 280
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3df8741073d79b042aa311a2240f5e5e
+      internalID: -1548973960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 3093
+        width: 285
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2515d47ff685fb34c9ea3d11f97b0d3f
+      internalID: -1310029850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 3038
+        width: 284
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d24638e96d291744d96e3f90febb0cf8
+      internalID: 86055641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1415
+        y: 3045
+        width: 284
+        height: 389
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23fa7b5c1cc23c14a81e6bd2d891b734
+      internalID: 724379404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 1804
+        y: 3045
+        width: 282
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8252b374c15fb54c8e9657a3456ae14
+      internalID: -155149747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 2173
+        y: 3039
+        width: 285
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eec2208a4d709dc43a5049178cfeecba
+      internalID: 307979629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 2530
+        y: 3037
+        width: 284
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55265ac7b01daa84b9eabee5c3aa6e39
+      internalID: 744906313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 2894
+        y: 3039
+        width: 287
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b22834b95dcc375478ce16c9b5a4a8d2
+      internalID: -1945186326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 3247
+        y: 3043
+        width: 285
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42e4087bf3598f14d89e5493168b9f96
+      internalID: -911958245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 3615
+        y: 3039
+        width: 284
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e573acde0980e104a8464fa07eed6929
+      internalID: -2036347101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 3972
+        y: 3036
+        width: 285
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77a5158c881e2d2488c1d5f7bda00da5
+      internalID: -1693834952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 2652
+        width: 338
+        height: 346
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7954936a3e988cc479ca1d5377c0f714
+      internalID: -1416882108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 2574
+        width: 304
+        height: 413
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5157793fc158a24092819c409cac923
+      internalID: 523911388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 1445
+        y: 2564
+        width: 269
+        height: 406
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a378d399527aa4e488cdd39e7ffa67b6
+      internalID: 372979696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 1814
+        y: 2569
+        width: 280
+        height: 401
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48895bcd5f58ef940a969b1d66d186ee
+      internalID: 243367023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 2184
+        y: 2568
+        width: 319
+        height: 404
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55de5296281fab3498814f8797e0c866
+      internalID: 1843307359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 2593
+        y: 2568
+        width: 368
+        height: 368
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5865c88549c8bc049bd2eee17bf91edc
+      internalID: 1978539391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 2092
+        y: 2902
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b46e8a4e00db6b948935c8e8c2e75887
+      internalID: 1206292979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_24
+      rect:
+        serializedVersion: 2
+        x: 3038
+        y: 2547
+        width: 379
+        height: 318
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2085bd8f4ce09144ac0ed7fee83155c
+      internalID: -179756157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_29
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 2677
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31a318dea0a1e1745a5f3827cad7c185
+      internalID: -1021786400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_30
+      rect:
+        serializedVersion: 2
+        x: 3540
+        y: 2510
+        width: 390
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 744f5d8727b409a4896087dd5ae49427
+      internalID: -385340724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_32
+      rect:
+        serializedVersion: 2
+        x: 1079
+        y: 2068
+        width: 282
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 639ce639847073f4c8a5605e6745295f
+      internalID: -2013455044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_33
+      rect:
+        serializedVersion: 2
+        x: 1437
+        y: 2062
+        width: 283
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70e3cdab9a68af243aa7c942ca3d5f06
+      internalID: -428870279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_34
+      rect:
+        serializedVersion: 2
+        x: 1816
+        y: 2060
+        width: 285
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea40ef7bc777d2c4cacf8e855fb400b4
+      internalID: 841232707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_35
+      rect:
+        serializedVersion: 2
+        x: 2184
+        y: 2065
+        width: 284
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 306b79d05cf154548a4e963c2a81305b
+      internalID: -42648696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_36
+      rect:
+        serializedVersion: 2
+        x: 2525
+        y: 2074
+        width: 286
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee6c9a318a660e644a86a7b8b49783e3
+      internalID: 6378321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_37
+      rect:
+        serializedVersion: 2
+        x: 2877
+        y: 2063
+        width: 338
+        height: 402
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b4cfbf989de2d40a60f118d5f4d860
+      internalID: -233341912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_49
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 1571
+        width: 285
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58ea0352f4b0a63418cff6f2730d0065
+      internalID: -350627460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_50
+      rect:
+        serializedVersion: 2
+        x: 1444
+        y: 1556
+        width: 285
+        height: 406
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da861285e2cf4ec4799f278dff49dcb1
+      internalID: -1179967805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_51
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 1566
+        width: 282
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c64a18661db6684d806cb8d26e85f62
+      internalID: 431356883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_52
+      rect:
+        serializedVersion: 2
+        x: 2191
+        y: 1571
+        width: 282
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41bb207c1a0eb644eacb13042f048373
+      internalID: 331759473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_53
+      rect:
+        serializedVersion: 2
+        x: 2534
+        y: 1568
+        width: 282
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2897727c77839a046ac907b10c9efe4d
+      internalID: 296094755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_54
+      rect:
+        serializedVersion: 2
+        x: 2883
+        y: 1568
+        width: 340
+        height: 391
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3b8a3db005a3fc4ea405b74d1678a03
+      internalID: -1049779080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_60
+      rect:
+        serializedVersion: 2
+        x: 3353
+        y: 1826
+        width: 91
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb37f7cefbb235047a29268742718221
+      internalID: -1035443756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_64
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 1133
+        width: 284
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14b491059eacabd43825247111fca32c
+      internalID: 415659002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_65
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 1121
+        width: 286
+        height: 403
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 792a37faa0c011f46ae3e67f649b9307
+      internalID: 431956425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_66
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 1129
+        width: 282
+        height: 395
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a9e5e386325bf84bb28e810b1d9888f
+      internalID: -385140081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_67
+      rect:
+        serializedVersion: 2
+        x: 2179
+        y: 1133
+        width: 282
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b462d30ea248e0428629e9f4b6add9f
+      internalID: -2033127075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_68
+      rect:
+        serializedVersion: 2
+        x: 2520
+        y: 1143
+        width: 284
+        height: 394
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b79689d8b5fadc140bdfd139765ac42f
+      internalID: -494918989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_69
+      rect:
+        serializedVersion: 2
+        x: 2872
+        y: 1140
+        width: 340
+        height: 389
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84b2ca99d8b5603488de8421cbc04df2
+      internalID: -1013786391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_71
+      rect:
+        serializedVersion: 2
+        x: 3326
+        y: 1385
+        width: 135
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39b6e8dc3474d794ca24dbdefc634c49
+      internalID: -378994137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_72
+      rect:
+        serializedVersion: 2
+        x: 3576
+        y: 1130
+        width: 425
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6d9433fac364af4088888d68e52a5bc
+      internalID: 829734478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_74
+      rect:
+        serializedVersion: 2
+        x: 3617
+        y: 1087
+        width: 114
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f172c65bb81d1e04cb82172d20bcb05a
+      internalID: 1096285238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_75
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 671
+        width: 282
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd18c1caa70e8a43b082e9e6d4d605e
+      internalID: 702840258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_76
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 675
+        width: 282
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c2d6fabd2a0b7f4f83c204efd902b73
+      internalID: 24119804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_77
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 659
+        width: 282
+        height: 404
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf19e6f3baab23f4e9a9289242c95741
+      internalID: 1853244229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_78
+      rect:
+        serializedVersion: 2
+        x: 2191
+        y: 668
+        width: 285
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2c643b37f5306a4b95e1ac385a498f0
+      internalID: -228478436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_79
+      rect:
+        serializedVersion: 2
+        x: 2532
+        y: 678
+        width: 284
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a240a05426f09145aa6888c2687ac91
+      internalID: 747816615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_80
+      rect:
+        serializedVersion: 2
+        x: 2883
+        y: 666
+        width: 347
+        height: 403
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9d245407b5baf44091687b506fd3418
+      internalID: 1885596366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_82
+      rect:
+        serializedVersion: 2
+        x: 3336
+        y: 923
+        width: 137
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2271f0c3ea6b0242b30a60e2d007746
+      internalID: -1858089854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_83
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 925
+        width: 30
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5976084d124acd740964832672276cd2
+      internalID: -584789177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_84
+      rect:
+        serializedVersion: 2
+        x: 3614
+        y: 644
+        width: 424
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c8dadff7368406458858d320ecc3c8f
+      internalID: 1876236273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_85
+      rect:
+        serializedVersion: 2
+        x: 3656
+        y: 600
+        width: 113
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 266bb5bc629aaad428910efb3765f1b2
+      internalID: -1282853979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_86
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 184
+        width: 282
+        height: 401
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6415224c53461c428e8873ce1a261a5
+      internalID: 1295638858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_87
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 184
+        width: 284
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 229a33860f875d046adee921d452c90c
+      internalID: -1221586855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_88
+      rect:
+        serializedVersion: 2
+        x: 1442
+        y: 177
+        width: 282
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b657ff828d6172e46ae7a9b8b5f8acbe
+      internalID: -347434542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_89
+      rect:
+        serializedVersion: 2
+        x: 1821
+        y: 174
+        width: 282
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3ceecf867bb7174488fdaff653899b7
+      internalID: 1166016919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_90
+      rect:
+        serializedVersion: 2
+        x: 2189
+        y: 181
+        width: 284
+        height: 397
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f734e4ede945ebf4fb46818092be59f3
+      internalID: 277534999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_91
+      rect:
+        serializedVersion: 2
+        x: 2532
+        y: 189
+        width: 321
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81e576d415b212c4c8e7deddadf4d113
+      internalID: 1735178719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_92
+      rect:
+        serializedVersion: 2
+        x: 2882
+        y: 177
+        width: 433
+        height: 401
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c1c07c002a80f7409f904a0a96d6519
+      internalID: 157962718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_93
+      rect:
+        serializedVersion: 2
+        x: 3576
+        y: 525
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 587cf4d771373ec4d8f164828061cdeb
+      internalID: 890796351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_94
+      rect:
+        serializedVersion: 2
+        x: 4131
+        y: 311
+        width: 142
+        height: 276
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9632a1ef9c9673a44b85f4b5940bc60c
+      internalID: 1993643441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_96
+      rect:
+        serializedVersion: 2
+        x: 4662
+        y: 401
+        width: 98
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1388be0003a38e4fbe5d2e64755f392
+      internalID: -688275546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_97
+      rect:
+        serializedVersion: 2
+        x: 2149
+        y: 437
+        width: 29
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2f94d2eaa940a14ab37923e8d727fba
+      internalID: -410160910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_98
+      rect:
+        serializedVersion: 2
+        x: 3377
+        y: 405
+        width: 240
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d73adf40d22246f4c822894609b9d456
+      internalID: -1203956136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_99
+      rect:
+        serializedVersion: 2
+        x: 3673
+        y: 415
+        width: 272
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a32bc4e5711b5242a4b250ca9ec8eb1
+      internalID: -1804826023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_100
+      rect:
+        serializedVersion: 2
+        x: 4394
+        y: 370
+        width: 124
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 433f39fb7a5dfd746b7955ba37406aae
+      internalID: -306865362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_27
+      rect:
+        serializedVersion: 2
+        x: 3958
+        y: 2509
+        width: 444
+        height: 337
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dff6b1f5e0deb6a4cb5a8120ba103459
+      internalID: 1010827840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_FurballSpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 3340
+        y: 2315
+        width: 96
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0406a077c35eca147914bfb24a128baf
+      internalID: -253274309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_FurballSpriteSheet_35: -42648696
+      T_FurballSpriteSheet_41: 678888346
+      T_FurballSpriteSheet_94: 1993643441
+      T_FurballSpriteSheet_61: -705364528
+      T_FurballSpriteSheet_91: 1735178719
+      T_FurballSpriteSheet_97: -410160910
+      T_FurballSpriteSheet_45: 291165074
+      T_FurballSpriteSheet_100: -306865362
+      T_FurballSpriteSheet_64: 415659002
+      T_FurballSpriteSheet_77: 1853244229
+      T_FurballSpriteSheet_80: 1885596366
+      T_FurballSpriteSheet_25: 601074158
+      T_FurballSpriteSheet_18: 1843307359
+      T_FurballSpriteSheet_26: 1648506300
+      T_FurballSpriteSheet_82: -1858089854
+      T_FurballSpriteSheet_2: 86055641
+      T_FurballSpriteSheet_79: 747816615
+      T_FurballSpriteSheet_67: -2033127075
+      T_FurballSpriteSheet_99: -1804826023
+      T_FurballSpriteSheet_36: 6378321
+      T_FurballSpriteSheet_74: 1096285238
+      T_FurballSpriteSheet_29: -1021786400
+      T_FurballSpriteSheet_95: -157112233
+      T_FurballSpriteSheet_3: 724379404
+      T_FurballSpriteSheet_5: 307979629
+      T_FurballSpriteSheet_42: 622760740
+      T_FurballSpriteSheet_31: 1621397279
+      T_FurballSpriteSheet_6: 744906313
+      T_FurballSpriteSheet_84: 1876236273
+      T_FurballSpriteSheet_54: -1049779080
+      T_FurballSpriteSheet_76: 24119804
+      T_FurballSpriteSheet_44: 1285164461
+      T_FurballSpriteSheet_48: -1170405269
+      T_FurballSpriteSheet_17: 243367023
+      T_FurballSpriteSheet_98: -1203956136
+      T_FurballSpriteSheet_50: -1179967805
+      T_FurballSpriteSheet_55: -1944063709
+      T_FurballSpriteSheet_7: -1945186326
+      T_FurballSpriteSheet_19: 1978539391
+      T_FurballSpriteSheet_4: -155149747
+      T_FurballSpriteSheet_11: -1416882108
+      T_FurballSpriteSheet_34: 841232707
+      T_FurballSpriteSheet_68: -494918989
+      T_FurballSpriteSheet_90: 277534999
+      T_FurballSpriteSheet_83: -584789177
+      T_FurballSpriteSheet_12: -253274309
+      T_FurballSpriteSheet_58: 116838707
+      T_FurballSpriteSheet_23: -736816562
+      T_FurballSpriteSheet_63: 945910701
+      T_FurballSpriteSheet_37: -233341912
+      T_FurballSpriteSheet_1: -1310029850
+      T_FurballSpriteSheet_49: -350627460
+      T_FurballSpriteSheet_51: 431356883
+      T_FurballSpriteSheet_65: 431956425
+      T_FurballSpriteSheet_9: -2036347101
+      T_FurballSpriteSheet_47: 113833923
+      T_FurballSpriteSheet_40: -2088164436
+      T_FurballSpriteSheet_57: -1825098264
+      T_FurballSpriteSheet_59: 1441360236
+      T_FurballSpriteSheet_15: 183446732
+      T_FurballSpriteSheet_38: -1881029710
+      T_FurballSpriteSheet_71: -378994137
+      T_FurballSpriteSheet_89: 1166016919
+      T_FurballSpriteSheet_28: -140049062
+      T_FurballSpriteSheet_88: -347434542
+      T_FurballSpriteSheet_92: 157962718
+      T_FurballSpriteSheet_8: -911958245
+      T_FurballSpriteSheet_56: 1254573956
+      T_FurballSpriteSheet_16: 372979696
+      T_FurballSpriteSheet_46: -669413116
+      T_FurballSpriteSheet_101: -326381790
+      T_FurballSpriteSheet_21: 1206292979
+      T_FurballSpriteSheet_32: -2013455044
+      T_FurballSpriteSheet_43: -255472671
+      T_FurballSpriteSheet_20: -164483677
+      T_FurballSpriteSheet_72: 829734478
+      T_FurballSpriteSheet_75: 702840258
+      T_FurballSpriteSheet_69: -1013786391
+      T_FurballSpriteSheet_30: -385340724
+      T_FurballSpriteSheet_87: -1221586855
+      T_FurballSpriteSheet_24: -179756157
+      T_FurballSpriteSheet_27: 1010827840
+      T_FurballSpriteSheet_60: -1035443756
+      T_FurballSpriteSheet_52: 331759473
+      T_FurballSpriteSheet_62: -1511366921
+      T_FurballSpriteSheet_86: 1295638858
+      T_FurballSpriteSheet_78: -228478436
+      T_FurballSpriteSheet_85: -1282853979
+      T_FurballSpriteSheet_53: 296094755
+      T_FurballSpriteSheet_103: 1510478756
+      T_FurballSpriteSheet_14: -305853180
+      T_FurballSpriteSheet_93: 890796351
+      T_FurballSpriteSheet_39: 628921076
+      T_FurballSpriteSheet_73: -1722074308
+      T_FurballSpriteSheet_13: 523911388
+      T_FurballSpriteSheet_66: -385140081
+      T_FurballSpriteSheet_70: -1244632575
+      T_FurballSpriteSheet_102: 824276095
+      T_FurballSpriteSheet_33: -428870279
+      T_FurballSpriteSheet_96: -688275546
+      T_FurballSpriteSheet_81: 1986918627
+      T_FurballSpriteSheet_10: -1693834952
+      T_FurballSpriteSheet_22: -171243764
+      T_FurballSpriteSheet_0: -1548973960
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
