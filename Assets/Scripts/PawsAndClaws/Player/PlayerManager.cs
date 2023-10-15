@@ -34,6 +34,7 @@ namespace PawsAndClaws.Player
         public Action<int> onLevelUp;
         public Action<float> onPlayerDied;
         public Action onPlayerSpawn;
+        public Action<CharacterStats> onStatsChanged;
     
         // Respawn variables
         private const float BaseRespawnTime = 30f;
@@ -90,6 +91,7 @@ namespace PawsAndClaws.Player
             onManaRegenChange?.Invoke(_characterStats.ManaRegen);
             onExpChange?.Invoke(_characterStats.Experience, _characterStats.ExpToNextLevel);
             onLevelUp?.Invoke(_characterStats.Level);
+            onStatsChanged?.Invoke(_characterStats);
         }
 
         

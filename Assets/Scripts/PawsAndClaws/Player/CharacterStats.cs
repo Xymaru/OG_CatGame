@@ -12,12 +12,17 @@
         public float MaxMana;
         public float ManaRegen;
 
+        public float Range;
+        
         public float Damage;
         public float DamageMultiplier;
 
+        public float AttackSpeed;
+        public float AttackSpeedMultiplier;
+
         public float Shield;
         public float ShieldMultiplier;
-
+        
         public int Level;
         public int Experience;
         public int ExpToNextLevel;
@@ -35,9 +40,18 @@
             HealthRegen = data.healthRegen;
             Mana = MaxMana = data.startingMana;
             ManaRegen = data.manaRegen;
+            
             Damage = data.startingDamage;
+            DamageMultiplier = data.damageLevelMultiplier;
+            
+            AttackSpeed = data.attackSpeed;
+            AttackSpeedMultiplier = data.attackSpeedMultiplier;
+            
             Shield = data.startingShield;
+            ShieldMultiplier = data.shieldLevelMultiplier;
 
+            Range = data.range;
+            
             Level = 1;
             Experience = 0;
             CalcNextLevelExp();

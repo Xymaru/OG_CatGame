@@ -10,14 +10,18 @@ namespace PawsAndClaws.UI
     public class PlayerInfoUI : MonoBehaviour
     {
         public PlayerManager manager;
-
+        [Header("UI elements")]
         [SerializeField] private Image playerImage;
         [SerializeField] private TMPro.TextMeshProUGUI respawnCooldownTimer;
         [SerializeField] private AbilitiesUI abilitiesUI;
         [SerializeField] private RegenBarUI healthBar;
         [SerializeField] private RegenBarUI manaBar;
         [SerializeField] private BarUI levelBar;
+        [SerializeField] private TMPro.TextMeshProUGUI levelText;
+        [SerializeField] private StatsUI statsUI;
+        [Header("Other")]
         [SerializeField] private Material grayScaleMaterial;
+        
         private Coroutine _respawnCoroutine;
         private void OnEnable()
         {
@@ -28,8 +32,22 @@ namespace PawsAndClaws.UI
             manager.onExpChange             += levelBar.UpdateBar;
             manager.onPlayerDied            += OnPlayerDied;
             manager.onPlayerSpawn           += OnPlayerSpawn;
+            manager.onLevelUp               += UpdateLevelText;
+            manager.onStatsChanged          += statsUI.UpdateStats;
         }
-
+        private void OnDisable()
+        {
+            manager.onHealthChange          -= healthBar.UpdateBar;
+            manager.onHealthRegenChange     -= healthBar.UpdateRegen;
+            manager.onManaChange            -= manaBar.UpdateBar;
+            manager.onManaRegenChange       -= manaBar.UpdateRegen;
+            manager.onExpChange             -= levelBar.UpdateBar;
+            manager.onPlayerDied            -= OnPlayerDied;
+            manager.onPlayerSpawn           -= OnPlayerSpawn;
+            manager.onLevelUp               -= UpdateLevelText;
+            manager.onStatsChanged          -= statsUI.UpdateStats;
+        }
+        
         private void Awake()
         {
             playerImage.sprite = manager.characterData.sprite;
@@ -58,16 +76,11 @@ namespace PawsAndClaws.UI
                 yield return null;
             }
         }
-        
-        private void OnDisable()
+
+        void UpdateLevelText(int level)
         {
-            manager.onHealthChange          -= healthBar.UpdateBar;
-            manager.onHealthRegenChange     -= healthBar.UpdateRegen;
-            manager.onManaChange            -= manaBar.UpdateBar;
-            manager.onManaRegenChange       -= manaBar.UpdateRegen;
-            manager.onExpChange             -= levelBar.UpdateBar;
-            manager.onPlayerDied            -= OnPlayerDied;
-            manager.onPlayerSpawn           -= OnPlayerSpawn;
+            levelText.text = $"{level}";
         }
+        
     }
 }
