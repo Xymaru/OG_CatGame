@@ -21,53 +21,31 @@ namespace PawsAndClaws.UI
 
         public TMP_InputField ipinput;
 
-        public ProtocolType protocol = ProtocolType.Tcp;
-        public SocketType socketType = SocketType.Stream;
-
-        public void OnProtocolChanged(int value)
-        {
-            // 0 TCP
-            // 1 UDP
-
-            switch (value)
-            {
-                case 0:
-                    {
-                        protocol = ProtocolType.Tcp;
-                        socketType = SocketType.Stream;
-                    }
-                    break;
-                case 1:
-                    {
-                        protocol = ProtocolType.Udp;
-                        socketType = SocketType.Dgram;
-                    }
-                    break;
-            }
-
-            NetworkData.ProtocolType = protocol;
-        }
         public void OnHostClick()
         {
-            Socket listenSocket = new Socket(AddressFamily.InterNetwork, socketType, protocol);
-
+            Socket listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             IPEndPoint ep = new IPEndPoint(IPAddress.Any, NetworkData.Port);
 
             IPAddress hostIP = IPAddress.Any;
-            foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+
+            IPAddress[] addresslist = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
+
+            // Get last ipv4
+            for(int i = 0; i < addresslist.Length; i++)
             {
-                // Get the last IP as is always the local IP
+                IPAddress ip = addresslist[addresslist.Length - i - 1];
+
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     hostIP = ip;
+                    break;
                 }
             }
-
+               
             listenSocket.Bind(ep);
 
             NetworkData.NetSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());
-
 
             OpenLobby();
         }
@@ -101,8 +79,7 @@ namespace PawsAndClaws.UI
             // Make connection
             NetworkData.ServerEndPoint = new IPEndPoint(ipaddr, NetworkData.Port);
 
-            Socket clientSocket = new Socket(ipaddr.AddressFamily, socketType, protocol);
-
+            Socket clientSocket = new Socket(ipaddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
@@ -122,15 +99,7 @@ namespace PawsAndClaws.UI
 
         private void OpenLobby()
         {
-            // Go to lobby
-            if (protocol == ProtocolType.Tcp)
-            {
-                SceneManager.LoadScene("LobbyTCP");
-            }
-            else
-            {
-                SceneManager.LoadScene("LobbyUDP");
-            }
+            SceneManager.LoadScene("Lobby");
         }
     }
 }
