@@ -11,6 +11,8 @@ namespace PawsAndClaws
 
         public static GameManager Instance;
 
+        public static LayerMask oppositeTeamLayer;
+
         private void Awake()
         {
             if (Instance != null)
@@ -23,6 +25,11 @@ namespace PawsAndClaws
 
             // Prevent mouse over events to be used by triggers
             Physics2D.queriesHitTriggers = false;
+        }
+
+        private void Start()
+        {
+            oppositeTeamLayer = playerTeam == Team.Cat ? LayerMask.NameToLayer("Hamster") : LayerMask.NameToLayer("Cat");
         }
 
         public void StartMatch()

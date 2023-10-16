@@ -21,7 +21,7 @@ namespace PawsAndClaws.Player
         
         // Components
         private PlayerCameraController _playerCameraController;
-        private PlayerMovementController _playerMovementController;
+        private PlayerStateMachine _playerStateMachine;
         private InGameHealthBarUI _healthBar;
         private Camera _playerCameraComp;
 
@@ -57,13 +57,13 @@ namespace PawsAndClaws.Player
         private void Awake()
         {
             _playerCameraController = playerCamera.GetComponent<PlayerCameraController>();
-            _playerMovementController = GetComponent<PlayerMovementController>();
+            _playerStateMachine = GetComponent<PlayerStateMachine>();
             _playerCameraComp = playerCamera.GetComponent<Camera>();
             _healthBar = GetComponentInChildren<InGameHealthBarUI>();
             
             // Setup the reference for the player movement script
-            _playerMovementController.inputHandler = inputHandler;
-            _playerMovementController.playerCamera = _playerCameraComp;
+            _playerStateMachine.inputHandler = inputHandler;
+            _playerStateMachine.playerCamera = _playerCameraComp;
             
             // Setup the reference for the camera controller script
             _playerCameraController.player = transform;
@@ -74,6 +74,10 @@ namespace PawsAndClaws.Player
             _character = characterData.Spawn(transform, ref _characterStats);
 
             GameManager.Instance.playerTeam = characterData.team;
+
+            gameObject.layer = characterData.team == Team.Cat ?
+                LayerMask.NameToLayer("Cats") :
+                LayerMask.NameToLayer("Hamsters");
         }
 
         private void Start()
@@ -132,7 +136,7 @@ namespace PawsAndClaws.Player
             // TODO: Set the screen grayscale
             
             // Disable necessary components
-            _playerMovementController.enabled = false;
+            _playerStateMachine.enabled = false;
             _healthBar.gameObject.SetActive(false);
             _healthBar.StopAllCoroutines();
             
@@ -143,7 +147,7 @@ namespace PawsAndClaws.Player
             yield return new WaitForSeconds(timeToSpawn);
             
             // Disable necessary components
-            _playerMovementController.enabled = true;
+            _playerStateMachine.enabled = true;
             _healthBar.gameObject.SetActive(true);
             
             // TODO: Set the screen to normal

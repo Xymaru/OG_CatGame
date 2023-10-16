@@ -1,6 +1,7 @@
 using System;
 using PawsAndClaws.Player;
 using PawsAndClaws.UI;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 namespace PawsAndClaws.Entities.Tower
@@ -41,6 +42,10 @@ namespace PawsAndClaws.Entities.Tower
             _currentHealth = maxHealth;
             var collider = GetComponent<CircleCollider2D>();
             collider.radius = range;
+
+            gameObject.layer = team == Team.Cat ?
+                LayerMask.NameToLayer("Cats") :
+                LayerMask.NameToLayer("Hamsters");
         }
 
         private void Start()
@@ -92,17 +97,27 @@ namespace PawsAndClaws.Entities.Tower
             Gizmos.DrawWireSphere(transform.position, range);
         }
 
-
-        private void OnMouseOver()
+        protected void OnMouseOver()
         {
-            if(GameManager.Instance.playerTeam != team)
+            SetMouseAttack();
+        }
+
+        protected void OnMouseExit()
+        {
+            SetMouseDefault();
+        }
+
+        public void SetMouseAttack()
+        {
+            if (GameManager.Instance.playerTeam != team)
                 PlayerInputHandler.SetCursorAttack();
         }
 
-        private void OnMouseExit()
+        public void SetMouseDefault()
         {
-            if(GameManager.Instance.playerTeam != team)
+            if (GameManager.Instance.playerTeam != team)
                 PlayerInputHandler.SetCursorDefault();
         }
+
     }
 }

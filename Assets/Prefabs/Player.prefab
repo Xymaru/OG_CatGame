@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2407099587658013307}
   - component: {fileID: 8865859096712751413}
   - component: {fileID: 7053893383272515280}
+  - component: {fileID: 7347205994733611256}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -86,6 +87,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b95a8f92364f7408722a9b96e0f5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultCursorTexture: {fileID: 0}
+  attackCursorTexture: {fileID: 0}
 --- !u!114 &2407099587658013307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +151,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7347205994733611256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6938703141436884094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617314c6dbf4ec444ac7500b180dae7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6938703141983788041
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +489,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2547559236497701976, guid: 42a4b06df7e696e4696e9089229da084,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800601800369974997, guid: 42a4b06df7e696e4696e9089229da084,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800601800369974997, guid: 42a4b06df7e696e4696e9089229da084,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
