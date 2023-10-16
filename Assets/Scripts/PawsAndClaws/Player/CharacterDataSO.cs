@@ -11,6 +11,13 @@ namespace PawsAndClaws.Player
         Hamster
     }
 
+    [System.Serializable]
+    public enum AttackType
+    {
+        Melee,
+        Ranged
+    }
+
     [CreateAssetMenu(fileName = "Character Data", menuName = "Objects/CharacterData")]
     public class CharacterDataSO : ScriptableObject
     {
@@ -29,8 +36,11 @@ namespace PawsAndClaws.Player
         public float healthRegen;
         public float healthRegenLevelMultiplier;
         
+        public AttackType attackType;
+
         public float startingDamage;
         public float damageLevelMultiplier;
+
 
         public float startingShield;
         public float shieldLevelMultiplier;

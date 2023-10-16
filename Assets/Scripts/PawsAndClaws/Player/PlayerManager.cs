@@ -15,6 +15,7 @@ namespace PawsAndClaws.Player
         
         // Character data
         public CharacterDataSO characterData;
+        public CharacterStats CharacterStats { get => _characterStats; }
         private CharacterStats _characterStats;
         private GameObject _character;
         private bool _isAlive = true;
@@ -170,6 +171,11 @@ namespace PawsAndClaws.Player
         {
             if(GameManager.Instance.playerTeam != characterData.team)
                 PlayerInputHandler.SetCursorDefault();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, _characterStats.Range);
         }
     }
 }

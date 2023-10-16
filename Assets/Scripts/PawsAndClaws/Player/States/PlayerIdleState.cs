@@ -8,14 +8,17 @@ namespace PawsAndClaws.Player
     public class PlayerIdleState : State
     {
         private PlayerStateMachine _stateMachine;
+
         public PlayerIdleState(StateMachine stateMachine, GameObject gameObject)
             : base("Player idle", stateMachine, gameObject)
         {
             _stateMachine = (PlayerStateMachine)stateMachine;
+           
         }
 
         public override void Enter()
         {
+            _stateMachine.animator.Play("Idle");
         }
 
         public override void Exit()

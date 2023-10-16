@@ -10,28 +10,29 @@ namespace PawsAndClaws.Player
     {
         public Camera playerCamera;
         public PlayerInputHandler inputHandler;
-        
-        private Vector3 _movementTarget;
-        private IGameEntity _target;
-        private NavMeshAgent _agent;
+        public Animator animator;
+
+        private Vector3 _target;
 
         public PlayerIdleState idleState;
         public PlayerMovingState movingState;
+        public PlayerAttackState attackState;
 
         private void Awake()
         {
             idleState = new PlayerIdleState(this, gameObject);
             movingState = new PlayerMovingState(this, gameObject);
-        }
+            attackState = new PlayerAttackState(this, gameObject);
 
-        private void Start()
-        {
-            _agent = GetComponent<NavMeshAgent>();
-            _agent.updateRotation = false;
-            _agent.updateUpAxis = false;
+            var agent = GetComponent<NavMeshAgent>();
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
+
+            animator = GetComponentInChildren<Animator>();
 
             inputHandler.InputManager.Gameplay.Move.performed += context => HandlePlayerMoveInput();
         }
+
 
 
         protected override State GetInitialState()
@@ -41,14 +42,21 @@ namespace PawsAndClaws.Player
 
         void HandlePlayerMoveInput()
         {
+            // Check if the player wants to attack
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit;
-            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 1000, GameManager.oppositeTeamLayer))
+            if (Physics2D.Raycast(ray.origin, ray.direction, 1000, GameManager.oppositeTeamLayer))
             {
-                _target = Utils.GameUtils.GetIfHasIGameEntity(hit.collider.gameObject);   
+                movingState.doAttack = true;
+                Debug.Log("Player requested attack");
             }
+            else
+            {
+                movingState.doAttack = false;
+            }
+            
+            _target = playerCamera.ScreenToWorldPoint(Input.mousePosition);
+            movingState.target = _target;
 
-            _movementTarget = playerCamera.ScreenToWorldPoint(Input.mousePosition);
             ChangeState(movingState);
         }
     }

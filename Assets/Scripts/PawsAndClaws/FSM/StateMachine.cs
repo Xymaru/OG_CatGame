@@ -20,8 +20,8 @@ namespace PawsAndClaws.FSM
 
         public void ChangeState(State newState)
         {
-            CurrentState.Exit();
-            Debug.Log($"Exiting {CurrentState.Name} and entering {newState.Name}");
+            CurrentState?.Exit();
+            Debug.Log($"Exiting {CurrentState?.Name} and entering {newState.Name}");
             CurrentState = newState;
             CurrentState.Enter();
         }
