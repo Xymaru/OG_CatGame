@@ -29,8 +29,6 @@ namespace PawsAndClaws.Networking
 
     public class NetworkServerSocket : NetworkSocket
     {
-        public Socket[] ConnectedSockets;
-
         public NetworkServerSocket(Socket s, IPAddress ipaddr, string ipStr) : base(s, ipaddr, ipStr)
         {
             NetCon = NetCon.Host;
@@ -48,5 +46,12 @@ namespace PawsAndClaws.Networking
         public static ProtocolType ProtocolType = ProtocolType.Tcp;
 
         public static string PublicName = "Player";
+    }
+
+    public class NPlayerData
+    {
+        public string name;
+
+        public NetworkSocket socket;
     }
 }

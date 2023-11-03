@@ -9,18 +9,17 @@ namespace PawsAndClaws.Networking
     public abstract class NetServer : MonoBehaviour
     {
         public byte[] PacketBytes { get; protected set; } = new byte[2048];
-
         
         public static Action OnPacketReceived;
         public static Action OnPacketSend;
-
-        protected NetworkServerSocket _serverSocket;
-        protected NetworkManager _networkManager;
 
         public readonly List<NetworkSocket> ConnectedClients = new();
 
         public static Action<NetworkSocket> OnConnectionAccept;
         public static Action<NetworkSocket> OnClientDisconnect;
+
+        protected NetworkServerSocket _serverSocket;
+        protected NetworkManager _networkManager;
 
         private void Awake()
         {

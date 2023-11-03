@@ -19,11 +19,9 @@ namespace PawsAndClaws.Networking
 
         private readonly object _clientMutex = new();
 
-      
-
         void Start()
         {
-            _ipsText = _networkManager.ipsText;
+            // Listen to a maximum of 10 connections
             _serverSocket.Socket.Listen(10);
 
             // Accept incoming connections job
@@ -33,21 +31,7 @@ namespace PawsAndClaws.Networking
 
         void Update()
         {
-            UpdateIPList();
-        }
-
-
-        void UpdateIPList()
-        {
-            _ipsText.text = "Connected IPs\n";
-
-            lock (_clientMutex)
-            {
-                foreach (var client in ConnectedClients)
-                {
-                    _ipsText.text += $"{client.IPAddrStr}\n";
-                }
-            }
+            
         }
 
         void AcceptJob()
@@ -65,7 +49,6 @@ namespace PawsAndClaws.Networking
             {
                 int rbytes = ReceivePacket(clientSocket);
                 Debug.Log($"Server received packet from client {clientSocket.IPAddrStr} with size {rbytes}");
-
 
                 if (rbytes == 0)
                 {
@@ -166,8 +149,11 @@ namespace PawsAndClaws.Networking
         public override int SendPacket(NetPacket packet, NetworkSocket socket)
         {
             OnPacketSend?.Invoke();
+
             PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
+
             Debug.Log($"Server sent packet to IP: {socket.IPAddr}");
+
             return socket.Socket.Send(PacketBytes);
         }
     }
