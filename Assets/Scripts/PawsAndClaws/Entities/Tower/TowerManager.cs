@@ -1,7 +1,6 @@
 using System;
 using PawsAndClaws.Player;
 using PawsAndClaws.UI;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 namespace PawsAndClaws.Entities.Tower

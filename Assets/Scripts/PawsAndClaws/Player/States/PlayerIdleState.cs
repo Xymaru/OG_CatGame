@@ -8,6 +8,7 @@ namespace PawsAndClaws.Player
     public class PlayerIdleState : State
     {
         private PlayerStateMachine _stateMachine;
+        private int _speedVar = Animator.StringToHash("Speed");
 
         public PlayerIdleState(StateMachine stateMachine, GameObject gameObject)
             : base("Player idle", stateMachine, gameObject)
@@ -18,7 +19,7 @@ namespace PawsAndClaws.Player
 
         public override void Enter()
         {
-            _stateMachine.animator.Play("Idle");
+            _stateMachine.animator.SetFloat(_speedVar, 0f);
         }
 
         public override void Exit()

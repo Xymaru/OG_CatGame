@@ -2,7 +2,6 @@ using PawsAndClaws.Entities;
 using PawsAndClaws.FSM;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,6 +19,9 @@ namespace PawsAndClaws.Player
         private SpriteRenderer _spriteRenderer;
 
         private bool _wasRight = false;
+
+        private int _speedVar = Animator.StringToHash("Speed");
+
         public PlayerMovingState(StateMachine stateMachine, GameObject gameObject) 
             : base("Player moving", stateMachine, gameObject)
         {
@@ -37,7 +39,8 @@ namespace PawsAndClaws.Player
                 _agent.stoppingDistance = _playerManager.CharacterStats.Range;
                 Debug.Log("Player moving to then attack");
             }
-            _stateMachine.animator.Play("Walk");
+
+            
         }
 
         public override void Exit()
@@ -47,6 +50,7 @@ namespace PawsAndClaws.Player
         public override void UpdateLogic()
         {
             _agent.SetDestination(target);
+            _stateMachine.animator.SetFloat(_speedVar, _agent.velocity.magnitude);
 
             if (_agent.velocity.x >= 0 && _wasRight)
             {

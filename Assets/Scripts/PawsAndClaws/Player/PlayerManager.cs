@@ -41,7 +41,9 @@ namespace PawsAndClaws.Player
         private const float BaseRespawnTime = 30f;
         private const float LevelRespawnMultiplier = 2f;
         private Coroutine _respawnCoroutine;
-       
+        
+
+        public string GetCurrentStateName() => _playerStateMachine.GetCurrentStateName();
 
         Team IGameEntity.Team
         {
@@ -75,6 +77,7 @@ namespace PawsAndClaws.Player
             _character = characterData.Spawn(transform, ref _characterStats);
 
             GameManager.Instance.playerTeam = characterData.team;
+            GameManager.Instance.playerManager = this;
 
             gameObject.layer = characterData.team == Team.Cat ?
                 LayerMask.NameToLayer("Cats") :
