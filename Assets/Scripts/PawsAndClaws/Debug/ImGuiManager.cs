@@ -24,7 +24,6 @@ namespace PawsAndClaws.Debugging
         private void Awake()
         {
             var imgui = GetComponent<DearImGui>();
-            imgui._camera = Camera.main;
         }
 
 
