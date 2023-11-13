@@ -4,6 +4,7 @@
     {
         private const int MaxLevel = 9;
 
+
         public float Health;
         public float MaxHealth;
         public float HealthRegen;
@@ -14,12 +15,15 @@
 
         public float Range;
         
+        public float TotalDamage => Damage * DamageMultiplier;
         public float Damage;
         public float DamageMultiplier;
 
+        public float TotalAttackSpeed => AttackSpeed * AttackSpeedMultiplier;
         public float AttackSpeed;
         public float AttackSpeedMultiplier;
 
+        public float TotalShield => Shield * ShieldMultiplier;
         public float Shield;
         public float ShieldMultiplier;
         

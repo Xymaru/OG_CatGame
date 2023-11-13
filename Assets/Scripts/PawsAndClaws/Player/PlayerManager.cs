@@ -56,6 +56,7 @@ namespace PawsAndClaws.Player
             get => _isAlive;
             set => _isAlive = value;
         }
+        GameObject IGameEntity.GameObject { get => gameObject; set { } }
 
         private void Awake()
         {

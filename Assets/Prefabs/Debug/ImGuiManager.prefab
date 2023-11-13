@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1464966467006869349}
   - component: {fileID: 5265623178580749058}
   - component: {fileID: 5908569591827200406}
+  - component: {fileID: 5511331300925273865}
   m_Layer: 0
   m_Name: ImGuiManager
   m_TagString: Untagged
@@ -89,6 +90,7 @@ MonoBehaviour:
   editorWindows:
   - {fileID: 5265623178580749058}
   - {fileID: 5908569591827200406}
+  - {fileID: 5511331300925273865}
 --- !u!114 &5265623178580749058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,5 +113,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71d2d3a4245d5ec45931ab9766b0dfc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5511331300925273865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608241825471310213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b9c09f866fef804d84b6f81bbe39296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

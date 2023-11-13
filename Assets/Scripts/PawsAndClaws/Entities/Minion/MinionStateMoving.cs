@@ -22,15 +22,13 @@ namespace PawsAndClaws.Entities.Minion
 
         public override void Enter()
         {
-            _agent.SetDestination(_stateMachine.CheckPoint.position);
+            var target = _stateMachine.Target == null ? _stateMachine.CheckPoint : _stateMachine.Target.GameObject.transform;
+            _agent.SetDestination(target.position);
         }
 
         public override void UpdateLogic()
         {
-            if (_stateMachine.Target is not { IsAlive: true })
-                return;
 
-            _stateMachine.ChangeState(_stateMachine.AttackState);
         }
 
         public override void Exit()
@@ -44,6 +42,7 @@ namespace PawsAndClaws.Entities.Minion
             if (gameEntity is not { IsAlive: true })
                 return;
             _stateMachine.Target = gameEntity;
+            _stateMachine.ChangeState(_stateMachine.AttackState);
         }
     }
 }

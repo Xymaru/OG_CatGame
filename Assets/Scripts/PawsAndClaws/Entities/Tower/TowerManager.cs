@@ -36,6 +36,8 @@ namespace PawsAndClaws.Entities.Tower
             set {}
         }
 
+        GameObject IGameEntity.GameObject { get => gameObject; set { } }
+
         private void Awake()
         {
             gameObject.layer = team == Team.Cat ?
@@ -117,5 +119,14 @@ namespace PawsAndClaws.Entities.Tower
                 PlayerInputHandler.SetCursorDefault();
         }
 
+        bool IGameEntity.Damage(float damage)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IGameEntity.Die()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

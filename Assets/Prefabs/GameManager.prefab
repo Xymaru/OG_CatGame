@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3363848759498535195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1067655208038026564}
+  - component: {fileID: 5578088481531275326}
+  m_Layer: 0
+  m_Name: HamsterMinionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1067655208038026564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363848759498535195}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7274002320451844081}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5578088481531275326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363848759498535195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c0525879640a9f418b4f7de1e91c867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToNextWave: 10
+  timeToStartSpawn: 1
+  timeBetweenMinionSpawn: 1
+  minionsPerWave: 3
+  spawnPoint: {fileID: 0}
+  checkPoint: {fileID: 0}
+  team: 1
+  poolSize: 10
+  minionPrefab: {fileID: 1744957741004387552, guid: dacc23fce6920de4aa2856be7fc74256,
+    type: 3}
+  minionList: []
 --- !u!1 &6843589745024058526
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +88,7 @@ Transform:
   - {fileID: 7834892592072862706}
   - {fileID: 3870969970322081419}
   - {fileID: 5408999527812838075}
+  - {fileID: 1067655208038026564}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -114,6 +170,8 @@ MonoBehaviour:
   timeBetweenMinionSpawn: 0.2
   minionsPerWave: 3
   spawnPoint: {fileID: 0}
+  checkPoint: {fileID: 0}
+  team: 0
   poolSize: 10
   minionPrefab: {fileID: 1744957741004387552, guid: dacc23fce6920de4aa2856be7fc74256,
     type: 3}

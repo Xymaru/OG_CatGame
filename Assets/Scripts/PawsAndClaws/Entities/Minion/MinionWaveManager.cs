@@ -13,6 +13,7 @@ namespace PawsAndClaws.Entities.Minion
         [SerializeField] private float timeBetweenMinionSpawn = 0.2f;
         [SerializeField] private int minionsPerWave = 3;
         [SerializeField] private Transform spawnPoint;
+        [SerializeField] private Transform checkPoint;
         [SerializeField] private Team team;
 
         private bool _canSpawn = false;
@@ -54,7 +55,6 @@ namespace PawsAndClaws.Entities.Minion
             for(int i = 0; i < minionsPerWave; i++)
             {
                 var minion = RequestMinion();
-                Debug.Log("Minion Spawned");
                 yield return new WaitForSeconds(timeBetweenMinionSpawn);
             }
             yield return new WaitForSeconds(timeToNextWave);
@@ -67,9 +67,10 @@ namespace PawsAndClaws.Entities.Minion
             {
                 var minion = Instantiate(minionPrefab, transform);
                 Utils.GameUtils.SetEntityTeam(ref minion, team);
-                minionList.Add(minion);
-                minion.SetActive(false);
                 minion.transform.position = spawnPoint.position;
+                minion.GetComponent<MinionStateMachine>().CheckPoint = checkPoint;
+                minion.SetActive(false);
+                minionList.Add(minion);
             }
         }
 

@@ -14,6 +14,8 @@ namespace PawsAndClaws.Player
 
         private Vector3 _target;
 
+        public IGameEntity enemyTarget;
+
         public PlayerIdleState idleState;
         public PlayerMovingState movingState;
         public PlayerAttackState attackState;
@@ -44,10 +46,16 @@ namespace PawsAndClaws.Player
         {
             // Check if the player wants to attack
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics2D.Raycast(ray.origin, ray.direction, 1000, GameManager.oppositeTeamLayer))
+            RaycastHit2D hit;
+            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 1000, GameManager.oppositeTeamLayer))
             {
-                movingState.doAttack = true;
                 Debug.Log("Player requested attack");
+                movingState.doAttack = true;
+                var target = Utils.GameUtils.GetIfHasIGameEntity(hit.collider.gameObject);
+                if(target is { IsAlive: true })
+                {
+                    enemyTarget = target;
+                }
             }
             else
             {

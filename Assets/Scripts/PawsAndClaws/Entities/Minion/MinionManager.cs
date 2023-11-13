@@ -3,6 +3,7 @@ using PawsAndClaws.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace PawsAndClaws.Entities.Minion
 {
@@ -16,6 +17,7 @@ namespace PawsAndClaws.Entities.Minion
         public float timeToAttack = 1f;
         public float timeBetweenAttacks = 0.5f;
         [SerializeField] private float speed = 2f;
+        public float damage = 10f;  
 
         [SerializeField] private Team team;
 
@@ -26,6 +28,8 @@ namespace PawsAndClaws.Entities.Minion
 
         Team IGameEntity.Team { get => team; set => team = value; }
         bool IGameEntity.IsAlive { get => _isAlive; set { } }
+
+        GameObject IGameEntity.GameObject { get => gameObject; set { } }
 
         private void Awake()
         {
@@ -40,6 +44,12 @@ namespace PawsAndClaws.Entities.Minion
             collider.radius = range;
             _currentHealth = maxHealth;
             healthBar.UpdateBar(_currentHealth, maxHealth);
+
+            var agent = GetComponent<NavMeshAgent>();
+            agent.stoppingDistance = range - 0.5f;
+            agent.speed = speed;
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
         }
 
         public void Die()
