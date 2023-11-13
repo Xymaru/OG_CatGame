@@ -4,7 +4,7 @@ namespace PawsAndClaws.Entities
 {
     public interface IGameEntity
     {
-        public Team Team { get; protected set; }
+        public Team Team { get; set; }
         public bool IsAlive { get; protected set; }
         
         // Returns true if the entity died

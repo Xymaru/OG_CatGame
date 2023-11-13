@@ -14,9 +14,8 @@ namespace PawsAndClaws.Entities.Tower
         {
             SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
             
-            var go = gameObject;
-            IdleState = new TowerStateIdle(this, go);
-            AttackState = new TowerStateAttack(this, go);
+            IdleState = new TowerStateIdle(this, gameObject);
+            AttackState = new TowerStateAttack(this, gameObject);
         }
 
         protected override State GetInitialState()

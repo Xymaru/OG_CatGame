@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 7834892592072862706}
   - {fileID: 3870969970322081419}
+  - {fileID: 5408999527812838075}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   matchTime: 0
   playerTeam: 0
+  playerManager: {fileID: 0}
 --- !u!114 &824559727522552101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +65,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imguiRenderer: {fileID: 5677259998135349009}
   debugConsole: {fileID: 3870969970302396531}
+--- !u!1 &8871129731264691912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5408999527812838075}
+  - component: {fileID: 1091055981700614745}
+  m_Layer: 0
+  m_Name: CatMinionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5408999527812838075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8871129731264691912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7274002320451844081}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1091055981700614745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8871129731264691912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c0525879640a9f418b4f7de1e91c867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToNextWave: 30
+  timeToStartSpawn: 180
+  timeBetweenMinionSpawn: 0.2
+  minionsPerWave: 3
+  spawnPoint: {fileID: 0}
+  poolSize: 10
+  minionPrefab: {fileID: 1744957741004387552, guid: dacc23fce6920de4aa2856be7fc74256,
+    type: 3}
+  minionList: []
 --- !u!1001 &3870969970302528971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77,11 +132,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11414302, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_Size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11414302, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22400762, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -93,6 +148,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22426080, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22426080, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22428984, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}

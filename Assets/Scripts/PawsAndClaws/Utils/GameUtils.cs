@@ -1,4 +1,5 @@
 using PawsAndClaws.Entities;
+using PawsAndClaws.Player;
 using UnityEngine;
 
 namespace PawsAndClaws.Utils
@@ -14,6 +15,20 @@ namespace PawsAndClaws.Utils
         {
             var gameEntity = gameObject.GetComponent<IGameEntity>();
             return gameEntity;
+        }
+
+        /// <summary>
+        /// Checks if the game object implements IGameEntity and changes the team
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <param name="team"></param>
+        public static void SetEntityTeam(ref GameObject gameObject, Team team)
+        {
+            var gameEntity = GetIfHasIGameEntity(gameObject);
+            if(gameEntity != null) 
+            {
+                gameEntity.Team = team;
+            }
         }
         
         /// <summary>

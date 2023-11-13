@@ -1,46 +1,37 @@
-using System;
 using PawsAndClaws.Player;
 using PawsAndClaws.UI;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace PawsAndClaws.Entities.Tower
+namespace PawsAndClaws.Entities.Minion
 {
     [RequireComponent(typeof(CircleCollider2D))]
-    public class TowerManager : MonoBehaviour, IGameEntity
+    public class MinionManager : MonoBehaviour, IGameEntity
     {
-        [Header("Tower stats")]
-        [SerializeField] private float range = 10f;
-        [SerializeField] private float maxHealth = 1000f;
-        [SerializeField] private float damage = 10f;
-        [SerializeField] private float damageMultiplier = 1.4f;
+        [Header("Stats")]
+        [SerializeField] private float maxHealth;
+        private float _currentHealth;
+        [SerializeField] private float range;
+        public float timeToAttack = 1f;
+        public float timeBetweenAttacks = 0.5f;
+        [SerializeField] private float speed = 2f;
+
         [SerializeField] private Team team;
 
         [Header("References")]
         [SerializeField] private InGameHealthBarUI healthBar;
 
-        private float _currentHealth;
-        public float timeToAttack = 1f;
-        public float timeBetweenAttacks = 0.5f;
-        public int timesAttacked = 0;
         private bool _isAlive;
 
-        Team IGameEntity.Team
-        {
-            get => team;
-            set { }
-        }
-
-        bool IGameEntity.IsAlive
-        {
-            get => _isAlive;
-            set {}
-        }
+        Team IGameEntity.Team { get => team; set => team = value; }
+        bool IGameEntity.IsAlive { get => _isAlive; set { } }
 
         private void Awake()
         {
             gameObject.layer = team == Team.Cat ?
-                LayerMask.NameToLayer("Cats") :
-                LayerMask.NameToLayer("Hamsters");
+               LayerMask.NameToLayer("Cats") :
+               LayerMask.NameToLayer("Hamsters");
         }
 
         private void Start()
@@ -51,22 +42,11 @@ namespace PawsAndClaws.Entities.Tower
             healthBar.UpdateBar(_currentHealth, maxHealth);
         }
 
-        public void Attack(IGameEntity target)
+        public void Die()
         {
-            if (target == null)
-                return;
-            timesAttacked++;
-            var totalDamage = damage + (timesAttacked * damageMultiplier);
-            
-            if (target.Damage(totalDamage))
-                target = null;
+
         }
 
-        public void ResetTimers()
-        {
-            timesAttacked = 0;
-        }
-        
         public bool Damage(float incomingDamage)
         {
             _currentHealth -= incomingDamage;
@@ -80,20 +60,8 @@ namespace PawsAndClaws.Entities.Tower
             return false;
         }
 
-        public void Die()
-        {
-            
-        }
+        
 
-        public float GetTimeToAttack()
-        {
-            return timesAttacked > 0 ? timeBetweenAttacks : timeToAttack;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawWireSphere(transform.position, range);
-        }
 
         protected void OnMouseOver()
         {
@@ -116,6 +84,5 @@ namespace PawsAndClaws.Entities.Tower
             if (GameManager.Instance.playerTeam != team)
                 PlayerInputHandler.SetCursorDefault();
         }
-
     }
 }
