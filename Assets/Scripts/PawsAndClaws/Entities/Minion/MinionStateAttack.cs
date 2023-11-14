@@ -11,7 +11,7 @@ namespace PawsAndClaws.Entities.Minion
     {
         private readonly MinionStateMachine _stateMachine;
         private readonly NavMeshAgent _agent;
-        private readonly MinionManager _minionManager;
+        private readonly MinionController _minionManager;
 
         private Coroutine _attackCoroutine;
         public MinionStateAttack(StateMachine stateMachine, GameObject gameObject)
@@ -19,7 +19,7 @@ namespace PawsAndClaws.Entities.Minion
         {
             _stateMachine = (MinionStateMachine)stateMachine;
             _agent = gameObject.GetComponent<NavMeshAgent>();
-            _minionManager = gameObject.GetComponent<MinionManager>();
+            _minionManager = gameObject.GetComponent<MinionController>();
         }
 
         public override void Enter()
@@ -34,7 +34,10 @@ namespace PawsAndClaws.Entities.Minion
 
         public override void Exit()
         {
-            _stateMachine.StopCoroutine(_attackCoroutine);
+            if (_attackCoroutine != null)
+            {
+                _stateMachine.StopCoroutine(_attackCoroutine);
+            }
             _attackCoroutine = null;
         }
 

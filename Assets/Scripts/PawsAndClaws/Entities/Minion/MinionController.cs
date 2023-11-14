@@ -1,14 +1,16 @@
+using System;
 using PawsAndClaws.Player;
 using PawsAndClaws.UI;
 using System.Collections;
 using System.Collections.Generic;
+using PawsAndClaws.Game;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace PawsAndClaws.Entities.Minion
 {
     [RequireComponent(typeof(CircleCollider2D))]
-    public class MinionManager : MonoBehaviour, IGameEntity
+    public class MinionController : MonoBehaviour, IGameEntity
     {
         [Header("Stats")]
         [SerializeField] private float maxHealth;
@@ -23,38 +25,46 @@ namespace PawsAndClaws.Entities.Minion
 
         [Header("References")]
         [SerializeField] private InGameHealthBarUI healthBar;
-
+        
         private bool _isAlive;
-
         Team IGameEntity.Team { get => team; set => team = value; }
-        bool IGameEntity.IsAlive { get => _isAlive; set { } }
-
+        public bool IsAlive { get => _isAlive; set => _isAlive = value; }
         GameObject IGameEntity.GameObject { get => gameObject; set { } }
 
         private void Awake()
         {
             gameObject.layer = team == Team.Cat ?
-               LayerMask.NameToLayer("Cats") :
-               LayerMask.NameToLayer("Hamsters");
+                GameConstants.CatLayerMask:
+                GameConstants.HamsterLayerMask;
         }
 
-        private void Start()
+        public void Start()
         {
-            var collider = GetComponent<CircleCollider2D>();
-            collider.radius = range;
-            _currentHealth = maxHealth;
-            healthBar.UpdateBar(_currentHealth, maxHealth);
+            var circleCollider2D = GetComponent<CircleCollider2D>();
+            circleCollider2D.radius = range;
 
             var agent = GetComponent<NavMeshAgent>();
             agent.stoppingDistance = range - 0.5f;
             agent.speed = speed;
             agent.updateRotation = false;
             agent.updateUpAxis = false;
+            
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            _currentHealth = maxHealth;
+            healthBar.UpdateBar(_currentHealth, maxHealth);
+
+            var stateMachine = GetComponent<MinionStateMachine>();
+            stateMachine.Start();
         }
 
         public void Die()
         {
-
+            _isAlive = false;
+            gameObject.SetActive(false);
         }
 
         public bool Damage(float incomingDamage)
@@ -83,13 +93,13 @@ namespace PawsAndClaws.Entities.Minion
             SetMouseDefault();
         }
 
-        public void SetMouseAttack()
+        private void SetMouseAttack()
         {
             if (GameManager.Instance.playerTeam != team)
                 PlayerInputHandler.SetCursorAttack();
         }
 
-        public void SetMouseDefault()
+        private void SetMouseDefault()
         {
             if (GameManager.Instance.playerTeam != team)
                 PlayerInputHandler.SetCursorDefault();

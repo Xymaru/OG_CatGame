@@ -2,6 +2,7 @@ using PawsAndClaws.UI;
 using System;
 using System.Collections;
 using PawsAndClaws.Entities;
+using PawsAndClaws.Game;
 using UnityEngine;
 
 namespace PawsAndClaws.Player
@@ -78,11 +79,10 @@ namespace PawsAndClaws.Player
             _character = characterData.Spawn(transform, ref _characterStats);
 
             GameManager.Instance.playerTeam = characterData.team;
-            GameManager.Instance.playerManager = this;
 
             gameObject.layer = characterData.team == Team.Cat ?
-                LayerMask.NameToLayer("Cats") :
-                LayerMask.NameToLayer("Hamsters");
+                GameConstants.CatLayerMask:
+                GameConstants.HamsterLayerMask;
         }
 
         private void Start()

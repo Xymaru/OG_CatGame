@@ -8,18 +8,18 @@ namespace PawsAndClaws.Entities.Tower
     public class TowerStateAttack : State
     {
         private readonly TowerStateMachine _stateMachine;
-        private readonly TowerManager _towerManager;
+        private readonly TowerController _towerController;
         private Coroutine _attackCoroutine = null;
         public TowerStateAttack(StateMachine stateMachine, GameObject gameObject)
             : base("Tower Attack", stateMachine, gameObject)
         {
             _stateMachine = (TowerStateMachine)stateMachine;
-            _towerManager = gameObject.GetComponent<TowerManager>();
+            _towerController = gameObject.GetComponent<TowerController>();
         }
 
         public override void Enter()
         {
-            _stateMachine.SpriteRenderer.color = Color.red;
+            _stateMachine.spriteRenderer.color = Color.red;
         }
 
         public override void UpdateLogic()
@@ -35,14 +35,14 @@ namespace PawsAndClaws.Entities.Tower
 
         private IEnumerator AttackCoroutine()
         {
-            yield return new WaitForSeconds(_towerManager.GetTimeToAttack());
-            _towerManager.Attack(_stateMachine.Target);
+            yield return new WaitForSeconds(_towerController.GetTimeToAttack());
+            _towerController.Attack(_stateMachine.Target);
             _attackCoroutine = null;
         }
         
         public override void Exit()
         {
-            _towerManager.ResetTimers();
+            _towerController.ResetTimers();
             if (_attackCoroutine != null)
             {
                 _stateMachine.StopCoroutine(_attackCoroutine);

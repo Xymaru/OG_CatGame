@@ -29,7 +29,7 @@ namespace PawsAndClaws.Player
         }
         private IEnumerator AttackCoroutine()
         {
-            _stateMachine.animator.Play("AutoAttack");
+            _stateMachine.animator.Play(GameConstants.AutoAttackAnim);
             yield return new WaitForSeconds(1 / _playerManager.CharacterStats.TotalAttackSpeed);
             Debug.Log("Attacking");
             _stateMachine.enemyTarget.Damage(_playerManager.CharacterStats.TotalDamage);

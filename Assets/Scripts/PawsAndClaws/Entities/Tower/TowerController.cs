@@ -1,4 +1,5 @@
 using System;
+using PawsAndClaws.Game;
 using PawsAndClaws.Player;
 using PawsAndClaws.UI;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace PawsAndClaws.Entities.Tower
 {
     [RequireComponent(typeof(CircleCollider2D))]
-    public class TowerManager : MonoBehaviour, IGameEntity
+    public class TowerController : MonoBehaviour, IGameEntity
     {
         [Header("Tower stats")]
         [SerializeField] private float range = 10f;
@@ -41,8 +42,8 @@ namespace PawsAndClaws.Entities.Tower
         private void Awake()
         {
             gameObject.layer = team == Team.Cat ?
-                LayerMask.NameToLayer("Cats") :
-                LayerMask.NameToLayer("Hamsters");
+                GameConstants.CatLayerMask:
+                GameConstants.HamsterLayerMask;
         }
 
         private void Start()
@@ -107,13 +108,13 @@ namespace PawsAndClaws.Entities.Tower
             SetMouseDefault();
         }
 
-        public void SetMouseAttack()
+        private void SetMouseAttack()
         {
             if (GameManager.Instance.playerTeam != team)
                 PlayerInputHandler.SetCursorAttack();
         }
 
-        public void SetMouseDefault()
+        private void SetMouseDefault()
         {
             if (GameManager.Instance.playerTeam != team)
                 PlayerInputHandler.SetCursorDefault();
@@ -121,12 +122,11 @@ namespace PawsAndClaws.Entities.Tower
 
         bool IGameEntity.Damage(float damage)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         void IGameEntity.Die()
         {
-            throw new NotImplementedException();
         }
     }
 }

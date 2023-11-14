@@ -20,6 +20,7 @@ namespace PawsAndClaws.Player
         public PlayerMovingState movingState;
         public PlayerAttackState attackState;
 
+        private LayerMask _oppositeTeam;
         private void Awake()
         {
             idleState = new PlayerIdleState(this, gameObject);
@@ -32,7 +33,9 @@ namespace PawsAndClaws.Player
 
             animator = GetComponentInChildren<Animator>();
 
-            inputHandler.InputManager.Gameplay.Move.performed += context => HandlePlayerMoveInput();
+            inputHandler.InputManager.Gameplay.Move.performed += c => HandlePlayerMoveInput();
+            
+            _oppositeTeam = Utils.GameUtils.GetOppositeLayer(gameObject);
         }
 
 
@@ -45,9 +48,9 @@ namespace PawsAndClaws.Player
         void HandlePlayerMoveInput()
         {
             // Check if the player wants to attack
-            Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit;
-            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 1000, GameManager.oppositeTeamLayer))
+            var ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+            var hit = Physics2D.Raycast(ray.origin, ray.direction, 1000, _oppositeTeam);
+            if (hit.collider != null)
             {
                 Debug.Log("Player requested attack");
                 movingState.doAttack = true;

@@ -63,12 +63,14 @@ namespace PawsAndClaws.Entities.Minion
 
         private void AddMinionToPool(int amount)
         {
-            for(int i = 0; i < amount; i++) 
+            for(var i = 0; i < amount; i++) 
             {
                 var minion = Instantiate(minionPrefab, transform);
                 Utils.GameUtils.SetEntityTeam(ref minion, team);
                 minion.transform.position = spawnPoint.position;
                 minion.GetComponent<MinionStateMachine>().CheckPoint = checkPoint;
+                var minionMan = minion.GetComponent<MinionController>();
+                minionMan.IsAlive = false;
                 minion.SetActive(false);
                 minionList.Add(minion);
             }
@@ -81,6 +83,10 @@ namespace PawsAndClaws.Entities.Minion
                 if(!minion.activeSelf)
                 {
                     minion.SetActive(true);
+                    var man = minion.GetComponent<MinionController>();
+                    man.IsAlive = true;
+                    man.Initialize();
+                    minion.transform.position = spawnPoint.position;
                     return minion;
                 }
             }

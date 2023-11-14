@@ -7,7 +7,7 @@ namespace PawsAndClaws.FSM
     public class StateMachine : MonoBehaviour
     {
         protected State CurrentState;
-        private void Start()
+        public void Start()
         {
             CurrentState = GetInitialState();
             CurrentState?.Enter();
@@ -34,5 +34,6 @@ namespace PawsAndClaws.FSM
         protected void OnTriggerEnter2D(Collider2D other) => CurrentState?.OnTriggerEnter2D(other);
         protected void OnTriggerExit2D(Collider2D other) => CurrentState?.OnTriggerExit2D(other);
 
+        protected void OnTriggerStay2D(Collider2D other) => CurrentState?.OnTriggerStay2D(other);
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using PawsAndClaws.FSM;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PawsAndClaws.Entities.Tower
 {
@@ -9,10 +10,10 @@ namespace PawsAndClaws.Entities.Tower
         public TowerStateIdle IdleState;
         public TowerStateAttack AttackState;
         public IGameEntity Target = null;
-        public SpriteRenderer SpriteRenderer;
+        public SpriteRenderer spriteRenderer;
         private void Awake()
         {
-            SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             
             IdleState = new TowerStateIdle(this, gameObject);
             AttackState = new TowerStateAttack(this, gameObject);

@@ -48,6 +48,20 @@ namespace PawsAndClaws.Utils
             
             return goInterface.Team != otherInterface.Team ? otherInterface : null;
         }
+
+        public static LayerMask GetOppositeLayer(GameObject gameObject)
+        {
+            if (gameObject.layer == GameConstants.CatLayerMask)
+            {
+                return GameConstants.HamsterLayerMask;
+            }
+            else if (gameObject.layer == GameConstants.HamsterLayerMask)
+            {
+                return GameConstants.CatLayerMask;
+            }
+
+            return LayerMask.GetMask();
+        }
     }
    
 }

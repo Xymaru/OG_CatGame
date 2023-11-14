@@ -5,11 +5,11 @@ namespace PawsAndClaws.FSM
 {
     public abstract class State
     {
-        public string Name;
-        protected StateMachine StateMachine;
-        protected GameObject GameObject;
+        public readonly string Name;
+        protected readonly StateMachine StateMachine;
+        protected readonly GameObject GameObject;
 
-        public State(string name, StateMachine stateMachine, GameObject gameObject)
+        protected State(string name, StateMachine stateMachine, GameObject gameObject)
         {
             this.Name = name;
             StateMachine = stateMachine;
@@ -24,6 +24,10 @@ namespace PawsAndClaws.FSM
         {
         }
 
+        public virtual void OnTriggerStay2D(Collider2D other)
+        {
+            
+        }
         public virtual void OnTriggerExit2D(Collider2D other)
         {
         }

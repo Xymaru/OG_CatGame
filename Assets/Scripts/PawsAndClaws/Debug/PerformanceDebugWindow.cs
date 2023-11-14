@@ -9,7 +9,7 @@ namespace PawsAndClaws.Debugging
     public class PerformanceDebugWindow : DebugWindow
     {
 
-        private List<float> _fpsCounter = new List<float>();
+        private readonly List<float> _fpsCounter = new();
         private void Update()
         {
             _fpsCounter.Add(Time.deltaTime * 1000);
@@ -22,9 +22,12 @@ namespace PawsAndClaws.Debugging
 
         public override void OnImGuiRenderer()
         {
-            ImGui.Begin("Perfomance");
-
-            ImGui.PlotHistogram("FPS", ref _fpsCounter.ToArray()[0], _fpsCounter.Count);
+            ImGui.Begin("Performance");
+            
+            if (_fpsCounter.Count > 0)
+            {
+                ImGui.PlotHistogram("FPS", ref _fpsCounter.ToArray()[0], _fpsCounter.Count);
+            }
             ImGui.Text($"FPS: {Time.deltaTime * 1000}ms");
 
             ImGui.End();

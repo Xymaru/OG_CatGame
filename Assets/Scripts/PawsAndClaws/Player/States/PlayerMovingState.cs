@@ -20,8 +20,6 @@ namespace PawsAndClaws.Player
 
         private bool _wasRight = false;
 
-        private int _speedVar = Animator.StringToHash("Speed");
-
         public PlayerMovingState(StateMachine stateMachine, GameObject gameObject) 
             : base("Player moving", stateMachine, gameObject)
         {
@@ -50,15 +48,14 @@ namespace PawsAndClaws.Player
         public override void UpdateLogic()
         {
             _agent.SetDestination(target);
-            _stateMachine.animator.SetFloat(_speedVar, _agent.velocity.magnitude);
+            _stateMachine.animator.SetFloat(GameConstants.SpeedAnim, _agent.velocity.magnitude);
 
-            if (_agent.velocity.x >= 0 && _wasRight)
+            switch (_agent.velocity.x)
             {
-                FlipX();
-            }
-            else if (_agent.velocity.x < 0 && !_wasRight)
-            {
-                FlipX();
+                case >= 0 when _wasRight:
+                case < 0 when !_wasRight:
+                    FlipX();
+                    break;
             }
 
             if (Vector3.Distance(GameObject.transform.position, target) < 0.5f)
