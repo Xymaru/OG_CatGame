@@ -32,12 +32,21 @@ namespace PawsAndClaws.Entities.Tower
 
         public override void OnTriggerEnter2D(Collider2D other)
         {
+            CheckIfCanAttack(other);
+        }
+
+        public override void OnTriggerStay2D(Collider2D other)
+        {
+            CheckIfCanAttack(other);
+        }
+
+        private void CheckIfCanAttack(Collider2D other)
+        {
             // Check if the collision object is eligible
             var gameEntity = GameUtils.GetIfIsEntityFromOtherTeam(GameObject, other.gameObject);
             if (gameEntity is not { IsAlive: true })
                 return;
             _stateMachine.Target = gameEntity;
         }
-        
     }
 }

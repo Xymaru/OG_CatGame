@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using PawsAndClaws.Game;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace PawsAndClaws.Entities.Minion
 {
@@ -15,7 +16,8 @@ namespace PawsAndClaws.Entities.Minion
         [Header("Stats")]
         [SerializeField] private float maxHealth;
         private float _currentHealth;
-        [SerializeField] private float range;
+        [SerializeField] private float visionRange;
+        [SerializeField] private float attackRange;
         public float timeToAttack = 1f;
         public float timeBetweenAttacks = 0.5f;
         [SerializeField] private float speed = 2f;
@@ -41,10 +43,10 @@ namespace PawsAndClaws.Entities.Minion
         public void Start()
         {
             var circleCollider2D = GetComponent<CircleCollider2D>();
-            circleCollider2D.radius = range;
+            circleCollider2D.radius = visionRange;
 
             var agent = GetComponent<NavMeshAgent>();
-            agent.stoppingDistance = range - 0.5f;
+            agent.stoppingDistance = visionRange - 0.5f;
             agent.speed = speed;
             agent.updateRotation = false;
             agent.updateUpAxis = false;

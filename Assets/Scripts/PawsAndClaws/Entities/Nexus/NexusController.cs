@@ -1,3 +1,4 @@
+using System;
 using PawsAndClaws.Player;
 using PawsAndClaws.UI;
 using UnityEngine;
@@ -16,6 +17,12 @@ namespace PawsAndClaws.Entities.Nexus
         private float _currentHealth;
         
         private bool _isAlive = true;
+
+        private void Start()
+        {
+            _currentHealth = maxHealth;
+            healthBar.UpdateBar(_currentHealth, maxHealth);
+        }
 
         public bool Damage(float incomingDamage)
         {

@@ -10,6 +10,8 @@ namespace PawsAndClaws.Debugging
     {
 
         private readonly List<float> _fpsCounter = new();
+        private bool _limitFPS = false;
+        private float _fpsLimit = 144f;
         private void Update()
         {
             _fpsCounter.Add(Time.deltaTime * 1000);
@@ -30,6 +32,19 @@ namespace PawsAndClaws.Debugging
             }
             ImGui.Text($"FPS: {Time.deltaTime * 1000}ms");
 
+            if (ImGui.Checkbox("Limit FPS", ref _limitFPS))
+            {
+                if (!_limitFPS)
+                {
+                    Application.targetFrameRate = 0;
+                }
+            }
+            if (ImGui.DragFloat("FPS limit", ref _fpsLimit))
+            {
+                _limitFPS = true;
+                Application.targetFrameRate = (int)_fpsLimit;
+            }
+            
             ImGui.End();
         }
     }
