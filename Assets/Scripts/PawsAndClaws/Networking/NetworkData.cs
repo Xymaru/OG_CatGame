@@ -51,7 +51,6 @@ namespace PawsAndClaws.Networking
     public class NPlayerData
     {
         public string name;
-
         public NetworkSocket socket;
     }
 }

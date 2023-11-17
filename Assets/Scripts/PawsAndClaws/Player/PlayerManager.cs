@@ -13,11 +13,10 @@ namespace PawsAndClaws.Player
         // Player object references
         [SerializeField] private GameObject playerCamera;
         [SerializeField] private PlayerInputHandler inputHandler;
-        
+
         // Character data
         public CharacterDataSO characterData;
-        public CharacterStats CharacterStats { get => _characterStats; }
-        private CharacterStats _characterStats;
+        public CharacterStats CharacterStats;
         private GameObject _character;
         private bool _isAlive = true;
         
@@ -37,6 +36,7 @@ namespace PawsAndClaws.Player
         public Action<float> onPlayerDied;
         public Action onPlayerSpawn;
         public Action<CharacterStats> onStatsChanged;
+        public Action onAutoAttack;
     
         // Respawn variables
         private const float BaseRespawnTime = 30f;
@@ -46,18 +46,12 @@ namespace PawsAndClaws.Player
 
         public string GetCurrentStateName() => _playerStateMachine.GetCurrentStateName();
 
-        Team IGameEntity.Team
-        {
-            get => characterData.team;
-            set { }
-        }
-
-        bool IGameEntity.IsAlive
-        {
-            get => _isAlive;
-            set => _isAlive = value;
-        }
+        #region IGameEntity
+        Team IGameEntity.Team {get => characterData.team; set { } }
+        bool IGameEntity.IsAlive { get => _isAlive; set => _isAlive = value; }
         GameObject IGameEntity.GameObject { get => gameObject; set { } }
+        #endregion
+
 
         private void Awake()
         {
@@ -76,7 +70,7 @@ namespace PawsAndClaws.Player
 
 
             // Spawn the character
-            _character = characterData.Spawn(transform, ref _characterStats);
+            _character = characterData.Spawn(transform, ref CharacterStats);
 
             GameManager.Instance.playerTeam = characterData.team;
 
@@ -93,39 +87,42 @@ namespace PawsAndClaws.Player
 
         private void NotifyUIStats()
         {
-            _healthBar.UpdateBar(_characterStats.Health, _characterStats.MaxHealth);   
-            onHealthChange?.Invoke(_characterStats.Health, _characterStats.MaxHealth);
-            onHealthRegenChange?.Invoke(_characterStats.HealthRegen);
-            onManaChange?.Invoke(_characterStats.Mana, _characterStats.MaxMana);
-            onManaRegenChange?.Invoke(_characterStats.ManaRegen);
-            onExpChange?.Invoke(_characterStats.Experience, _characterStats.ExpToNextLevel);
-            onLevelUp?.Invoke(_characterStats.Level);
-            onStatsChanged?.Invoke(_characterStats);
+            _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);   
+            onHealthChange?.Invoke(CharacterStats.Health, CharacterStats.MaxHealth);
+            onHealthRegenChange?.Invoke(CharacterStats.HealthRegen);
+            onManaChange?.Invoke(CharacterStats.Mana, CharacterStats.MaxMana);
+            onManaRegenChange?.Invoke(CharacterStats.ManaRegen);
+            onExpChange?.Invoke(CharacterStats.Experience, CharacterStats.ExpToNextLevel);
+            onLevelUp?.Invoke(CharacterStats.Level);
+            onStatsChanged?.Invoke(CharacterStats);
         }
 
-        
+        public void Attack(IGameEntity enemy)
+        {
+            onAutoAttack?.Invoke();
+        }
     
         public bool Damage(float damage)
         {
-            var finalDamage =  Mathf.Max(1f, damage - _characterStats.Shield);
-            _characterStats.Health -= finalDamage;
-            if (_characterStats.Health <= 0)
+            var finalDamage =  Mathf.Max(1f, damage - CharacterStats.Shield);
+            CharacterStats.Health -= finalDamage;
+            if (CharacterStats.Health <= 0)
             {
-                _characterStats.Health = 0;
+                CharacterStats.Health = 0;
                 Die();
                 UpdateHealthUI();
                 return true;
             }
             
             UpdateHealthUI();
-            Debug.Log($"Damaging player manager with {finalDamage} damage, {_characterStats.Health} health remaining");
+            Debug.Log($"Damaging player manager with {finalDamage} damage, {CharacterStats.Health} health remaining");
             return false;
         }
 
         private void UpdateHealthUI()
         {
-            _healthBar.UpdateBar(_characterStats.Health, _characterStats.MaxHealth);
-            onHealthChange?.Invoke(_characterStats.Health, _characterStats.MaxHealth);
+            _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);
+            onHealthChange?.Invoke(CharacterStats.Health, CharacterStats.MaxHealth);
         }
 
         public void Die()
@@ -145,7 +142,7 @@ namespace PawsAndClaws.Player
             _healthBar.gameObject.SetActive(false);
             _healthBar.StopAllCoroutines();
             
-            float timeToSpawn = BaseRespawnTime + (_characterStats.Level - 1) * LevelRespawnMultiplier;
+            float timeToSpawn = BaseRespawnTime + (CharacterStats.Level - 1) * LevelRespawnMultiplier;
             Debug.Log($"Player respawn in {timeToSpawn} seconds");
             onPlayerDied?.Invoke(timeToSpawn);
             
@@ -158,13 +155,15 @@ namespace PawsAndClaws.Player
             // TODO: Set the screen to normal
             
             _character = characterData.Respawn(transform);
-            _characterStats.Health = _characterStats.MaxHealth;
+            CharacterStats.Health = CharacterStats.MaxHealth;
             NotifyUIStats();
             onPlayerSpawn?.Invoke();
             _isAlive = true;
+            _respawnCoroutine = null;
         }
-        
-        
+
+        #region Gizmos
+
         private void OnMouseOver()
         {
             if(GameManager.Instance.playerTeam != characterData.team)
@@ -176,10 +175,11 @@ namespace PawsAndClaws.Player
             if(GameManager.Instance.playerTeam != characterData.team)
                 PlayerInputHandler.SetCursorDefault();
         }
+        #endregion
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position, _characterStats.Range);
+            Gizmos.DrawWireSphere(transform.position, CharacterStats.Range);
         }
     }
 }

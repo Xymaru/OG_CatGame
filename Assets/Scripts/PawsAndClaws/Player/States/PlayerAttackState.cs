@@ -31,8 +31,9 @@ namespace PawsAndClaws.Player
         {
             _stateMachine.animator.Play(GameConstants.AutoAttackAnim);
             yield return new WaitForSeconds(1 / _playerManager.CharacterStats.TotalAttackSpeed);
-            Debug.Log("Attacking");
-            _stateMachine.enemyTarget.Damage(_playerManager.CharacterStats.TotalDamage);
+
+            _playerManager.Attack(_stateMachine.enemyTarget);
+
             _attackCoroutine = null;
         }
         public override void Exit()

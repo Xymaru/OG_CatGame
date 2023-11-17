@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToNextWave: 10
-  timeToStartSpawn: 20
+  timeToStartSpawn: 5
   timeBetweenMinionSpawn: 0.5
   minionsPerWave: 3
   spawnPoint: {fileID: 0}
@@ -175,9 +175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c0525879640a9f418b4f7de1e91c867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToNextWave: 30
-  timeToStartSpawn: 180
-  timeBetweenMinionSpawn: 0.2
+  timeToNextWave: 10
+  timeToStartSpawn: 5
+  timeBetweenMinionSpawn: 0.5
   minionsPerWave: 3
   spawnPoint: {fileID: 0}
   checkPoint: {fileID: 0}

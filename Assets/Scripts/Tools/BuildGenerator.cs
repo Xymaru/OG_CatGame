@@ -9,11 +9,18 @@ namespace ZaroDev.Tools
 {
     public class BuildGenerator
     {
+        private static BuildOptionsSO buildOptions = Resources.Load<BuildOptionsSO>("Scripts/Tools/BuildOptions");
+
         static string GetProjectName(bool isRelease = false)
         {
             var buildType = isRelease ? "Release" : "Debug";
-            return $"Builds/PawsAndClaws-{buildType}-{Application.version}.exe";
+            return $"{buildOptions.BuildName}-{buildType}-{Application.version}.exe";
         }
+        static string GetProjectFullPath(bool isRelease = false)
+        {
+            return $"{buildOptions.BuildPath}/{GetProjectName(isRelease)}";
+        }
+
         static BuildPlayerOptions GetCurrentBuildOptions(BuildPlayerOptions defaultOptions = new BuildPlayerOptions())
         {
             return BuildPlayerWindow.DefaultBuildMethods.GetBuildPlayerOptions(defaultOptions);
@@ -23,7 +30,7 @@ namespace ZaroDev.Tools
         public static void BuildDevtools()
         {
             BuildPlayerOptions buildPlayerOptions = GetCurrentBuildOptions();
-            buildPlayerOptions.locationPathName = GetProjectName();
+            buildPlayerOptions.locationPathName = GetProjectFullPath();
             buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
             buildPlayerOptions.options = BuildOptions.Development;
 
@@ -45,7 +52,7 @@ namespace ZaroDev.Tools
         public static void BuildRelease()
         {
             BuildPlayerOptions buildPlayerOptions = GetCurrentBuildOptions();
-            buildPlayerOptions.locationPathName = GetProjectName();
+            buildPlayerOptions.locationPathName = GetProjectFullPath();
             buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
 
             BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
