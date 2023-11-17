@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 115471407}
   m_Layer: 0
   m_Name: =========== CAT =============
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1430,7 +1430,7 @@ PrefabInstance:
     - target: {fileID: 3870969970322301745, guid: c574c0b801acbfb438bd0cefec53e19b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 3937301850040770131, guid: c574c0b801acbfb438bd0cefec53e19b,
         type: 3}
@@ -1629,7 +1629,7 @@ GameObject:
   - component: {fileID: 577118018}
   m_Layer: 0
   m_Name: ======= HAMSTER =============
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1753,6 +1753,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6482930583325328506, guid: 9d17a2764e9dc2b49b7c42c0b42d0595,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1824,7 +1829,7 @@ GameObject:
   - component: {fileID: 923862748}
   m_Layer: 0
   m_Name: ======== MAP ================
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1886,7 +1891,7 @@ GameObject:
   - component: {fileID: 1131734809}
   m_Layer: 0
   m_Name: ======== GAME ===============
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
