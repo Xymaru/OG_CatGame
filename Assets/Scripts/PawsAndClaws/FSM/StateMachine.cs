@@ -20,6 +20,9 @@ namespace PawsAndClaws.FSM
 
         public void ChangeState(State newState)
         {
+            if(CurrentState == newState)
+                return;
+
             CurrentState?.Exit();
             Debug.Log($"Exiting {CurrentState?.Name} and entering {newState.Name}");
             CurrentState = newState;

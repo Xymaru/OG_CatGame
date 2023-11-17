@@ -8,41 +8,54 @@ namespace PawsAndClaws.UI
 {
     public class InGameHealthBarUI : MonoBehaviour
     {
-        [SerializeField] private Slider healthSlider;
-        [SerializeField] private Slider easeSlider;
-        [SerializeField] private float waitTimeToFill = 1f;
-        [SerializeField] private float fillSpeed = 1.5f;
+        [SerializeField] private Image frontImage;
+        [SerializeField] private Image backImage;
+        
+        [SerializeField] private float fillSpeed = 2;
 
-        private Coroutine _easeBarCoroutine = null;
+        [SerializeField] private Color damageColor = Color.red;
+        [SerializeField] private Color healColor = Color.green;
+
+        private float _value;
+        private float _maxValue;
+        private float _lerpTimer;
+
         public void UpdateBar(float value, float maxValue)
         {
-            healthSlider.maxValue = maxValue;
-            healthSlider.value = value;
-
-            if (_easeBarCoroutine != null)
-            {
-                StopCoroutine(_easeBarCoroutine);
-            }
-
-            _easeBarCoroutine = StartCoroutine(EaseBarCoroutine(value, maxValue));
+            this._value = value;
+            this._maxValue = maxValue;
+            _lerpTimer = 0;
         }
 
-        private IEnumerator EaseBarCoroutine(float value, float maxValue)
-        {
-            easeSlider.maxValue = maxValue;
-            float timer = 0f;
-            yield return new WaitForSeconds(waitTimeToFill);
 
-            float hFraction = value / maxValue;
-            while (easeSlider.value > hFraction)
+        private void Update()
+        {
+            UpdateHealthUI();
+        }
+
+        private void UpdateHealthUI()
+        {
+            var fillF = frontImage.fillAmount;
+            var fillB = backImage.fillAmount;
+            var hFraction = _value / _maxValue;
+            if(fillB > hFraction) 
             {
-                timer += Time.deltaTime;
-                float percentComplete = timer / fillSpeed;
+                frontImage.fillAmount = hFraction;
+                backImage.color = damageColor;
+                _lerpTimer += Time.deltaTime;
+                var percentComplete = _lerpTimer / fillSpeed;
                 percentComplete *= percentComplete;
-                easeSlider.value = Mathf.Lerp(easeSlider.value, value, percentComplete);
-                yield return null;
+                backImage.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
             }
-            _easeBarCoroutine = null;
+            if(fillF < hFraction)
+            {
+                backImage.fillAmount = hFraction;
+                backImage.color = healColor;
+                _lerpTimer += Time.deltaTime;
+                float percentComplete = _lerpTimer / fillSpeed;
+                percentComplete *= percentComplete;
+                frontImage.fillAmount = Mathf.Lerp(fillF, backImage.fillAmount, percentComplete);
+            }
         }
     }
 }
