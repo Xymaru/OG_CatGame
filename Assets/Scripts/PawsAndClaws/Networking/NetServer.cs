@@ -6,14 +6,21 @@ using UnityEngine;
 
 namespace PawsAndClaws.Networking
 {
+    public class PacketState
+    {
+        public NetworkSocket socket;
+        public byte[] buffer;
+        public int bytesRead;
+    }
+
     public abstract class NetServer : MonoBehaviour
     {
         public byte[] PacketBytes { get; protected set; } = new byte[2048];
         
-        public static Action OnPacketReceived;
-        public static Action OnPacketSend;
+        public static Action<NetworkPacket> OnPacketReceived;
+        public static Action<NetworkPacket> OnPacketSend;
 
-        public readonly List<NetworkSocket> ConnectedClients = new();
+        public List<NetworkSocket> ConnectedClients = new();
 
         public static Action<NetworkSocket> OnConnectionAccept;
         public static Action<NetworkSocket> OnClientDisconnect;

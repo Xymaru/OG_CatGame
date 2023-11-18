@@ -16,14 +16,14 @@ namespace PawsAndClaws.Networking
 
         private void OnEnable()
         {
-            NetServer.OnPacketReceived  += AddMessageToChat;
-            NetServer.OnPacketSend      += AddMessageToChat;
+            //NetServer.OnPacketReceived  += AddMessageToChat;
+            //NetServer.OnPacketSend      += AddMessageToChat;
         }
 
         private void OnDisable()
         {
-            NetServer.OnPacketReceived  -= AddMessageToChat;
-            NetServer.OnPacketSend      -= AddMessageToChat;
+            //NetServer.OnPacketReceived  -= AddMessageToChat;
+            //NetServer.OnPacketSend      -= AddMessageToChat;
         }
 
         private void Awake()

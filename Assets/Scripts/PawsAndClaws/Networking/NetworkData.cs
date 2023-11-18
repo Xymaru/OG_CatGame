@@ -12,6 +12,7 @@ namespace PawsAndClaws.Networking
         Host
     }
 
+    [System.Serializable]
     public class NetworkSocket
     {
         public string IPAddrStr = "localhost";

@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Testing/TestGameplay.unity
-    guid: d287063e333cfda4885b43badcc0ad21
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: c99d07400fd50b747be73e3166bd573f
   - enabled: 1
@@ -17,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LobbyUDP.unity
     guid: 4e74ed4227e5ff34e8f97d0ebb6ce0de
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 0bbebd01158d28043a9fae4dd9c5b2b6
+  - enabled: 1
+    path: Assets/Scenes/Testing/TestGameplay.unity
+    guid: d287063e333cfda4885b43badcc0ad21
   m_configObjects: {}

@@ -40,13 +40,13 @@ namespace PawsAndClaws.Networking
 
         protected override int ReceivePacket(NetworkSocket socket)
         {
-            OnPacketReceived?.Invoke();
+            //OnPacketReceived?.Invoke();
             return socket.Socket.ReceiveFrom(PacketBytes, ref _endPoint);
         }
 
         public override int SendPacket(NetPacket packet, NetworkSocket socket)
         {
-            OnPacketSend?.Invoke();
+            //OnPacketSend?.Invoke();
             PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
             Debug.Log($"Server send packet to IP: {socket.IPAddr}");
             return socket.Socket.SendTo(PacketBytes, _endPoint);

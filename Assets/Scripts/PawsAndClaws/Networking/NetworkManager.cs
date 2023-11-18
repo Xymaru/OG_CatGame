@@ -15,7 +15,7 @@ namespace PawsAndClaws.Networking
             }
             else
             {
-                gameObject.AddComponent<NetServer>();
+                gameObject.AddComponent<NetServerTCP>();
             }
         }
 

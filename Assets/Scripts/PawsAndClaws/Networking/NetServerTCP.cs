@@ -12,60 +12,34 @@ namespace PawsAndClaws.Networking
 {
     public class NetServerTCP : NetServer
     {
-        private TMPro.TextMeshProUGUI _ipsText;
-
-        private Thread _acceptThread;
-        private readonly List<Thread> _clientThreads = new();
-
-        private readonly object _clientMutex = new();
-
         void Start()
         {
             // Listen to a maximum of 10 connections
             _serverSocket.Socket.Listen(10);
 
-            // Accept incoming connections job
-            _acceptThread = new Thread(AcceptJob);
-            _acceptThread.Start();
+            // Begin accepting connections
+            BeginAccept();
         }
 
         void Update()
         {
-            
+
         }
 
-        void AcceptJob()
+        protected void BeginAccept()
         {
-            // Loop to listen for connections
-            while (true)
-            {
-                AcceptConnections();
-            }
+            PacketState packetState = new PacketState();
+            packetState.socket = _serverSocket;
+            _serverSocket.Socket.BeginAccept(new AsyncCallback(AcceptCB), packetState);
         }
 
-        void ReceiveJob(NetworkSocket clientSocket)
+        void AcceptCB(IAsyncResult ar)
         {
-            while (true)
-            {
-                int rbytes = ReceivePacket(clientSocket);
-                Debug.Log($"Server received packet from client {clientSocket.IPAddrStr} with size {rbytes}");
+            PacketState packetState = (PacketState)ar.AsyncState;
 
-                if (rbytes == 0)
-                {
-                    lock (_clientMutex)
-                    {
-                        Debug.Log($"Disconnected client from IP [{clientSocket.IPAddr}]");
-                        OnClientDisconnect?.Invoke(clientSocket);
-                        ConnectedClients.Remove(clientSocket);
-                    }
-                    break;
-                }
-            }
-        }
+            NetworkServerSocket srv = (NetworkServerSocket)packetState.socket;
 
-        void AcceptConnections()
-        {
-            Socket client = _serverSocket.Socket.Accept();
+            Socket client = srv.Socket.EndAccept(ar);
 
             string ipAddrStr = client.RemoteEndPoint.ToString();
 
@@ -77,32 +51,77 @@ namespace PawsAndClaws.Networking
             IPAddress clientAddr = IPAddress.Parse(addr.ToString());
 
             NetworkSocket clientSocket = new NetworkSocket(client, clientAddr, ipAddrStr);
+
+            // Begin receiving data from client
+            BeginReceive(clientSocket);
+
+            // Add client to list
+            ConnectedClients.Add(clientSocket);
+
+            // Execute callbacks
             OnConnectionAccept?.Invoke(clientSocket);
 
-            Thread clientThread = new Thread(() => ReceiveJob(clientSocket));
+            // Keep accepting connections
+            _serverSocket.Socket.BeginAccept(new AsyncCallback(AcceptCB), packetState);
+        }
 
-            lock (_clientMutex)
+        protected void BeginReceive(NetworkSocket client)
+        {
+            PacketState packetState = new PacketState();
+            packetState.socket = client;
+            packetState.buffer = new byte[NetworkPacket.MAX_BUFFER_SIZE];
+            packetState.bytesRead = 0;
+
+            client.Socket.BeginReceive(packetState.buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, new AsyncCallback(ReceiveCB), packetState);
+        }
+
+        void ReceiveCB(IAsyncResult ar)
+        {
+            PacketState packetState = (PacketState)ar.AsyncState;
+            Socket client = packetState.socket.Socket;
+
+            int bytesRead = client.EndReceive(ar);
+
+            // Client disconnected
+            if(bytesRead == 0)
             {
-                ConnectedClients.Add(clientSocket);
-                _clientThreads.Add(clientThread);
+                Debug.Log($"Disconnected client from IP [{packetState.socket.IPAddr}]");
+
+                // Remove client from list
+                ConnectedClients.Remove(packetState.socket);
+
+                // On client disconnect callback
+                OnClientDisconnect?.Invoke(packetState.socket);
+
+                // Ignore data and don't continue receiving
+                return;
             }
 
-            clientThread.Start();
+            // Add bytes read
+            packetState.bytesRead += bytesRead;
+
+            // Check if packet is completed
+            if(packetState.bytesRead == NetworkPacket.MAX_BUFFER_SIZE)
+            {
+                packetState.bytesRead = 0;
+
+                NetworkPacket npacket = NetworkPacket.ByteArrayToNetworkPacket(packetState.buffer);
+
+                OnPacketReceived?.Invoke(npacket);
+            }
+
+            // Continue reading in offset
+            client.BeginReceive(packetState.buffer, packetState.bytesRead, NetworkPacket.MAX_BUFFER_SIZE, 0, new AsyncCallback(ReceiveCB), packetState);
         }
 
         private void OnDestroy()
         {
-            if (_acceptThread.IsAlive)
+            if (_serverSocket.Socket.Connected)
             {
-                _acceptThread.Abort();
-
-                if (_serverSocket.Socket.Connected)
-                {
-                    _serverSocket.Socket.Shutdown(SocketShutdown.Both);
-                }
-
-                _serverSocket.Socket.Close();
+                _serverSocket.Socket.Shutdown(SocketShutdown.Both);
             }
+
+            _serverSocket.Socket.Close();
 
             for (int i = 0; i < ConnectedClients.Count; i++)
             {
@@ -114,13 +133,6 @@ namespace PawsAndClaws.Networking
                 }
 
                 clientsock.Socket.Close();
-
-                Thread thr = _clientThreads[i];
-
-                if (thr.IsAlive)
-                {
-                    thr.Abort();
-                }
             }
         }
 
@@ -142,13 +154,13 @@ namespace PawsAndClaws.Networking
 
             Debug.Log($"Received packet with size {packet.size}");
 
-            OnPacketReceived?.Invoke();
+            //OnPacketReceived?.Invoke();
             return bytesReceived;
         }
 
         public override int SendPacket(NetPacket packet, NetworkSocket socket)
         {
-            OnPacketSend?.Invoke();
+            //OnPacketSend?.Invoke();
 
             PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
 

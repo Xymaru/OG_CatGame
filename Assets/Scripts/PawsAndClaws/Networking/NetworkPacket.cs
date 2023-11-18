@@ -9,60 +9,48 @@ namespace PawsAndClaws.Networking
         LOBBYRES
     }
 
+    [System.Serializable]
     public class NetworkPacket
     {
-        public ushort p_type;
+        public const int MAX_BUFFER_SIZE = 256;
+
         public int p_size;
+        public ushort p_type;
 
-        private int setBasePacketData(byte[] data)
+        public static NetworkPacket ByteArrayToNetworkPacket(byte[] buffer)
         {
-            // Packet type at index 0
-            BitConverter.GetBytes(p_type).CopyTo(data, 0); // first 0
+            NetworkPacket packet = null;
 
-            // Leave 4 of space for size (ushort(2) + int(4))
+            NPacketType type = (NPacketType)BitConverter.ToUInt16(buffer, 4);
+
+            switch (type)
+            {
+                case NPacketType.LOBBYREQ:
+                    packet = LobbyNetworkPacket.LobbyReqToNetworkPacket(buffer);
+                    break;
+                case NPacketType.LOBBYRES:
+                    packet = LobbyNetworkPacket.LobbyResToNetworkPacket(buffer);
+                    break;
+            }
+
+            return packet;
+        }
+
+        public virtual int setBasePacketData(byte[] data)
+        {
+            // Packet type at index 4
+            BitConverter.GetBytes(p_type).CopyTo(data, 4); // first 4 is size, second is type
+
+            // Leave 4 of space for size (int(4) + ushort(2))
             return 6;
         }
 
-        private byte[] NPLobbyReqToByteArray(NPLobbyReq packet)
+        public virtual int readBasePacketData(byte[] buffer)
         {
-            byte[] data = new byte[2048];
+            p_size = BitConverter.ToInt32(buffer, 0);
 
-            // Set base packet data
-            int index = setBasePacketData(data);
-
-            // Set client id
-            BitConverter.GetBytes(packet.id).CopyTo(data, index);
-            index += 2; // ushort(2)
-
-            byte[] name = Encoding.ASCII.GetBytes(packet.name);
-
-            // Set client name
-            name.CopyTo(data, index);
-            index += name.Length; // wchar(2) * character length
-
-            // Set packet size in bytes
-            p_size = index;
-            BitConverter.GetBytes(p_size).CopyTo(data, 2); // size index
-
-            return data;
-        }
-
-        private byte[] NPLobbyResToByteArray(NPLobbyRes packet)
-        {
-            byte[] data = new byte[2048];
-
-            // Set type and size
-            int index = setBasePacketData(data);
-
-            // Set if accepted or not
-            BitConverter.GetBytes(packet.accepted).CopyTo(data, index);
-            index += 1; // bool(1)
-
-            // Set packet size in bytes
-            p_size = index;
-            BitConverter.GetBytes(p_size).CopyTo(data, 2); // size index
-
-            return data;
+            // Leave 4 of space for size (int(4) + ushort(2))
+            return 6;
         }
 
         public byte[] ToByteArray(NetworkPacket packet)
@@ -72,10 +60,10 @@ namespace PawsAndClaws.Networking
             switch ((NPacketType)packet.p_type)
             {
                 case NPacketType.LOBBYREQ:
-                    data = NPLobbyReqToByteArray((NPLobbyReq)packet);
+                    data = LobbyNetworkPacket.NPLobbyReqToByteArray((NPLobbyReq)packet);
                     break;
                 case NPacketType.LOBBYRES:
-                    data = NPLobbyResToByteArray((NPLobbyRes)packet);
+                    data = LobbyNetworkPacket.NPLobbyResToByteArray((NPLobbyRes)packet);
                     break;
             }
 
@@ -83,23 +71,32 @@ namespace PawsAndClaws.Networking
         }
     }
 
+    [System.Serializable]
     public class ClientNetworkPacket : NetworkPacket
     {
         public ushort id;
-    }
 
-    public class NPLobbyReq : ClientNetworkPacket
-    {
-        public string name;
+        public override int setBasePacketData(byte[] buffer){
+            int index = base.setBasePacketData(buffer);
 
-        NPLobbyReq()
-        {
-            p_type = (ushort)NPacketType.LOBBYREQ;
+            // Copy ID
+            BitConverter.GetBytes(id).CopyTo(buffer, index);
+
+            index += 2;
+
+            return index;
         }
-    }
 
-    public class NPLobbyRes : NetworkPacket
-    {
-        public bool accepted;
+        public override int readBasePacketData(byte[] buffer)
+        {
+            int index = base.readBasePacketData(buffer);
+
+            // Read ID
+            id = BitConverter.ToUInt16(buffer, index);
+
+            index += 2;
+
+            return index;
+        }
     }
 }

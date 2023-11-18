@@ -96,7 +96,11 @@ namespace PawsAndClaws.Networking
 
             _connected = false;
 
-            NetworkData.NetSocket.Socket.Shutdown(SocketShutdown.Both);
+            if (NetworkData.NetSocket.Socket.Connected)
+            {
+                NetworkData.NetSocket.Socket.Shutdown(SocketShutdown.Both);
+            }
+
             NetworkData.NetSocket.Socket.Close();
 
             Debug.Log("Closing connection socket.");
