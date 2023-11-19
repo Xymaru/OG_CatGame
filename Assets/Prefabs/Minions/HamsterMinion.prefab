@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8928455702279885535}
   - component: {fileID: 9072097297513055302}
   m_Layer: 0
-  m_Name: Minion
+  m_Name: HamsterMinion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,12 +87,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  range: 2
+  team: 1
+  visionRange: 3
+  attackRange: 2
   timeToAttack: 1
   timeBetweenAttacks: 0.5
-  speed: 1.5
   damage: 10
-  team: 1
+  speed: 1.5
   healthBar: {fileID: 6985897761528919970}
 --- !u!114 &809097220315353687
 MonoBehaviour:
@@ -106,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0884ece76d5a814db806d960a210273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CheckPoint: {fileID: 0}
+  checkPoint: {fileID: 0}
 --- !u!195 &35266245276980161
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -276,7 +277,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

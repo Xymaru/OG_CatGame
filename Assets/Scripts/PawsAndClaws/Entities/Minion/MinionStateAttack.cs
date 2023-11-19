@@ -11,7 +11,7 @@ namespace PawsAndClaws.Entities.Minion
     {
         private readonly MinionStateMachine _stateMachine;
         private readonly NavMeshAgent _agent;
-        private readonly MinionController _minionManager;
+        private readonly MinionController _minionController;
 
         private Coroutine _attackCoroutine;
         public MinionStateAttack(StateMachine stateMachine, GameObject gameObject)
@@ -19,7 +19,7 @@ namespace PawsAndClaws.Entities.Minion
         {
             _stateMachine = (MinionStateMachine)stateMachine;
             _agent = gameObject.GetComponent<NavMeshAgent>();
-            _minionManager = gameObject.GetComponent<MinionController>();
+            _minionController = gameObject.GetComponent<MinionController>();
         }
 
         public override void Enter()
@@ -29,6 +29,12 @@ namespace PawsAndClaws.Entities.Minion
         public override void UpdateLogic()
         {
             _attackCoroutine ??= _stateMachine.StartCoroutine(AttackCoroutine());
+            
+            if (Vector3.Distance(GameObject.transform.position, _stateMachine.Target.GameObject.transform.position) >
+                _minionController.attackRange)
+            {
+                StateMachine.ChangeState(_stateMachine.ChaseState);
+            }
         }
 
 
@@ -40,25 +46,15 @@ namespace PawsAndClaws.Entities.Minion
             }
             _attackCoroutine = null;
         }
-
-        public override void OnTriggerExit2D(Collider2D other)
-        {
-            // Check if the collision object is eligible
-            var gameEntity = GameUtils.GetIfIsEntityFromOtherTeam(GameObject, other.gameObject);
-            if (gameEntity == _stateMachine.Target)
-            {
-                _stateMachine.Target = null;
-                _stateMachine.ChangeState(_stateMachine.MovingState);
-            }
-        }
+        
 
         private IEnumerator AttackCoroutine()
         {
-            yield return new WaitForSeconds(_minionManager.timeBetweenAttacks);
-
+            yield return new WaitForSeconds(_minionController.timeBetweenAttacks + _minionController.timeToAttack);
+            
             if(_stateMachine.Target is { IsAlive:true })
             {
-                _stateMachine.Target.Damage(_minionManager.damage);
+                _stateMachine.Target.Damage(_minionController.damage);
             }
 
             _attackCoroutine = null;

@@ -1,14 +1,16 @@
 using PawsAndClaws.FSM;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PawsAndClaws.Entities.Minion
 {
     public class MinionStateMachine : StateMachine
     {
-        public Transform CheckPoint;
+        public Transform checkPoint;
         public MinionStateMoving MovingState;
         public MinionStateAttack AttackState;
+        public MinionStateChase ChaseState;
         public IGameEntity Target;
 
 
@@ -16,6 +18,7 @@ namespace PawsAndClaws.Entities.Minion
         {
             MovingState = new MinionStateMoving(this, gameObject);
             AttackState = new MinionStateAttack(this, gameObject);
+            ChaseState = new MinionStateChase(this, gameObject);
         }
         protected override State GetInitialState()
         {

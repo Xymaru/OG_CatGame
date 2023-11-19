@@ -16,14 +16,16 @@ namespace PawsAndClaws.Entities.Minion
         [Header("Stats")]
         [SerializeField] private float maxHealth;
         private float _currentHealth;
+        [SerializeField] private Team team;
+        
         [SerializeField] private float visionRange;
-        [SerializeField] private float attackRange;
+        public float attackRange;
         public float timeToAttack = 1f;
         public float timeBetweenAttacks = 0.5f;
-        [SerializeField] private float speed = 2f;
         public float damage = 10f;  
-
-        [SerializeField] private Team team;
+        
+        
+        [SerializeField] private float speed = 2f;
 
         [Header("References")]
         [SerializeField] private InGameHealthBarUI healthBar;
@@ -83,7 +85,11 @@ namespace PawsAndClaws.Entities.Minion
         }
 
         
-
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, visionRange);
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
 
         protected void OnMouseOver()
         {

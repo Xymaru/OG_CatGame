@@ -9,7 +9,6 @@ namespace PawsAndClaws.Entities.Minion
     {
         [Header("Spawn")]
         [SerializeField] private float timeToNextWave = 30f;
-        [SerializeField] private float timeToStartSpawn = 180f;
         [SerializeField] private float timeBetweenMinionSpawn = 0.2f;
         [SerializeField] private int minionsPerWave = 3;
         [SerializeField] private Transform spawnPoint;
@@ -17,7 +16,6 @@ namespace PawsAndClaws.Entities.Minion
         [SerializeField] private Team team;
 
         private bool _canSpawn = false;
-        private Coroutine _startCoroutine;
         private Coroutine _spawnCoroutine;
 
 
@@ -30,11 +28,7 @@ namespace PawsAndClaws.Entities.Minion
         {
             AddMinionToPool(poolSize);
         }
-
-        private void Start()
-        {
-            _startCoroutine ??= StartCoroutine(StartSpawnCoroutine());
-        }
+        
 
         private void Update()
         {
@@ -44,9 +38,8 @@ namespace PawsAndClaws.Entities.Minion
             }
         }
 
-        private IEnumerator StartSpawnCoroutine()
+        public void StartSpawningMinions()
         {
-            yield return new WaitForSeconds(timeToStartSpawn);
             _canSpawn = true;
         }
 
@@ -68,7 +61,7 @@ namespace PawsAndClaws.Entities.Minion
                 var minion = Instantiate(minionPrefab, transform);
                 Utils.GameUtils.SetEntityTeam(ref minion, team);
                 minion.transform.position = spawnPoint.position;
-                minion.GetComponent<MinionStateMachine>().CheckPoint = checkPoint;
+                minion.GetComponent<MinionStateMachine>().checkPoint = checkPoint;
                 var minionMan = minion.GetComponent<MinionController>();
                 minionMan.IsAlive = false;
                 minion.SetActive(false);

@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using PawsAndClaws.Debugging;
 using PawsAndClaws.Entities.Inhibitor;
+using PawsAndClaws.Entities.Minion;
 using PawsAndClaws.Entities.Nexus;
 using PawsAndClaws.Entities.Tower;
 using PawsAndClaws.Player;
@@ -11,6 +13,13 @@ namespace PawsAndClaws.Game
     public class GameManager : MonoBehaviour
     {
         public static Action<Team> OnTeamLose;
+        public static Action OnMinionsStartSpawn;
+        
+        [Header("Minions")]
+        [SerializeField] private float timeToStartSpawn = 180f;
+
+        [SerializeField] private MinionWaveManager hamsterMinionWaveManager;
+        [SerializeField] private MinionWaveManager catMinionWaveManager;
         
         [Header("Spawn points")] 
         [SerializeField] private Transform hamsterSpawnPoint;
@@ -36,6 +45,8 @@ namespace PawsAndClaws.Game
         public Team playerTeam;
         public static GameManager Instance;
         public static LayerMask OppositeTeamLayer;
+        
+        private Coroutine _startCoroutine;
         
         public float MatchTime => _matchTime;
         public string MatchTimeString => TimeSpan.FromSeconds(_matchTime).ToString("mm':'ss");
@@ -75,6 +86,8 @@ namespace PawsAndClaws.Game
         private void StartMatch()
         {
             _matchStarted = true;
+
+            _startCoroutine ??= StartCoroutine(StartMinionTimer());
         }
 
         private void Update()
@@ -82,7 +95,21 @@ namespace PawsAndClaws.Game
             if (!_matchStarted)
                 return;
             
+            // Update match time
             _matchTime += Time.deltaTime;
+            
+        }
+
+        private IEnumerator StartMinionTimer()
+        {
+            yield return new WaitForSeconds(timeToStartSpawn);
+            
+            hamsterMinionWaveManager.StartSpawningMinions();
+            catMinionWaveManager.StartSpawningMinions();
+            
+            OnMinionsStartSpawn?.Invoke();
+            
+            _startCoroutine = null;
         }
     }
 }

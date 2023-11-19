@@ -11,12 +11,14 @@ namespace PawsAndClaws.Entities.Minion
     {
         private readonly MinionStateMachine _stateMachine;
         private readonly NavMeshAgent _agent;
+        private readonly MinionController _minionController;
 
         public MinionStateChase(StateMachine stateMachine, GameObject gameObject)
             : base("Minion chase", stateMachine, gameObject)
         {
             _stateMachine = (MinionStateMachine)stateMachine;
             _agent = gameObject.GetComponent<NavMeshAgent>();
+            _minionController = gameObject.GetComponent<MinionController>();
         }
 
         public override void Enter()
@@ -26,13 +28,17 @@ namespace PawsAndClaws.Entities.Minion
 
         public override void UpdateLogic()
         {
-
+            if (Vector3.Distance(GameObject.transform.position, _stateMachine.Target.GameObject.transform.position) <
+                _minionController.attackRange)
+            {
+                StateMachine.ChangeState(_stateMachine.AttackState);
+            }
         }
 
         public override void Exit()
         {
         }
-
+        
         public override void OnTriggerExit2D(Collider2D other)
         {
             CheckIfOutOfRange(other);
@@ -42,15 +48,12 @@ namespace PawsAndClaws.Entities.Minion
         {
             // Check if the collision object is eligible
             var gameEntity = GameUtils.GetIfIsEntityFromOtherTeam(GameObject, other.gameObject);
-            if (gameEntity is not { IsAlive: true })
-                return;
-            _stateMachine.Target = gameEntity;
-            _stateMachine.ChangeState(_stateMachine.AttackState);
+            if (gameEntity != null)
+            {
+                _stateMachine.ChangeState(_stateMachine.MovingState);
+            }
         }
 
-        public override void OnTriggerStay2D(Collider2D other)
-        {
-            CheckIfOutOfRange(other);
-        }
+        
     }
 }

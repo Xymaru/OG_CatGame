@@ -22,13 +22,11 @@ namespace PawsAndClaws.Entities.Minion
 
         public override void Enter()
         {
-            var target = _stateMachine.Target == null ? _stateMachine.CheckPoint : _stateMachine.Target.GameObject.transform;
-            _agent.SetDestination(target.position);
+            _agent.SetDestination(_stateMachine.checkPoint.position);
         }
 
         public override void UpdateLogic()
         {
-
         }
 
         public override void Exit()
@@ -37,22 +35,24 @@ namespace PawsAndClaws.Entities.Minion
 
         public override void OnTriggerEnter2D(Collider2D other)
         {
-            CheckIfCanAttack(other);
+            CheckIfCanChase(other);
         }
-
-        private void CheckIfCanAttack(Collider2D other)
+        
+        public override void OnTriggerStay2D(Collider2D other)
+        {
+            CheckIfCanChase(other);
+        }
+        
+        private void CheckIfCanChase(Collider2D other)
         {
             // Check if the collision object is eligible
             var gameEntity = GameUtils.GetIfIsEntityFromOtherTeam(GameObject, other.gameObject);
             if (gameEntity is not { IsAlive: true })
                 return;
             _stateMachine.Target = gameEntity;
-            _stateMachine.ChangeState(_stateMachine.AttackState);
+            _stateMachine.ChangeState(_stateMachine.ChaseState);
         }
 
-        public override void OnTriggerStay2D(Collider2D other)
-        {
-            CheckIfCanAttack(other);
-        }
+        
     }
 }
