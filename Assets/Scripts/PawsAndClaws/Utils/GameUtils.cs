@@ -1,4 +1,5 @@
 using PawsAndClaws.Entities;
+using PawsAndClaws.Game;
 using PawsAndClaws.Player;
 using UnityEngine;
 

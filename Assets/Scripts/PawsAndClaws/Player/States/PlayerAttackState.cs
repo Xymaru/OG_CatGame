@@ -1,6 +1,7 @@
 using PawsAndClaws.FSM;
 using System.Collections;
 using System.Collections.Generic;
+using PawsAndClaws.Game;
 using UnityEngine;
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PawsAndClaws.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,12 @@ namespace PawsAndClaws.UI
         {
             _mainMenu.SetActive(true);
             _optionsMenu.SetActive(false);
+            
+            var userName = PlayerPrefs.GetString("user_name");
+            if (userName != "")
+            {
+                GameConstants.UserName = userName;
+            }
         }
 
 
@@ -41,6 +48,16 @@ namespace PawsAndClaws.UI
 #else
             Application.Quit();
 #endif
+        }
+        
+        private void OnDestroy()
+        {
+            SaveSettings();
+        }
+
+        private void SaveSettings()
+        {
+            PlayerPrefs.SetString("user_name", GameConstants.UserName);
         }
     }
 }

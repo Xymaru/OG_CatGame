@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace PawsAndClaws
+namespace PawsAndClaws.Game
 {
     public static class GameConstants 
     {
+        #region Player
+
+        public static string UserName = "Player";
+
+        #endregion
+        
         #region Layers
         public static readonly LayerMask HamsterLayerMask = LayerMask.NameToLayer("Hamsters");
         public static readonly LayerMask CatLayerMask = LayerMask.NameToLayer("Cats");

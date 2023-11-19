@@ -2,6 +2,7 @@ using PawsAndClaws.Entities;
 using PawsAndClaws.FSM;
 using System.Collections;
 using System.Collections.Generic;
+using PawsAndClaws.Game;
 using UnityEngine;
 using UnityEngine.AI;
 
