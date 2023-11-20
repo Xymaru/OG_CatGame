@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using PawsAndClaws.Game;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace PawsAndClaws.UI
 {
     public class MainMenuUI : MonoBehaviour
     {
-        [SerializeField] private GameObject _mainMenu;
-        [SerializeField] private GameObject _optionsMenu;
-
+        [SerializeField] private SlidingMenuUI playMenu;
+        [SerializeField] private SlidingMenuUI optionsMenu;
+        [SerializeField] private ScalingPopupUI exitMenu;
+        
         private void Awake()
         {
-            _mainMenu.SetActive(true);
-            _optionsMenu.SetActive(false);
-            
             var userName = PlayerPrefs.GetString("user_name");
             if (userName != "")
             {
@@ -26,21 +21,47 @@ namespace PawsAndClaws.UI
 
         public void PlayGame()
         {
-            SceneManager.LoadScene("PlayMenu");
+            if (playMenu.open)
+            {
+                playMenu.Close();
+                
+            }
+            else
+            {
+                playMenu.Open();
+                optionsMenu.Close();
+                exitMenu.Close();
+            }
         }
 
         public void ShowOptions()
         {
-            _mainMenu.SetActive(false);
-            _optionsMenu.SetActive(true);
+            if (optionsMenu.open)
+            {
+                optionsMenu.Close();
+            }
+            else
+            {
+                optionsMenu.Open();
+                playMenu.Close();
+                exitMenu.Close();
+            }
         }
 
-        public void HideOptions()
+        public void ShowExit()
         {
-            _mainMenu.SetActive(true);
-            _optionsMenu.SetActive(false);
+            if (exitMenu.open)
+            {
+                exitMenu.Close();
+            }
+            else
+            {
+                exitMenu.Open();
+                playMenu.Close();
+                optionsMenu.Close();
+            }
         }
-
+        
         public void ExitGame()
         {
 #if UNITY_EDITOR
