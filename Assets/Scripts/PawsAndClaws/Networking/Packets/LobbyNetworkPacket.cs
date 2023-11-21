@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace PawsAndClaws.Networking
+namespace PawsAndClaws.Networking.Packets
 {
     [System.Serializable]
     public class NPLobbyReq : ClientNetworkPacket
@@ -23,7 +23,27 @@ namespace PawsAndClaws.Networking
             p_type = (ushort)NPacketType.LOBBYRES;
         }
     }
+    
+    [System.Serializable]
+    public class NPLobbyReadyReq : ClientNetworkPacket
+    {
+        public uint userId;
 
+        public NPLobbyReadyReq()
+        {
+            p_type = (ushort)NPacketType.LOBBY_READY_REQ;
+        }
+    }
+    
+    public class NPLobbyReadyRes : NetworkPacket
+    {
+        public bool accepted;
+        public NPLobbyReadyRes()
+        {
+            p_type = (ushort)NPacketType.LOBBY_READY_RES;
+        }
+    }
+    
     public static class LobbyNetworkPacket
     {
         public static byte[] NPLobbyResToByteArray(NPLobbyRes packet)

@@ -16,16 +16,13 @@ namespace PawsAndClaws.Networking
         {
             // Listen to a maximum of 10 connections
             _serverSocket.Socket.Listen(10);
-
+            
+            Debug.Log($"Server IP: {_serverSocket.IPAddrStr} listening on port: {NetworkData.Port}");
+            
             // Begin accepting connections
             BeginAccept();
         }
-
-        void Update()
-        {
-
-        }
-
+        
         protected void BeginAccept()
         {
             PacketState packetState = new PacketState();

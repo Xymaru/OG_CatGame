@@ -19,14 +19,10 @@ namespace PawsAndClaws.Networking
             }
         }
 
-        //public void SetServerInfo()
-        //{
-        //    lobbyInfoText.text = $"Server \nHosting at IP: {NetworkData.NetSocket.IPAddr.MapToIPv4()} \nConnection mode {NetworkData.ProtocolType.ToString()}";
-        //}
 
-        //public void SetClientInfo()
-        //{
-        //    lobbyInfoText.text = $"Client \nConnected to IP: {NetworkData.NetSocket.Socket.RemoteEndPoint} \nConnection mode {NetworkData.ProtocolType.ToString()}";
-        //}
+        public void SendReadyPacket()
+        {
+            
+        }
     }
 }

@@ -6,6 +6,7 @@ using PawsAndClaws.Entities.Minion;
 using PawsAndClaws.Entities.Nexus;
 using PawsAndClaws.Entities.Tower;
 using PawsAndClaws.Player;
+using PawsAndClaws.Scenes;
 using UnityEngine;
 
 namespace PawsAndClaws.Game
@@ -51,9 +52,10 @@ namespace PawsAndClaws.Game
         public float MatchTime => _matchTime;
         public string MatchTimeString => TimeSpan.FromSeconds(_matchTime).ToString("mm':'ss");
         private float _matchTime;
-        public bool MatchStarted => _matchStarted;
-        private bool _matchStarted = false;
-
+        public static bool MatchStarted => _matchStarted;
+        private static bool _matchStarted = false;
+        
+        
         private void Awake()
         {
             if (Instance != null)
@@ -67,24 +69,15 @@ namespace PawsAndClaws.Game
             // Prevent mouse over events to be used by triggers
             Physics2D.queriesHitTriggers = false;
 
-            var debugMan = gameObject.GetComponent<DebugManager>();
-            debugMan.enabled = false;
-            
-            // Enable debugging info
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
-            debugMan.enabled = true;
-#endif
         }
 
         private void Start()
         {
-            OppositeTeamLayer = playerTeam == Team.Cat ? LayerMask.NameToLayer("Hamsters") : LayerMask.NameToLayer("Cats");
-            
-            StartMatch();
         }
 
         private void StartMatch()
         {
+            OppositeTeamLayer = playerTeam == Team.Cat ? LayerMask.NameToLayer("Hamsters") : LayerMask.NameToLayer("Cats");
             _matchStarted = true;
 
             _startCoroutine ??= StartCoroutine(StartMinionTimer());

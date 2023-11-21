@@ -1,12 +1,15 @@
 using System;
 using System.Text;
+using PawsAndClaws.Networking.Packets;
 
 namespace PawsAndClaws.Networking
 {
     public enum NPacketType : ushort
     {
         LOBBYREQ,
-        LOBBYRES
+        LOBBYRES,
+        LOBBY_READY_REQ,
+        LOBBY_READY_RES
     }
 
     [System.Serializable]

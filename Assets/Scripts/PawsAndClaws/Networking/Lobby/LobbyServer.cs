@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using PawsAndClaws.Networking;
+using PawsAndClaws.Networking.Packets;
 
 namespace PawsAndClaws
 {
@@ -13,12 +14,6 @@ namespace PawsAndClaws
         void Start()
         {
             NetServer.OnPacketReceived += OnPacketRecv;
-        }
-
-        
-        void Update()
-        {
-        
         }
 
         void OnDestroy()

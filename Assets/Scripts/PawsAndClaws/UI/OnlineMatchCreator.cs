@@ -8,18 +8,18 @@ using System.Net.Sockets;
 using TMPro;
 using System;
 using System.Text;
-
+using PawsAndClaws.Game;
 using UnityEngine.SceneManagement;
 using PawsAndClaws.Networking;
+using PawsAndClaws.Networking.Packets;
+using PawsAndClaws.Scenes;
+using UnityEngine.Serialization;
 
 namespace PawsAndClaws.UI
 {
-    public class MainMenu : MonoBehaviour
+    public class OnlineMatchCreator : MonoBehaviour
     {
-        public GameObject menuPanel;
-        public GameObject connectPanel;
-
-        public TMP_InputField ipinput;
+        [SerializeField] private TMP_InputField ipInput;
 
         public void OnHostClick()
         {
@@ -49,17 +49,11 @@ namespace PawsAndClaws.UI
 
             OpenLobby();
         }
-
-        public void OnConnectClick()
-        {
-            menuPanel.SetActive(false);
-            connectPanel.SetActive(true);
-        }
-
+        
         public void MakeConnection()
         {
             // Check if IP is not empty
-            if (ipinput.text == "")
+            if (ipInput.text == "")
             {
                 Debug.Log("Trying to connect to an empty IP address.");
                 return;
@@ -68,7 +62,7 @@ namespace PawsAndClaws.UI
             // Parse ip address
             IPAddress ipaddr;
 
-            bool valid = IPAddress.TryParse(ipinput.text, out ipaddr);
+            bool valid = IPAddress.TryParse(ipInput.text, out ipaddr);
 
             if (!valid)
             {
@@ -92,14 +86,26 @@ namespace PawsAndClaws.UI
                 return;
             }
             // After connection has been made, set data
-            NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipinput.text);
-
+            NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipInput.text);
+            EnterLobby();
             OpenLobby();
         }
+        
+        private void EnterLobby()
+        {
+            //if (_sentReq) return;
+            NPLobbyReq nlobreq = new NPLobbyReq();
+            nlobreq.name = GameConstants.UserName;
+            byte[] data = LobbyNetworkPacket.NPLobbyReqToByteArray(nlobreq);
 
+            int bytes_sent = NetworkData.NetSocket.Socket.Send(data);
+
+            Debug.Log($"Sent packet with {bytes_sent} bytes.");
+        }
+        
         private void OpenLobby()
         {
-            SceneManager.LoadScene("Lobby");
+            SceneTransitionManager.TransitionTo?.Invoke(1);
         }
     }
 }
