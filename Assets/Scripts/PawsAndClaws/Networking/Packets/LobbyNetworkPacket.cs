@@ -31,7 +31,7 @@ namespace PawsAndClaws.Networking.Packets
 
         public NPLobbyReadyReq()
         {
-            p_type = (ushort)NPacketType.LOBBY_READY_REQ;
+            p_type = NPacketType.LOBBY_READY_REQ;
         }
     }
     
@@ -40,7 +40,7 @@ namespace PawsAndClaws.Networking.Packets
         public bool accepted;
         public NPLobbyReadyRes()
         {
-            p_type = (ushort)NPacketType.LOBBY_READY_RES;
+            p_type = NPacketType.LOBBY_READY_RES;
         }
     }
     

@@ -5,6 +5,7 @@ using UnityEngine;
 
 using TMPro;
 using PawsAndClaws.Networking;
+using PawsAndClaws.Networking.Packets;
 
 namespace PawsAndClaws
 {
@@ -31,11 +32,9 @@ namespace PawsAndClaws
         public void EnterLobby()
         {
             //if (_sentReq) return;
-
-            string name = _nameInput.text;
-
+            
             NPLobbyReq nlobreq = new NPLobbyReq();
-            nlobreq.name = name;
+            nlobreq.name = GameConstants.UserName;
 
             byte[] data = LobbyNetworkPacket.NPLobbyReqToByteArray(nlobreq);
 
