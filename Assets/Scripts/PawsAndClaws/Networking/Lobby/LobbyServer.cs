@@ -10,10 +10,16 @@ namespace PawsAndClaws
     public class LobbyServer : MonoBehaviour
     {
         public NPLobbyReq paket;
+        public NPPlayerPos paket2;
 
         void Start()
         {
             NetServer.OnPacketReceived += OnPacketRecv;
+        }
+        
+        void Update()
+        {
+            
         }
 
         void OnDestroy()
@@ -23,13 +29,19 @@ namespace PawsAndClaws
 
         private void OnPacketRecv(NetworkPacket packet)
         {
-            NPacketType p_type = (NPacketType)packet.p_type;
+            //if (packet.p_type != NPacketType.LOBBYREQ) return;
 
-            if (p_type != NPacketType.LOBBYREQ) return;
+            if (packet.p_type == NPacketType.LOBBYREQ)
+            {
+                NPLobbyReq req_packet = (NPLobbyReq)packet;
 
-            NPLobbyReq req_packet = (NPLobbyReq)packet;
+                paket = req_packet;
+            }else if(packet.p_type == NPacketType.PLAYERPOS)
+            {
+                NPPlayerPos req_packet = (NPPlayerPos)packet;
 
-            paket = req_packet;
+                paket2 = req_packet;
+            }
         }
     }
 }

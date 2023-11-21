@@ -102,7 +102,7 @@ namespace PawsAndClaws.Networking
             {
                 packetState.bytesRead = 0;
 
-                NetworkPacket npacket = NetworkPacket.ByteArrayToNetworkPacket(packetState.buffer);
+                NetworkPacket npacket = NetworkPacket.FromByteArray(packetState.buffer);
 
                 OnPacketReceived?.Invoke(npacket);
             }

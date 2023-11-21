@@ -10,7 +10,7 @@ namespace PawsAndClaws.Networking.Packets
 
         public NPLobbyReq()
         {
-            p_type = (ushort)NPacketType.LOBBYREQ;
+            p_type = NPacketType.LOBBYREQ;
         }
     }
 
@@ -20,7 +20,7 @@ namespace PawsAndClaws.Networking.Packets
 
         public NPLobbyRes()
         {
-            p_type = (ushort)NPacketType.LOBBYRES;
+            p_type = NPacketType.LOBBYRES;
         }
     }
     

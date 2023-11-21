@@ -9,7 +9,8 @@ namespace PawsAndClaws.Networking
         LOBBYREQ,
         LOBBYRES,
         LOBBY_READY_REQ,
-        LOBBY_READY_RES
+        LOBBY_READY_RES,
+        PLAYERPOS
     }
 
     [System.Serializable]
@@ -18,9 +19,29 @@ namespace PawsAndClaws.Networking
         public const int MAX_BUFFER_SIZE = 256;
 
         public int p_size;
-        public ushort p_type;
+        public NPacketType p_type;
 
-        public static NetworkPacket ByteArrayToNetworkPacket(byte[] buffer)
+        public byte[] ToByteArray(NetworkPacket packet)
+        {
+            byte[] data = null;
+
+            switch (packet.p_type)
+            {
+                case NPacketType.LOBBYREQ:
+                    data = LobbyNetworkPacket.NPLobbyReqToByteArray((NPLobbyReq)packet);
+                    break;
+                case NPacketType.LOBBYRES:
+                    data = LobbyNetworkPacket.NPLobbyResToByteArray((NPLobbyRes)packet);
+                    break;
+                case NPacketType.PLAYERPOS:
+                    data = GameplayNetworkPacket.NPPlayerPosToByteArray((NPPlayerPos)packet);
+                    break;
+            }
+
+            return data;
+        }
+
+        public static NetworkPacket FromByteArray(byte[] buffer)
         {
             NetworkPacket packet = null;
 
@@ -34,6 +55,9 @@ namespace PawsAndClaws.Networking
                 case NPacketType.LOBBYRES:
                     packet = LobbyNetworkPacket.LobbyResToNetworkPacket(buffer);
                     break;
+                case NPacketType.PLAYERPOS:
+                    packet = GameplayNetworkPacket.PlayerPosToNetworkPacket(buffer);
+                    break;
             }
 
             return packet;
@@ -42,7 +66,7 @@ namespace PawsAndClaws.Networking
         public virtual int setBasePacketData(byte[] data)
         {
             // Packet type at index 4
-            BitConverter.GetBytes(p_type).CopyTo(data, 4); // first 4 is size, second is type
+            BitConverter.GetBytes((ushort)p_type).CopyTo(data, 4); // first 4 is size, second is type
 
             // Leave 4 of space for size (int(4) + ushort(2))
             return 6;
@@ -54,23 +78,6 @@ namespace PawsAndClaws.Networking
 
             // Leave 4 of space for size (int(4) + ushort(2))
             return 6;
-        }
-
-        public byte[] ToByteArray(NetworkPacket packet)
-        {
-            byte[] data = null;
-
-            switch ((NPacketType)packet.p_type)
-            {
-                case NPacketType.LOBBYREQ:
-                    data = LobbyNetworkPacket.NPLobbyReqToByteArray((NPLobbyReq)packet);
-                    break;
-                case NPacketType.LOBBYRES:
-                    data = LobbyNetworkPacket.NPLobbyResToByteArray((NPLobbyRes)packet);
-                    break;
-            }
-
-            return data;
         }
     }
 
