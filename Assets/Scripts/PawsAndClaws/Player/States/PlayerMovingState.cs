@@ -53,7 +53,7 @@ namespace PawsAndClaws.Player
 
             switch (_agent.velocity.x)
             {
-                case >= 0 when _wasRight:
+                case > 0 when _wasRight:
                 case < 0 when !_wasRight:
                     FlipX();
                     break;

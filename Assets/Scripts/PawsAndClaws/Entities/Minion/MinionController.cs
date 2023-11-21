@@ -64,7 +64,7 @@ namespace PawsAndClaws.Entities.Minion
         {
             switch (_agent.velocity.x)
             {
-                case >= 0 when wasRight:
+                case > 0 when wasRight:
                 case < 0 when !wasRight:
                     FlipX();
                     break;

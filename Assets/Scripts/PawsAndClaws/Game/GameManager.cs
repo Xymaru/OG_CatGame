@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
-using PawsAndClaws.Debugging;
 using PawsAndClaws.Entities.Inhibitor;
 using PawsAndClaws.Entities.Minion;
 using PawsAndClaws.Entities.Nexus;
 using PawsAndClaws.Entities.Tower;
 using PawsAndClaws.Player;
-using PawsAndClaws.Scenes;
 using UnityEngine;
 
 namespace PawsAndClaws.Game
