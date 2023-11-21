@@ -61,8 +61,8 @@ namespace PawsAndClaws.Player
             _healthBar = GetComponentInChildren<InGameHealthBarUI>();
             
             // Setup the reference for the player movement script
-            _playerStateMachine.inputHandler = inputHandler;
-            _playerStateMachine.playerCamera = _playerCameraComp;
+            inputHandler.playerCamera = _playerCameraComp;
+            inputHandler.playerStateMachine = _playerStateMachine;
             
             // Setup the reference for the camera controller script
             _playerCameraController.player = transform;
@@ -175,11 +175,11 @@ namespace PawsAndClaws.Player
             if(GameManager.Instance.playerTeam != characterData.team)
                 PlayerInputHandler.SetCursorDefault();
         }
-        #endregion
 
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position, CharacterStats.Range);
         }
+        #endregion
     }
 }

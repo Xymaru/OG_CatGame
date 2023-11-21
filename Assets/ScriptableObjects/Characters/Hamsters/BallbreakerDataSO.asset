@@ -13,12 +13,17 @@ MonoBehaviour:
   m_Name: BallbreakerDataSO
   m_EditorClassIdentifier: 
   name: Ballbreaker
-  image: {fileID: 0}
+  sprite: {fileID: 0}
+  passiveImage: {fileID: 0}
+  ability1Sprite: {fileID: 0}
+  ability2Sprite: {fileID: 0}
+  ultimateSprite: {fileID: 0}
   team: 1
   startingHealth: 0
   healthLevelMultiplier: 0
   healthRegen: 0
   healthRegenLevelMultiplier: 0
+  attackType: 0
   startingDamage: 0
   damageLevelMultiplier: 0
   startingShield: 0
@@ -30,3 +35,4 @@ MonoBehaviour:
   range: 0
   attackSpeed: 0
   attackSpeedMultiplier: 0
+  prefab: {fileID: 8164089564192595539, guid: 3d6f4f8b0128077429d0b2cb0f8da5d3, type: 3}

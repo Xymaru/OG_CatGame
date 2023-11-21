@@ -13,20 +13,26 @@ MonoBehaviour:
   m_Name: SgSunflowerDataSO
   m_EditorClassIdentifier: 
   name: Sg. Sunflower
-  image: {fileID: 0}
+  sprite: {fileID: 0}
+  passiveImage: {fileID: 0}
+  ability1Sprite: {fileID: 0}
+  ability2Sprite: {fileID: 0}
+  ultimateSprite: {fileID: 0}
   team: 1
-  startingHealth: 0
-  healthLevelMultiplier: 0
-  healthRegen: 0
-  healthRegenLevelMultiplier: 0
-  startingDamage: 0
-  damageLevelMultiplier: 0
-  startingShield: 0
-  shieldLevelMultiplier: 0
-  startingMana: 0
-  manaLevelMultiplier: 0
-  manaRegen: 0
-  manaRegenLevelMultiplier: 0
-  range: 0
-  attackSpeed: 0
-  attackSpeedMultiplier: 0
+  startingHealth: 100
+  healthLevelMultiplier: 1
+  healthRegen: 1.1
+  healthRegenLevelMultiplier: 1
+  attackType: 1
+  startingDamage: 10
+  damageLevelMultiplier: 1
+  startingShield: 10
+  shieldLevelMultiplier: 1
+  startingMana: 50
+  manaLevelMultiplier: 1
+  manaRegen: 20
+  manaRegenLevelMultiplier: 20
+  range: 20
+  attackSpeed: 20
+  attackSpeedMultiplier: 20
+  prefab: {fileID: 8164089564192595539, guid: 3d6f4f8b0128077429d0b2cb0f8da5d3, type: 3}
