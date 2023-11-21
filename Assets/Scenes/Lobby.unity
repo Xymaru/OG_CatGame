@@ -1375,6 +1375,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamSlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4861609222376803068, guid: 3ae2c07fe51183446ac91181190a92ae,
+        type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861609222376803068, guid: 3ae2c07fe51183446ac91181190a92ae,
+        type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8710936582017520513, guid: 3ae2c07fe51183446ac91181190a92ae,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1503,6 +1513,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeamSlot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861609222376803068, guid: 3ae2c07fe51183446ac91181190a92ae,
+        type: 3}
+      propertyPath: id
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861609222376803068, guid: 3ae2c07fe51183446ac91181190a92ae,
+        type: 3}
+      propertyPath: team
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8710936582017520513, guid: 3ae2c07fe51183446ac91181190a92ae,
         type: 3}
@@ -1633,6 +1653,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamSlot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4861609222376803068, guid: 3ae2c07fe51183446ac91181190a92ae,
+        type: 3}
+      propertyPath: id
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8710936582017520513, guid: 3ae2c07fe51183446ac91181190a92ae,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1761,6 +1786,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeamSlot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861609222376803068, guid: 3ae2c07fe51183446ac91181190a92ae,
+        type: 3}
+      propertyPath: id
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8710936582017520513, guid: 3ae2c07fe51183446ac91181190a92ae,
         type: 3}
@@ -2298,6 +2328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeamSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861609222376803068, guid: 3ae2c07fe51183446ac91181190a92ae,
+        type: 3}
+      propertyPath: team
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8710936582017520513, guid: 3ae2c07fe51183446ac91181190a92ae,
         type: 3}
