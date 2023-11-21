@@ -13,8 +13,6 @@ namespace PawsAndClaws.Entities.Tower
         public SpriteRenderer spriteRenderer;
         private void Awake()
         {
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-            
             IdleState = new TowerStateIdle(this, gameObject);
             AttackState = new TowerStateAttack(this, gameObject);
         }

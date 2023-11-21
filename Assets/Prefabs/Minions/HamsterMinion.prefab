@@ -93,6 +93,8 @@ MonoBehaviour:
   timeToAttack: 1
   timeBetweenAttacks: 0.5
   damage: 10
+  spriteRenderer: {fileID: 2833116843410533464}
+  wasRight: 1
   speed: 1.5
   healthBar: {fileID: 6985897761528919970}
 --- !u!114 &809097220315353687
@@ -275,9 +277,8 @@ SpriteRenderer:
   m_SortingLayerID: 2101309505
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
-    type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 2066419281, guid: a8b84716421b42d43bea32a836f3dcef, type: 3}
+  m_Color: {r: 1, g: 0, b: 0.12284136, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

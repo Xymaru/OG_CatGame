@@ -58,9 +58,8 @@ namespace PawsAndClaws.Entities.Minion
         {
             for(var i = 0; i < amount; i++) 
             {
-                var minion = Instantiate(minionPrefab, transform);
+                var minion = Instantiate(minionPrefab, spawnPoint);
                 Utils.GameUtils.SetEntityTeam(ref minion, team);
-                minion.transform.position = spawnPoint.position;
                 minion.GetComponent<MinionStateMachine>().checkPoint = checkPoint;
                 var minionMan = minion.GetComponent<MinionController>();
                 minionMan.IsAlive = false;

@@ -15,7 +15,7 @@ namespace PawsAndClaws.Entities.Tower
 
         public override void Enter()
         {
-            _stateMachine.spriteRenderer.color = Color.green;
+            _stateMachine.spriteRenderer.color = Color.white;
         }
 
         public override void UpdateLogic()

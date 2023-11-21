@@ -64,7 +64,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7274002320451844081}
   - component: {fileID: 8967335195666586850}
-  - component: {fileID: 824559727522552101}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -102,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToStartSpawn: 180
-  hamsterMinionWaveManager: {fileID: 0}
-  catMinionWaveManager: {fileID: 0}
+  hamsterMinionWaveManager: {fileID: 5578088481531275326}
+  catMinionWaveManager: {fileID: 1091055981700614745}
   hamsterSpawnPoint: {fileID: 0}
   catSpawnPoint: {fileID: 0}
   hamsterInhibitor: {fileID: 0}
@@ -117,21 +116,6 @@ MonoBehaviour:
   catNexusTowerUp: {fileID: 0}
   catNexusTowerDown: {fileID: 0}
   playerTeam: 0
-  gameState: 0
---- !u!114 &824559727522552101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6843589745024058526}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b173466986d9a3f4191917ad32073b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imguiRenderer: {fileID: 0}
-  debugConsole: {fileID: 0}
 --- !u!1 &8871129731264691912
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +167,6 @@ MonoBehaviour:
   checkPoint: {fileID: 0}
   team: 0
   poolSize: 10
-  minionPrefab: {fileID: 1744957741004387552, guid: dacc23fce6920de4aa2856be7fc74256,
+  minionPrefab: {fileID: 1744957741004387552, guid: 5af2201f7d9bfed42a04af0cf6dbf70b,
     type: 3}
   minionList: []

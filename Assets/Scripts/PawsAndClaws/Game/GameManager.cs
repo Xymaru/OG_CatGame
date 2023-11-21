@@ -73,6 +73,7 @@ namespace PawsAndClaws.Game
 
         private void Start()
         {
+            StartMatch();
         }
 
         private void StartMatch()
