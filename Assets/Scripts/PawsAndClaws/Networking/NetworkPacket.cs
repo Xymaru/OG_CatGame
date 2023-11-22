@@ -9,6 +9,7 @@ namespace PawsAndClaws.Networking
         LOBBYREQ,
         LOBBYRES,
         LOBBYSPOTREQ,
+        LOBBYSPOTUPDATE,
         LOBBY_READY_REQ,
         LOBBY_READY_RES,
         PLAYERPOS
@@ -52,6 +53,9 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.LOBBYSPOTREQ:
                     packet = new NPLobbySpotReq(buffer);
+                    break;
+                case NPacketType.LOBBYSPOTUPDATE:
+                    packet = new NPLobbySpotUpdate(buffer);
                     break;
                 case NPacketType.PLAYERPOS:
                     packet = new NPPlayerPos(buffer);

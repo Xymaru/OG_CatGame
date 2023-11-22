@@ -29,6 +29,19 @@ namespace PawsAndClaws.Networking
             BeginAccept();
         }
         
+        public void BroadcastPacket(NetworkPacket packet)
+        {
+            byte[] data = packet.ToByteArray();
+
+            foreach(NetworkSocket socket in ConnectedClients)
+            {
+                if(socket != null)
+                {
+                    socket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+                }
+            }
+        }
+
         protected void BeginAccept()
         {
             PacketState packetState = new PacketState();
@@ -67,8 +80,10 @@ namespace PawsAndClaws.Networking
             }
             else
             {
+                clientSocket.PlayerI.client_id = Convert.ToUInt16(ConnectedClients.Count);
+
                 lres.response = ResponseType.ACCEPTED;
-                lres.player_id = Convert.ToUInt16(ConnectedClients.Count);
+                lres.player_id = clientSocket.PlayerI.client_id;
 
                 byte[] data = lres.ToByteArray();
 

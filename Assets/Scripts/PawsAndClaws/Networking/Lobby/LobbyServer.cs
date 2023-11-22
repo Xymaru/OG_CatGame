@@ -36,8 +36,20 @@ namespace PawsAndClaws
 
         private void OnLobbySpotReq(NPLobbySpotReq packet)
         {
-            // Set client on spot
+            // Check if player is on the spot
+            if (NetworkData.Teams[(int)packet.team].members[packet.spot] != null) return;
 
+            // Otherwise, put it on spot
+            NetworkData.Teams[(int)packet.team].members[packet.spot] = _netServerTCP.ConnectedClients[packet.id].PlayerI;
+
+            // Make slot update packet
+            NPLobbySpotUpdate spot_update = new NPLobbySpotUpdate();
+            spot_update.id = packet.id;
+            spot_update.spot = packet.spot;
+            spot_update.team = packet.team;
+
+            // Broadcast slot change to everyone
+            _netServerTCP.BroadcastPacket(spot_update);
         }
 
         private void OnPacketRecv(NetworkPacket packet)

@@ -178,7 +178,53 @@ namespace PawsAndClaws.Networking.Packets
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
 
-            int offset = readBasePacketData(data);
+            int offset = setBasePacketData(data);
+
+            BitConverter.GetBytes(spot).CopyTo(data, offset);
+            offset += 2;
+
+            data[offset] = (byte)team;
+            offset += 1;
+
+            return data;
+        }
+    }
+
+    public class NPLobbySpotUpdate : ClientNetworkPacket
+    {
+        public ushort spot;
+        public Player.Team team;
+
+        public NPLobbySpotUpdate(byte[] data) : base(data)
+        {
+            p_type = NPacketType.LOBBYSPOTUPDATE;
+        }
+
+        public NPLobbySpotUpdate()
+        {
+            p_type = NPacketType.LOBBYSPOTUPDATE;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] buffer)
+        {
+            int offset = 0;
+
+            offset = readBasePacketData(buffer);
+
+            spot = BitConverter.ToUInt16(buffer, offset);
+            offset += 2;
+
+            team = (Player.Team)buffer[offset];
+            offset += 1;
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+
+            int offset = setBasePacketData(data);
 
             BitConverter.GetBytes(spot).CopyTo(data, offset);
             offset += 2;

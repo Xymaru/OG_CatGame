@@ -52,15 +52,16 @@ namespace PawsAndClaws.Networking
 
     public class TeamInfo
     {
-        public static PlayerInfo[] members = new PlayerInfo[3];
+        public PlayerInfo[] members = new PlayerInfo[3];
     }
 
+    [System.Serializable]
     public class PlayerInfo
     {
         public string name = "Unknown";
-        public ushort client_id;
+        public ushort client_id = ushort.MaxValue;
 
-        public int slot;
+        public ushort slot;
         public Player.Team team;
     }
 }
