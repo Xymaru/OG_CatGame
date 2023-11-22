@@ -7,6 +7,8 @@ using TMPro;
 using PawsAndClaws.Networking;
 using PawsAndClaws.Networking.Packets;
 
+using System;
+
 namespace PawsAndClaws
 {
     public class LobbyUI : MonoBehaviour
@@ -39,7 +41,25 @@ namespace PawsAndClaws
 
         private void RequestSpot(int index, Player.Team team)
         {
+            
+        }
 
+        private void RequestSpotClient(int index, Player.Team team)
+        {
+            NPLobbySpotReq spot_req = new NPLobbySpotReq();
+            spot_req.id = NetworkData.NetSocket.PlayerI.client_id;
+
+            spot_req.spot = Convert.ToUInt16(index);
+            spot_req.team = team;
+
+            byte[] data = spot_req.ToByteArray();
+
+            NetworkData.NetSocket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+        }
+
+        private void RequestSpotServer(int index, Player.Team team)
+        {
+            
         }
     }
 }

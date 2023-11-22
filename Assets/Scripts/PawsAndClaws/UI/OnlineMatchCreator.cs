@@ -111,11 +111,11 @@ namespace PawsAndClaws.UI
             // Connection accepted
             if (nlobres.response == ResponseType.ACCEPTED)
             {
-                NetworkData.ClientID = nlobres.player_id;
+                NetworkData.NetSocket.PlayerI.client_id = nlobres.player_id;
 
                 NPLobbyReq nlobreq = new NPLobbyReq();
                 nlobreq.name = GameConstants.UserName;
-                nlobreq.id = NetworkData.ClientID;
+                nlobreq.id = NetworkData.NetSocket.PlayerI.client_id;
 
                 data = nlobreq.ToByteArray();
 

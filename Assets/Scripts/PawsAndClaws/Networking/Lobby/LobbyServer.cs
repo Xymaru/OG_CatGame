@@ -31,7 +31,7 @@ namespace PawsAndClaws
         private void OnLobbyReq(NPLobbyReq packet)
         {
             // Set name data on client
-            _netServerTCP.ConnectedClients[packet.id].Name = packet.name;
+            _netServerTCP.ConnectedClients[packet.id].PlayerI.name = packet.name;
         }
 
         private void OnLobbySpotReq(NPLobbySpotReq packet)

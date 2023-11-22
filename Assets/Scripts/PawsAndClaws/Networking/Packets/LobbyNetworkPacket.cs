@@ -154,6 +154,11 @@ namespace PawsAndClaws.Networking.Packets
             p_type = NPacketType.LOBBYSPOTREQ;
         }
 
+        public NPLobbySpotReq()
+        {
+            p_type = NPacketType.LOBBYSPOTREQ;
+        }
+
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
             int offset = 0;
