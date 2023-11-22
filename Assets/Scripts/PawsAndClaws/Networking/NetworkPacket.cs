@@ -8,38 +8,33 @@ namespace PawsAndClaws.Networking
     {
         LOBBYREQ,
         LOBBYRES,
+        LOBBYSPOTREQ,
         LOBBY_READY_REQ,
         LOBBY_READY_RES,
         PLAYERPOS
     }
 
     [System.Serializable]
-    public class NetworkPacket
+    public abstract class NetworkPacket
     {
         public const int MAX_BUFFER_SIZE = 256;
 
         public int p_size;
         public NPacketType p_type;
 
-        public byte[] ToByteArray(NetworkPacket packet)
+        public NetworkPacket()
         {
-            byte[] data = null;
 
-            switch (packet.p_type)
-            {
-                case NPacketType.LOBBYREQ:
-                    data = LobbyNetworkPacket.NPLobbyReqToByteArray((NPLobbyReq)packet);
-                    break;
-                case NPacketType.LOBBYRES:
-                    data = LobbyNetworkPacket.NPLobbyResToByteArray((NPLobbyRes)packet);
-                    break;
-                case NPacketType.PLAYERPOS:
-                    data = GameplayNetworkPacket.NPPlayerPosToByteArray((NPPlayerPos)packet);
-                    break;
-            }
-
-            return data;
         }
+
+        public NetworkPacket(byte[] data)
+        {
+            LoadByteArray(data);
+        }
+
+        public abstract byte[] ToByteArray();
+
+        public abstract NetworkPacket LoadByteArray(byte[] buffer);
 
         public static NetworkPacket FromByteArray(byte[] buffer)
         {
@@ -50,13 +45,16 @@ namespace PawsAndClaws.Networking
             switch (type)
             {
                 case NPacketType.LOBBYREQ:
-                    packet = LobbyNetworkPacket.LobbyReqToNetworkPacket(buffer);
+                    packet = new NPLobbyReq(buffer);
                     break;
                 case NPacketType.LOBBYRES:
-                    packet = LobbyNetworkPacket.LobbyResToNetworkPacket(buffer);
+                    packet = new NPLobbyRes(buffer);
+                    break;
+                case NPacketType.LOBBYSPOTREQ:
+                    packet = new NPLobbySpotReq(buffer);
                     break;
                 case NPacketType.PLAYERPOS:
-                    packet = GameplayNetworkPacket.PlayerPosToNetworkPacket(buffer);
+                    packet = new NPPlayerPos(buffer);
                     break;
             }
 
@@ -82,9 +80,19 @@ namespace PawsAndClaws.Networking
     }
 
     [System.Serializable]
-    public class ClientNetworkPacket : NetworkPacket
+    public abstract class ClientNetworkPacket : NetworkPacket
     {
         public ushort id;
+
+        public ClientNetworkPacket()
+        {
+
+        }
+
+        public ClientNetworkPacket(byte[] data) : base(data)
+        {
+
+        }
 
         public override int setBasePacketData(byte[] buffer){
             int index = base.setBasePacketData(buffer);

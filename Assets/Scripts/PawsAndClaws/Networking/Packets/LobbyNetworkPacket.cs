@@ -8,22 +8,102 @@ namespace PawsAndClaws.Networking.Packets
     {
         public string name;
 
+        public NPLobbyReq(byte[] data) : base(data)
+        {
+            p_type = NPacketType.LOBBYREQ;
+        }
+
         public NPLobbyReq()
         {
             p_type = NPacketType.LOBBYREQ;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] buffer)
+        {
+            int offset = 0;
+
+            offset = readBasePacketData(buffer);
+
+            // Read name
+            name = Encoding.ASCII.GetString(buffer, offset, p_size - offset);
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+
+            // Set base packet data
+            int index = setBasePacketData(data);
+
+            byte[] name_bytes = Encoding.ASCII.GetBytes(name);
+
+            // Set client name
+            name_bytes.CopyTo(data, index);
+            index += name.Length; // char count in string
+
+            // Set packet size in bytes
+            p_size = index;
+            BitConverter.GetBytes(p_size).CopyTo(data, 0); // size index
+
+            return data;
         }
     }
 
     public class NPLobbyRes : NetworkPacket
     {
-        public bool accepted;
+        public ResponseType response;
+        public ushort player_id;
+
+        public NPLobbyRes(byte[] data) : base(data)
+        {
+            p_type = NPacketType.LOBBYRES;
+        }
 
         public NPLobbyRes()
         {
             p_type = NPacketType.LOBBYRES;
         }
+
+        public override NetworkPacket LoadByteArray(byte[] buffer)
+        {
+            int offset = 0;
+
+            offset = readBasePacketData(buffer);
+
+            response = (ResponseType)BitConverter.ToUInt16(buffer, offset);
+            offset += 2;
+
+            player_id = BitConverter.ToUInt16(buffer, offset);
+            offset += 4;
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+
+            // Set type and size
+            int index = setBasePacketData(data);
+
+            // Set if accepted or not
+            BitConverter.GetBytes((ushort)response).CopyTo(data, index);
+            index += 1; // bool(1)
+
+            // Set player id
+            BitConverter.GetBytes(player_id).CopyTo(data, index);
+            index += 4;
+
+            // Set packet size in bytes
+            p_size = index;
+            BitConverter.GetBytes(p_size).CopyTo(data, 0); // size index
+
+            return data;
+        }
     }
-    
+
     [System.Serializable]
     public class NPLobbyReadyReq : ClientNetworkPacket
     {
@@ -33,8 +113,18 @@ namespace PawsAndClaws.Networking.Packets
         {
             p_type = NPacketType.LOBBY_READY_REQ;
         }
+
+        public override NetworkPacket LoadByteArray(byte[] buffer)
+        {
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            throw new NotImplementedException();
+        }
     }
-    
+
     public class NPLobbyReadyRes : NetworkPacket
     {
         public bool accepted;
@@ -42,70 +132,56 @@ namespace PawsAndClaws.Networking.Packets
         {
             p_type = NPacketType.LOBBY_READY_RES;
         }
+
+        public override NetworkPacket LoadByteArray(byte[] buffer)
+        {
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            throw new NotImplementedException();
+        }
     }
-    
-    public static class LobbyNetworkPacket
+
+    public class NPLobbySpotReq : ClientNetworkPacket
     {
-        public static byte[] NPLobbyResToByteArray(NPLobbyRes packet)
+        public ushort spot;
+        public Player.Team team;
+
+        public NPLobbySpotReq(byte[] data) : base(data)
         {
-            byte[] data = new byte[NetworkPacket.MAX_BUFFER_SIZE];
-
-            // Set type and size
-            int index = packet.setBasePacketData(data);
-
-            // Set if accepted or not
-            BitConverter.GetBytes(packet.accepted).CopyTo(data, index);
-            index += 1; // bool(1)
-
-            // Set packet size in bytes
-            packet.p_size = index;
-            BitConverter.GetBytes(packet.p_size).CopyTo(data, 0); // size index
-
-            return data;
+            p_type = NPacketType.LOBBYSPOTREQ;
         }
 
-        public static byte[] NPLobbyReqToByteArray(NPLobbyReq packet)
-        {
-            byte[] data = new byte[NetworkPacket.MAX_BUFFER_SIZE];
-
-            // Set base packet data
-            int index = packet.setBasePacketData(data);
-
-            byte[] name = Encoding.ASCII.GetBytes(packet.name);
-
-            // Set client name
-            name.CopyTo(data, index);
-            index += name.Length; // char count in string
-
-            // Set packet size in bytes
-            packet.p_size = index;
-            BitConverter.GetBytes(packet.p_size).CopyTo(data, 0); // size index
-
-            return data;
-        }
-
-        public static NetworkPacket LobbyReqToNetworkPacket(byte[] buffer)
+        public override NetworkPacket LoadByteArray(byte[] buffer)
         {
             int offset = 0;
 
-            NPLobbyReq packet = new NPLobbyReq();
-            offset = packet.readBasePacketData(buffer);
+            offset = readBasePacketData(buffer);
 
-            // Read name
-            packet.name = Encoding.ASCII.GetString(buffer, offset, packet.p_size - offset);
+            spot = BitConverter.ToUInt16(buffer, offset);
+            offset += 2;
 
-            return packet;
+            team = (Player.Team)buffer[offset];
+            offset += 1;
+
+            return this;
         }
 
-        public static NetworkPacket LobbyResToNetworkPacket(byte[] buffer)
+        public override byte[] ToByteArray()
         {
-            int offset = 0;
-            NPLobbyRes packet = new NPLobbyRes();
-            offset = packet.readBasePacketData(buffer);
+            byte[] data = new byte[MAX_BUFFER_SIZE];
 
-            packet.accepted = BitConverter.ToBoolean(buffer, offset);
+            int offset = readBasePacketData(data);
 
-            return packet;
+            BitConverter.GetBytes(spot).CopyTo(data, offset);
+            offset += 2;
+
+            data[offset] = (byte)team;
+            offset += 1;
+
+            return data;
         }
     }
 }

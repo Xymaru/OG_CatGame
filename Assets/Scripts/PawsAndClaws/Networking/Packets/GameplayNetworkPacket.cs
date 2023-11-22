@@ -13,45 +13,48 @@ namespace PawsAndClaws.Networking
         public float x;
         public float y;
 
+        public NPPlayerPos(byte[] data) : base(data)
+        {
+            p_type = NPacketType.PLAYERPOS;
+        }
+
         public NPPlayerPos()
         {
             p_type = NPacketType.PLAYERPOS;
         }
-    }
 
-    public static class GameplayNetworkPacket
-    {
-        public static byte[] NPPlayerPosToByteArray(NPPlayerPos packet)
-        {
-            byte[] data = new byte[NetworkPacket.MAX_BUFFER_SIZE];
-
-            // Set type and size
-            int index = packet.setBasePacketData(data);
-
-            BitConverter.GetBytes(packet.x).CopyTo(data, index);
-            index += 4;
-
-            BitConverter.GetBytes(packet.y).CopyTo(data, index);
-            index += 4;
-
-            packet.p_size = index;
-            BitConverter.GetBytes(packet.p_size).CopyTo(data, 0);
-
-            return data;
-        }
-
-        public static NPPlayerPos PlayerPosToNetworkPacket(byte[] data)
+        public override NetworkPacket LoadByteArray(byte[] data)
         {
             int offset = 0;
-            NPPlayerPos packet = new NPPlayerPos();
-            offset = packet.readBasePacketData(data);
 
-            packet.x = BitConverter.ToSingle(data, offset);
+            offset = readBasePacketData(data);
+
+            x = BitConverter.ToSingle(data, offset);
             offset += 4;
 
-            packet.y = BitConverter.ToSingle(data, offset);
+            y = BitConverter.ToSingle(data, offset);
+            offset += 4;
 
-            return packet;
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+
+            // Set type and size
+            int index = setBasePacketData(data);
+
+            BitConverter.GetBytes(x).CopyTo(data, index);
+            index += 4;
+
+            BitConverter.GetBytes(y).CopyTo(data, index);
+            index += 4;
+
+            p_size = index;
+            BitConverter.GetBytes(p_size).CopyTo(data, 0);
+
+            return data;
         }
     }
 }

@@ -2301,6 +2301,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1396594904}
     m_Modifications:
+    - target: {fileID: 7575522789293840184, guid: 6607ab1fe04ac3a4ab9a4274494c7866,
+        type: 3}
+      propertyPath: m_text
+      value: IP address
+      objectReference: {fileID: 0}
     - target: {fileID: 7920446540874615203, guid: 6607ab1fe04ac3a4ab9a4274494c7866,
         type: 3}
       propertyPath: m_Pivot.x

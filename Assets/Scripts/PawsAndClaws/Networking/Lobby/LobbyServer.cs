@@ -9,12 +9,13 @@ namespace PawsAndClaws
 {
     public class LobbyServer : MonoBehaviour
     {
-        public NPLobbyReq paket;
-        public NPPlayerPos paket2;
+        NetServerTCP _netServerTCP;
 
         void Start()
         {
-            NetServer.OnPacketReceived += OnPacketRecv;
+            _netServerTCP = FindObjectOfType<NetServerTCP>();
+
+            NetworkManager.OnPacketReceived += OnPacketRecv;
         }
         
         void Update()
@@ -24,23 +25,31 @@ namespace PawsAndClaws
 
         void OnDestroy()
         {
-            NetServer.OnPacketReceived -= OnPacketRecv;
+            NetworkManager.OnPacketReceived -= OnPacketRecv;
+        }
+
+        private void OnLobbyReq(NPLobbyReq packet)
+        {
+            // Set name data on client
+            _netServerTCP.ConnectedClients[packet.id].Name = packet.name;
+        }
+
+        private void OnLobbySpotReq(NPLobbySpotReq packet)
+        {
+            // Set client on spot
+
         }
 
         private void OnPacketRecv(NetworkPacket packet)
         {
-            //if (packet.p_type != NPacketType.LOBBYREQ) return;
-
-            if (packet.p_type == NPacketType.LOBBYREQ)
+            switch (packet.p_type)
             {
-                NPLobbyReq req_packet = (NPLobbyReq)packet;
-
-                paket = req_packet;
-            }else if(packet.p_type == NPacketType.PLAYERPOS)
-            {
-                NPPlayerPos req_packet = (NPPlayerPos)packet;
-
-                paket2 = req_packet;
+                case NPacketType.LOBBYREQ:
+                    OnLobbyReq((NPLobbyReq)packet);
+                    break;
+                case NPacketType.LOBBYSPOTREQ:
+                    OnLobbySpotReq((NPLobbySpotReq)packet);
+                    break;
             }
         }
     }

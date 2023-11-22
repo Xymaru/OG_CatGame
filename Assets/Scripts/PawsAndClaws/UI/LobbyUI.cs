@@ -11,8 +11,6 @@ namespace PawsAndClaws
 {
     public class LobbyUI : MonoBehaviour
     {
-        private bool _sentReq = false;
-
         void Start()
         {
             if(NetworkData.NetSocket.NetCon == NetCon.Client)
@@ -29,31 +27,19 @@ namespace PawsAndClaws
             
         }
 
-        public void EnterLobby()
+        public void RequestSpotHamster(int index)
         {
-            //if (_sentReq) return;
-            
-            NPLobbyReq nlobreq = new NPLobbyReq();
-            nlobreq.name = GameConstants.UserName;
+            RequestSpot(index, Player.Team.Hamster);
+        }
 
-            byte[] data = LobbyNetworkPacket.NPLobbyReqToByteArray(nlobreq);
+        public void RequestSpotCat(int index)
+        {
+            RequestSpot(index, Player.Team.Cat);
+        }
 
-            int bytes_sent = NetworkData.NetSocket.Socket.Send(data);
+        private void RequestSpot(int index, Player.Team team)
+        {
 
-            Debug.Log($"Sent name packet with {bytes_sent} bytes.");
-
-            NPPlayerPos nplayerpos = new NPPlayerPos();
-            nplayerpos.id = 6;
-            nplayerpos.x = Random.Range(-20.0f, 20.0f);
-            nplayerpos.y = Random.Range(-20.0f, 20.0f);
-
-            data = GameplayNetworkPacket.NPPlayerPosToByteArray(nplayerpos);
-
-            bytes_sent = NetworkData.NetSocket.Socket.Send(data);
-
-            Debug.Log($"Sent pos packet ({nplayerpos.x},{nplayerpos.y}) with {bytes_sent} bytes.");
-
-            _sentReq = true;
         }
     }
 }

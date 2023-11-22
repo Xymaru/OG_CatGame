@@ -18,7 +18,6 @@ namespace PawsAndClaws.UI
             }
         }
 
-
         public void PlayGame()
         {
             if (playMenu.open)

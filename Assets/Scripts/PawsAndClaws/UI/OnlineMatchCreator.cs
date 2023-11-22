@@ -85,22 +85,51 @@ namespace PawsAndClaws.UI
                 Debug.Log("Error on connecting to server." + e.ToString());
                 return;
             }
+
             // After connection has been made, set data
             NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipInput.text);
-            EnterLobby();
-            OpenLobby();
+
+            // Speak with server
+            BeginRequest();
         }
         
-        private void EnterLobby()
+        void BeginRequest()
         {
-            //if (_sentReq) return;
-            NPLobbyReq nlobreq = new NPLobbyReq();
-            nlobreq.name = GameConstants.UserName;
-            byte[] data = LobbyNetworkPacket.NPLobbyReqToByteArray(nlobreq);
+            byte[] data = new byte[NetworkPacket.MAX_BUFFER_SIZE];
 
-            int bytes_sent = NetworkData.NetSocket.Socket.Send(data);
+            // Wait for lobby response
+            int bytes_read = NetworkData.NetSocket.Socket.Receive(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
 
-            Debug.Log($"Sent packet with {bytes_sent} bytes.");
+            if(bytes_read == 0)
+            {
+                Debug.Log("Lost connection with server.");
+                return;
+            }
+
+            NPLobbyRes nlobres = new NPLobbyRes(data);
+
+            // Connection accepted
+            if (nlobres.response == ResponseType.ACCEPTED)
+            {
+                NetworkData.ClientID = nlobres.player_id;
+
+                NPLobbyReq nlobreq = new NPLobbyReq();
+                nlobreq.name = GameConstants.UserName;
+                nlobreq.id = NetworkData.ClientID;
+
+                data = nlobreq.ToByteArray();
+
+                // Send lobby request
+                NetworkData.NetSocket.Socket.Send(data);
+
+                // Open lobby scene
+                OpenLobby();
+            }
+            // Connection refused
+            else
+            {
+
+            }
         }
         
         private void OpenLobby()

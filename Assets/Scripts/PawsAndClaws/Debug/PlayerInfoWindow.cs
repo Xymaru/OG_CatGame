@@ -12,7 +12,7 @@ namespace PawsAndClaws.Debugging
         {
             ImGui.Begin("Player Info");
 
-            ImGui.Text($"Name: {Networking.NetworkData.PublicName}");
+            ImGui.Text($"Name: {Networking.NetworkData.playerInfo.name}");
 
             ImGui.Separator();
 

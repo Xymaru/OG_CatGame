@@ -23,8 +23,8 @@ namespace PawsAndClaws.Networking
         {
             while (true)
             {
-                int revSize = ReceivePacket(_serverSocket);
-                Debug.Log($"Packet received with size {revSize}");
+                //int revSize = ReceivePacket(_serverSocket);
+                //Debug.Log($"Packet received with size {revSize}");
             }
         }
 
@@ -38,18 +38,18 @@ namespace PawsAndClaws.Networking
             }
         }
 
-        protected override int ReceivePacket(NetworkSocket socket)
-        {
-            //OnPacketReceived?.Invoke();
-            return socket.Socket.ReceiveFrom(PacketBytes, ref _endPoint);
-        }
+        //protected override int ReceivePacket(NetworkSocket socket)
+        //{
+        //    //OnPacketReceived?.Invoke();
+        //    return socket.Socket.ReceiveFrom(PacketBytes, ref _endPoint);
+        //}
 
-        public override int SendPacket(NetPacket packet, NetworkSocket socket)
-        {
-            //OnPacketSend?.Invoke();
-            PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
-            Debug.Log($"Server send packet to IP: {socket.IPAddr}");
-            return socket.Socket.SendTo(PacketBytes, _endPoint);
-        }
+        //public override int SendPacket(NetPacket packet, NetworkSocket socket)
+        //{
+        //    //OnPacketSend?.Invoke();
+        //    PacketBytes = Utils.BinaryUtils.ObjectToByteArray(packet);
+        //    Debug.Log($"Server send packet to IP: {socket.IPAddr}");
+        //    return socket.Socket.SendTo(PacketBytes, _endPoint);
+        //}
     }
 }

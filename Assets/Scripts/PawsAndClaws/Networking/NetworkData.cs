@@ -15,6 +15,7 @@ namespace PawsAndClaws.Networking
     [System.Serializable]
     public class NetworkSocket
     {
+        public string Name = "Unknown";
         public string IPAddrStr = "localhost";
         public NetCon NetCon = NetCon.Client;
         public IPAddress IPAddr;
@@ -46,12 +47,17 @@ namespace PawsAndClaws.Networking
 
         public static ProtocolType ProtocolType = ProtocolType.Tcp;
 
-        public static string PublicName = "Player";
+        public static ushort ClientID = 0;
+
+        public static PlayerInfo playerInfo;
+
+        public static PlayerInfo[] Cat_Team = new PlayerInfo[3];
+
+        public static PlayerInfo[] Hamster_Team = new PlayerInfo[3];
     }
 
-    public class NPlayerData
+    public class PlayerInfo
     {
-        public string name;
-        public NetworkSocket socket;
+        public string name = "Player";
     }
 }

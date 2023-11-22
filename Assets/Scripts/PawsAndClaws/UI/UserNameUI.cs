@@ -25,6 +25,8 @@ namespace PawsAndClaws.UI
 
         public void SetUserName(string userName)
         {
+            if (userName == "") return;
+
             GameConstants.UserName = userName;
         }
         

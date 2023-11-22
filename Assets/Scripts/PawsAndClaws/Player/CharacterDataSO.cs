@@ -5,14 +5,14 @@ using UnityEngine;
 namespace PawsAndClaws.Player
 {
     [System.Serializable]
-    public enum Team
+    public enum Team : byte
     {
         Cat,
         Hamster
     }
 
     [System.Serializable]
-    public enum AttackType
+    public enum AttackType : byte
     {
         Melee,
         Ranged

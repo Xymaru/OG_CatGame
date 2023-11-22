@@ -1840,9 +1840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22ffefc560dbf840871cd8dc6c4b379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuPanel: {fileID: 1052659691}
-  connectPanel: {fileID: 785582868}
-  ipinput: {fileID: 1123629446}
+  ipInput: {fileID: 0}
 --- !u!4 &1792354726
 Transform:
   m_ObjectHideFlags: 0
