@@ -63,5 +63,6 @@ namespace PawsAndClaws.Networking
 
         public ushort slot;
         public Player.Team team;
+        public ushort character_id;
     }
 }
