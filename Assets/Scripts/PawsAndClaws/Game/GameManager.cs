@@ -133,7 +133,7 @@ namespace PawsAndClaws.Game
                         playerMan.userName = userInfo.name;
                         playerMan.spawnPoint = spawnPoint;
                         
-                        Debug.Log($"Spawning local player at [{spawnPoint}], with character: [{characterData.name}]");
+                        Debug.Log($"Spawning local player at [{spawnPoint.position}], with character: [{characterData.name}]");
                         
                         continue;
                     }
@@ -146,7 +146,7 @@ namespace PawsAndClaws.Game
                         playerMan.userName = userInfo.name;
                         playerMan.spawnPoint = spawnPoint;
                         
-                        Debug.Log($"Spawning local player at [{spawnPoint}], with character: [{characterData.name}]");
+                        Debug.Log($"Spawning remote player at [{spawnPoint.position}], with character: [{characterData.name}]");
                     }
                 }
             }
