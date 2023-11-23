@@ -68,7 +68,7 @@ namespace PawsAndClaws.Player
 
         public GameObject Respawn(Transform transform)
         {
-            return Instantiate(prefab, transform);
+            return Instantiate(prefab, transform.position, Quaternion.identity);
         }
     }
 }

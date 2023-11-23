@@ -19,7 +19,7 @@ MonoBehaviour:
   ability2Sprite: {fileID: 0}
   ultimateSprite: {fileID: 0}
   team: 1
-  startingHealth: 0
+  startingHealth: 100
   healthLevelMultiplier: 0
   healthRegen: 0
   healthRegenLevelMultiplier: 0
