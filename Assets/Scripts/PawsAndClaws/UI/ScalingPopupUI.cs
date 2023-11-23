@@ -30,7 +30,20 @@ namespace PawsAndClaws.UI
                 LeanTween.scale(gameObject, endScale, duration).setEase(easeType);
             }
         }
-
+        
+        public void Open(Action callback)
+        {
+            open = true;
+            if (easeType == LeanTweenType.animationCurve)
+            {
+                LeanTween.scale(gameObject, endScale, duration).setEase(curve).setOnComplete(callback);
+            }
+            else
+            {
+                LeanTween.scale(gameObject, endScale, duration).setEase(easeType).setOnComplete(callback);
+            }
+        }
+        
         public void Close()
         {
             open = false;
@@ -41,6 +54,19 @@ namespace PawsAndClaws.UI
             else
             {
                 LeanTween.scale(gameObject, Vector3.zero, duration).setEase(easeType);
+            }
+        }
+        
+        public void Close(Action callback)
+        {
+            open = false;
+            if (easeType == LeanTweenType.animationCurve)
+            {
+                LeanTween.scale(gameObject, Vector3.zero, duration).setEase(curve).setOnComplete(callback);
+            }
+            else
+            {
+                LeanTween.scale(gameObject, Vector3.zero, duration).setEase(easeType).setOnComplete(callback);
             }
         }
     }

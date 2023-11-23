@@ -6,7 +6,8 @@ namespace PawsAndClaws.Game
     {
         #region Player
 
-        public static string UserName = "Player";
+        public static string UserName = "Unknown";
+        public static bool UserNameSet = false;
 
         #endregion
         

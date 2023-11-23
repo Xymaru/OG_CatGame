@@ -15,6 +15,7 @@ namespace PawsAndClaws.UI
             if (userName != "")
             {
                 GameConstants.UserName = userName;
+                GameConstants.UserNameSet = true;
             }
         }
 
@@ -75,9 +76,11 @@ namespace PawsAndClaws.UI
             SaveSettings();
         }
 
-        private void SaveSettings()
+        public static void SaveSettings()
         {
             PlayerPrefs.SetString("user_name", GameConstants.UserName);
+            Debug.Log("Saved settings!");
+            PlayerPrefs.Save();
         }
     }
 }

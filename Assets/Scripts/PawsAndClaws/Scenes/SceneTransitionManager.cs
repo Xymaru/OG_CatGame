@@ -9,9 +9,10 @@ namespace PawsAndClaws.Scenes
     {
         public static Action<int> TransitionTo;
 
-        [SerializeField] private float duration = 0.5f;
-        [SerializeField] private LeanTweenType easeType;
-        private Image _image;
+        [SerializeField] protected float duration = 0.5f;
+        [SerializeField] protected LeanTweenType easeType;
+        protected Image _image;
+        
         private void OnEnable()
         {
             TransitionTo += ChangeLevelTo;
@@ -33,7 +34,7 @@ namespace PawsAndClaws.Scenes
             StartTransition();
         }
 
-        private void StartTransition()
+        protected virtual void StartTransition()
         {
             LeanTween.value(gameObject, (float value) =>
             {
