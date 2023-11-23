@@ -223,7 +223,7 @@ TextureImporter:
         width: 380
         height: 357
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -231,6 +231,48 @@ TextureImporter:
       bones: []
       spriteID: 93e643265bb4f64459fb091083733307
       internalID: 1436861689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_TowersSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 255
+        width: 762
+        height: 609
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd93123ef9a202a4a92313fb77355a47
+      internalID: -1696813986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_TowersSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1973
+        y: 255
+        width: 765
+        height: 609
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63d24acc88ab13b40ac75a934fff7df4
+      internalID: -505300878
       vertices: []
       indices: 
       edges: []
@@ -248,6 +290,8 @@ TextureImporter:
     nameFileIdTable:
       T_TowersSpriteSheet_0: 1252756383
       T_TowersSpriteSheet_1: 1436861689
+      T_TowersSpriteSheet_2: -1696813986
+      T_TowersSpriteSheet_3: -505300878
       Towers_0: -1160834619
       Towers_1: 1847683499
       Towers_2: -1621683577
