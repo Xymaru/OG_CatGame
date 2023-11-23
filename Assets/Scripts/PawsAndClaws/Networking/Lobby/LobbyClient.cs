@@ -13,6 +13,8 @@ namespace PawsAndClaws.Networking {
 
         public Action<PlayerInfo, ushort, Player.Team> OnSlotUpdate;
 
+        bool _startGame = false;
+
         void Start()
         {
             _netClientTCP = FindObjectOfType<NetClientTCP>();
@@ -22,7 +24,11 @@ namespace PawsAndClaws.Networking {
 
         void Update()
         {
-
+            if (_startGame)
+            {
+                // Change scene
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Gameplay");
+            }
         }
 
         private void SpotUpdate(NPLobbySpotUpdate spot_update)
@@ -60,8 +66,7 @@ namespace PawsAndClaws.Networking {
 
         private void OnLobbyStartGame(NPLobbyStartGame packet)
         {
-            // Change scene
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Gameplay");
+            _startGame = true;
         }
 
         private void OnPacketRecv(NetworkPacket packet)

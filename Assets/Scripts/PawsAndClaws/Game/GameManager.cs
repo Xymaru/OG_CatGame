@@ -80,20 +80,20 @@ namespace PawsAndClaws.Game
         private void Start()
         {
             // Remove me
-            {
-                NetworkData.NetSocket = new NetworkSocket(null, null, null);
-                NetworkData.NetSocket.PlayerI = new PlayerInfo();
-                NetworkData.NetSocket.PlayerI.client_id = 0;
-                for (var i = 0; i < 5; i++)
-                {
-                    var info = new PlayerInfo();
-                    info.character_id = 0;
-                    info.client_id = (ushort)i;
-                    info.team = i % 2 == 0 ? Team.Cat : Team.Hamster;
-                    info.name = $"Player {i}";
-                    NetworkData.Teams[i % 2 == 0 ? 0 : 1].members[i / 2] = info;
-                }
-            }
+            //{
+            //    NetworkData.NetSocket = new NetworkSocket(null, null, null);
+            //    NetworkData.NetSocket.PlayerI = new PlayerInfo();
+            //    NetworkData.NetSocket.PlayerI.client_id = 0;
+            //    for (var i = 0; i < 5; i++)
+            //    {
+            //        var info = new PlayerInfo();
+            //        info.character_id = 0;
+            //        info.client_id = (ushort)i;
+            //        info.team = i % 2 == 0 ? Team.Cat : Team.Hamster;
+            //        info.name = $"Player {i}";
+            //        NetworkData.Teams[i % 2 == 0 ? 0 : 1].members[i / 2] = info;
+            //    }
+            //}
             
             StartMatch();
         }
