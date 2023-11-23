@@ -34,6 +34,7 @@ namespace PawsAndClaws.Player
         public Action onAutoAttack;
         
         // Respawn variables
+        public Transform spawnPoint;
         protected const float BaseRespawnTime = 30f;
         protected const float LevelRespawnMultiplier = 2f;
         protected Coroutine _respawnCoroutine;
@@ -123,7 +124,7 @@ namespace PawsAndClaws.Player
             
             // TODO: Set the screen to normal
             
-            _character = characterData.Respawn(transform);
+            _character = characterData.Respawn(spawnPoint);
             CharacterStats.Health = CharacterStats.MaxHealth;
             NotifyUIStats();
             onPlayerSpawn?.Invoke();

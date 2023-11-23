@@ -134,7 +134,7 @@ namespace PawsAndClaws.Game
                         var playerMan = player.GetComponentInChildren<LocalPlayerManager>();
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;
-                        
+                        playerMan.spawnPoint = spawnPoint;
                         
                         Debug.Log($"Spawning local player at [{spawnPoint}], with character: [{characterData.name}]");
                         
@@ -147,6 +147,7 @@ namespace PawsAndClaws.Game
                         var playerMan = player.GetComponentInChildren<NetworkPlayerManager>();
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;
+                        playerMan.spawnPoint = spawnPoint;
                         
                         Debug.Log($"Spawning local player at [{spawnPoint}], with character: [{characterData.name}]");
                     }

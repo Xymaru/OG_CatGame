@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5866208520c24ce439b1e6876ab7446f, type: 3}
   m_Name: HardRock
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
+  Name: Hard rock
+  Description: Every 3 shoots a the next one deals x2 damage
   Cooldown: 0
   Cost: 0
   Damage: 0
