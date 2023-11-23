@@ -8,11 +8,17 @@ namespace PawsAndClaws.Networking
 {
     public class NetClientTCP : MonoBehaviour
     {
+        public PlayerInfo[] ConnectedClients = new PlayerInfo[6];
+
         PacketManagerTCP _packetManagerTCP = new PacketManagerTCP();
 
         void Start()
         {
             _packetManagerTCP.OnPacketReceived += OnReceivedPacket;
+            _packetManagerTCP.OnSocketDisconnected += OnSocketDisconnect;
+
+            // Begin receiving from server
+            _packetManagerTCP.BeginReceive(NetworkData.NetSocket);
         }
 
         void Update()
@@ -23,6 +29,12 @@ namespace PawsAndClaws.Networking
         void OnReceivedPacket(NetworkPacket packet)
         {
             NetworkManager.OnPacketReceived?.Invoke(packet);
+        }
+
+        void OnSocketDisconnect(NetworkSocket socket)
+        {
+            // Handle server disconnection
+
         }
 
         private void CloseConnections()

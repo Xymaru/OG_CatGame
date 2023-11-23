@@ -235,4 +235,51 @@ namespace PawsAndClaws.Networking.Packets
             return data;
         }
     }
+
+    public class NPLobbyPlayerCon : NetworkPacket
+    {
+        public ushort client_id;
+        public string name;
+
+        public NPLobbyPlayerCon(byte[] data) : base(data)
+        {
+            p_type = NPacketType.LOBBYPLAYERCON;
+        }
+
+        public NPLobbyPlayerCon()
+        {
+            p_type = NPacketType.LOBBYPLAYERCON;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] buffer)
+        {
+            int offset = readBasePacketData(buffer);
+
+            client_id = BitConverter.ToUInt16(buffer, offset);
+            offset += 2;
+
+            name = Encoding.ASCII.GetString(buffer, offset, p_size - offset);
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+
+            int offset = setBasePacketData(data);
+
+            BitConverter.GetBytes(client_id).CopyTo(data, offset);
+            offset += 2;
+
+            Encoding.ASCII.GetBytes(name).CopyTo(data, offset);
+            offset += name.Length;
+
+            // Set packet size in bytes
+            p_size = offset;
+            BitConverter.GetBytes(p_size).CopyTo(data, 0); // size index
+
+            return data;
+        }
+    }
 }

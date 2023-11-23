@@ -50,6 +50,7 @@ namespace PawsAndClaws.Networking
         public static TeamInfo[] Teams = new TeamInfo[2] { new TeamInfo(), new TeamInfo() };
     }
 
+    [System.Serializable]
     public class TeamInfo
     {
         public PlayerInfo[] members = new PlayerInfo[3];
@@ -61,8 +62,8 @@ namespace PawsAndClaws.Networking
         public string name = "Unknown";
         public ushort client_id = ushort.MaxValue;
 
-        public ushort slot;
-        public Player.Team team;
+        public ushort slot = ushort.MaxValue;
+        public Player.Team team = Player.Team.None;
         public ushort character_id;
     }
 }

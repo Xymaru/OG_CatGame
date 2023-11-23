@@ -6,6 +6,7 @@ namespace PawsAndClaws.Networking
 {
     public enum NPacketType : ushort
     {
+        LOBBYPLAYERCON,
         LOBBYREQ,
         LOBBYRES,
         LOBBYSPOTREQ,
