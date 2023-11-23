@@ -38,35 +38,35 @@ namespace PawsAndClaws
             _netServerTCP.ConnectedClients[packet.id].PlayerI.name = packet.name;
 
             // New connection packet
-            //NPLobbyPlayerCon player_con = new NPLobbyPlayerCon();
-            //player_con.name = packet.name;
-            //player_con.client_id = packet.id;
+            NPLobbyPlayerCon player_con = new NPLobbyPlayerCon();
+            player_con.name = packet.name;
+            player_con.client_id = packet.id;
 
-            //// Tell all clients about new connection
-            //_netServerTCP.BroadcastPacket(player_con);
+            // Tell all clients about new connection
+            _netServerTCP.BroadcastPacket(player_con);
 
-            //// Tell new connection about server
-            //player_con.client_id = 0;
-            //player_con.name = Game.GameConstants.UserName;
+            // Tell new connection about server
+            player_con.client_id = 5;
+            player_con.name = Game.GameConstants.UserName;
 
-            //byte[] data = player_con.ToByteArray();
+            byte[] data = player_con.ToByteArray();
 
-            //NetworkSocket netSocket = _netServerTCP.ConnectedClients[packet.id];
-            //netSocket.Socket.Send(data);
+            NetworkSocket netSocket = _netServerTCP.ConnectedClients[packet.id];
+            netSocket.Socket.Send(data);
 
-            //// Tell new connection about all other clients
-            //foreach (NetworkSocket socket in _netServerTCP.ConnectedClients)
-            //{
-            //    if (socket != null)
-            //    {
-            //        player_con.client_id = socket.PlayerI.client_id;
-            //        player_con.name = socket.PlayerI.name;
+            // Tell new connection about all other clients
+            foreach (NetworkSocket socket in _netServerTCP.ConnectedClients)
+            {
+                if (socket != null)
+                {
+                    player_con.client_id = socket.PlayerI.client_id;
+                    player_con.name = socket.PlayerI.name;
 
-            //        data = player_con.ToByteArray();
+                    data = player_con.ToByteArray();
 
-            //        netSocket.Socket.Send(data);
-            //    }
-            //}
+                    netSocket.Socket.Send(data);
+                }
+            }
         }
 
         private void OnLobbySpotReq(NPLobbySpotReq packet)

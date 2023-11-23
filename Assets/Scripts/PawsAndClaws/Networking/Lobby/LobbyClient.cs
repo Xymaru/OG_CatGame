@@ -29,8 +29,6 @@ namespace PawsAndClaws.Networking {
         {
             PlayerInfo pinfo = null;
 
-            Debug.Log($"Spot update with id {spot_update.id}");
-
             // Check if it's my spot
             if (spot_update.id == NetworkData.NetSocket.PlayerI.client_id)
             {
@@ -60,6 +58,12 @@ namespace PawsAndClaws.Networking {
             Debug.Log($"New player connected with name {pinfo.name} and ID {pinfo.client_id}");
         }
 
+        private void OnLobbyStartGame(NPLobbyStartGame packet)
+        {
+            // Change scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Gameplay");
+        }
+
         private void OnPacketRecv(NetworkPacket packet)
         {
             switch (packet.p_type)
@@ -69,6 +73,9 @@ namespace PawsAndClaws.Networking {
                     break;
                 case NPacketType.LOBBYPLAYERCON:
                     OnLobbyPlayerCon((NPLobbyPlayerCon)packet);
+                    break;
+                case NPacketType.LOBBYSTARTGAME:
+                    OnLobbyStartGame((NPLobbyStartGame)packet);
                     break;
             }
         }

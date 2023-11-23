@@ -29,6 +29,7 @@ namespace PawsAndClaws
 
     public class LobbyUI : MonoBehaviour
     {
+        public GameObject start_btn;
         public TeamSlotUI[] cat_slots = new TeamSlotUI[3];
         public TeamSlotUI[] hamster_slots = new TeamSlotUI[3];
 
@@ -45,6 +46,8 @@ namespace PawsAndClaws
             else{
                 LobbyServer _srv = gameObject.AddComponent<LobbyServer>();
                 _srv.OnSlotUpdate += ReqSlotChange;
+
+                start_btn.SetActive(true);
             }
         }
 
@@ -152,6 +155,17 @@ namespace PawsAndClaws
             {
                 hamster_slots[info.slot].OnUserChange(info.name);
             }
+        }
+
+        public void StartGame()
+        {
+            NPLobbyStartGame start_game = new NPLobbyStartGame();
+
+            // Broadcast packet to all clients
+            FindObjectOfType<NetServerTCP>().BroadcastPacket(start_game);
+
+            // Change scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Gameplay");
         }
     }
 }
