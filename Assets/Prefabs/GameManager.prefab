@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   database: {fileID: 11400000, guid: 0968991d6279eab4eb885bbc192b4efd, type: 2}
-  localPlayerPrefab: {fileID: 100139275003766247, guid: 1db10383896a6ee4d91781d76e495dc4,
+  localPlayerPrefab: {fileID: 6938703141983788041, guid: 7d60c822c3f1b408ea7a00ecdb5e047a,
     type: 3}
   netPlayerPrefab: {fileID: 100139275003766247, guid: b5fa54316a162974d81501778a4dc1f8,
     type: 3}

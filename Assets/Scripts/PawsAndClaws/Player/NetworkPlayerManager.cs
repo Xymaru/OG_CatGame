@@ -13,17 +13,18 @@ namespace PawsAndClaws.Player
         public CharacterDataSO characterData;
         public CharacterStats CharacterStats;
         private GameObject _character;
+        public string userName;
         
-        private InGameHealthBarUI _healthBar;
+        private InGamePlayerHealthBarUI _healthBar;
         private NavMeshAgent _agent;
         public Team Team {get => characterData.team; set { } }
         public bool IsAlive { get => _isAlive; set { } }
         private bool _isAlive = true;
         GameObject IGameEntity.GameObject { get => gameObject; set {} }
 
-        private void Awake()
+        private void Start()
         {
-            _healthBar = GetComponentInChildren<InGameHealthBarUI>();
+            _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
             _agent = GetComponent<NavMeshAgent>();
             
             // Spawn the character
@@ -34,7 +35,8 @@ namespace PawsAndClaws.Player
                 GameConstants.CatLayerMask:
                 GameConstants.HamsterLayerMask;
             
-            _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);  
+            _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);
+            _healthBar.UpdateName(userName);
         }
 
         public void SetPosition(Vector2 pos)

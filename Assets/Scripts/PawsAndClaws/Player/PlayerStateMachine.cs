@@ -18,7 +18,7 @@ namespace PawsAndClaws.Player
         public PlayerMovingState movingState;
         public PlayerAttackState attackState;
         
-        private void Awake()
+        public override void Start()
         {
             idleState = new PlayerIdleState(this, gameObject);
             movingState = new PlayerMovingState(this, gameObject);

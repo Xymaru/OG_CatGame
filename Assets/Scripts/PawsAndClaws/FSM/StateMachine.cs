@@ -7,7 +7,7 @@ namespace PawsAndClaws.FSM
     public class StateMachine : MonoBehaviour
     {
         protected State CurrentState;
-        public void Start()
+        public virtual void Start()
         {
             CurrentState = GetInitialState();
             CurrentState?.Enter();

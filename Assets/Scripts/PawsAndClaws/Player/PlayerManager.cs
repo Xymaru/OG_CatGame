@@ -17,13 +17,14 @@ namespace PawsAndClaws.Player
         // Character data
         public CharacterDataSO characterData;
         public CharacterStats CharacterStats;
+        public string userName;
         private GameObject _character;
         private bool _isAlive = true;
         
         // Components
         private PlayerCameraController _playerCameraController;
         private PlayerStateMachine _playerStateMachine;
-        private InGameHealthBarUI _healthBar;
+        private InGamePlayerHealthBarUI _healthBar;
         private Camera _playerCameraComp;
 
         // Events
@@ -46,19 +47,21 @@ namespace PawsAndClaws.Player
 
         public string GetCurrentStateName() => _playerStateMachine.GetCurrentStateName();
 
+        
+        
         #region IGameEntity
         Team IGameEntity.Team {get => characterData.team; set { } }
         bool IGameEntity.IsAlive { get => _isAlive; set => _isAlive = value; }
         GameObject IGameEntity.GameObject { get => gameObject; set { } }
         #endregion
+        
 
-
-        private void Awake()
+        private void Start()
         {
             _playerCameraController = playerCamera.GetComponent<PlayerCameraController>();
             _playerStateMachine = GetComponent<PlayerStateMachine>();
             _playerCameraComp = playerCamera.GetComponent<Camera>();
-            _healthBar = GetComponentInChildren<InGameHealthBarUI>();
+            _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
             
             // Setup the reference for the player movement script
             inputHandler.playerCamera = _playerCameraComp;
@@ -77,17 +80,15 @@ namespace PawsAndClaws.Player
             gameObject.layer = characterData.team == Team.Cat ?
                 GameConstants.CatLayerMask:
                 GameConstants.HamsterLayerMask;
-        }
-
-        private void Start()
-        {
+            
             // Update the UI
             NotifyUIStats();
         }
 
         private void NotifyUIStats()
         {
-            _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);   
+            _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);
+            _healthBar.UpdateName(userName);
             onHealthChange?.Invoke(CharacterStats.Health, CharacterStats.MaxHealth);
             onHealthRegenChange?.Invoke(CharacterStats.HealthRegen);
             onManaChange?.Invoke(CharacterStats.Mana, CharacterStats.MaxMana);
