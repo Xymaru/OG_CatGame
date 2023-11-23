@@ -7,6 +7,7 @@ namespace PawsAndClaws.Networking
     public enum NPacketType : ushort
     {
         LOBBYPLAYERCON,
+        LOBBYSTARTGAME,
         LOBBYREQ,
         LOBBYRES,
         LOBBYSPOTREQ,
@@ -60,6 +61,12 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.PLAYERPOS:
                     packet = new NPPlayerPos(buffer);
+                    break;
+                case NPacketType.LOBBYPLAYERCON:
+                    packet = new NPLobbyPlayerCon(buffer);
+                    break;
+                case NPacketType.LOBBYSTARTGAME:
+                    packet = new NPLobbyStartGame(buffer);
                     break;
             }
 

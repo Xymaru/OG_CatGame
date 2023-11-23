@@ -20,6 +20,8 @@ namespace PawsAndClaws.Networking
 
         void Awake()
         {
+            DontDestroyOnLoad(gameObject);
+
             if (NetworkData.NetSocket.NetCon == NetCon.Client)
             {
                 gameObject.AddComponent<NetClientTCP>();
@@ -28,12 +30,6 @@ namespace PawsAndClaws.Networking
             {
                 gameObject.AddComponent<NetServerTCP>();
             }
-        }
-
-
-        public void SendReadyPacket()
-        {
-            
         }
     }
 }

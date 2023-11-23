@@ -6,8 +6,6 @@ using UnityEngine;
 
 namespace PawsAndClaws.Networking
 {
-    
-
     public abstract class NetServer : MonoBehaviour
     {
         public List<NetworkSocket> ConnectedClients = new();

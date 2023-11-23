@@ -236,6 +236,35 @@ namespace PawsAndClaws.Networking.Packets
         }
     }
 
+    public class NPLobbyStartGame : NetworkPacket
+    {
+        public NPLobbyStartGame()
+        {
+            p_type = NPacketType.LOBBYSTARTGAME;
+        }
+
+        public NPLobbyStartGame(byte[] data) : base(data)
+        {
+            p_type = NPacketType.LOBBYSTARTGAME;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] buffer)
+        {
+            readBasePacketData(buffer);
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+
+            setBasePacketData(data);
+
+            return data;
+        }
+    }
+
     public class NPLobbyPlayerCon : NetworkPacket
     {
         public ushort client_id;
