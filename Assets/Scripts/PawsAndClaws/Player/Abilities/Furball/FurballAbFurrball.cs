@@ -40,6 +40,7 @@ namespace PawsAndClaws.Player.Abilities.Furball
             FurballProjectile projectile = bullet.GetComponent<FurballProjectile>();
             projectile.team = manager.Team;
             projectile.damage = manager.CharacterStats.TotalDamage * damage;
+            projectile.owner = manager.gameObject;
         }
 
         private void Update()
