@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 35266245276980161}
   - component: {fileID: 8928455702279885535}
   - component: {fileID: 9072097297513055302}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CatMinion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8751022012201152427}
   - component: {fileID: 2833116843410533464}
-  m_Layer: 0
+  - component: {fileID: 5318191414968382557}
+  m_Layer: 6
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,6 +289,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5318191414968382557
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4003311921137048345}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 86d6a1b3a9955a74fb82e3616252f839, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2795878230381505646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -300,6 +322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InGameHealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547559235979024308, guid: 42a4b06df7e696e4696e9089229da084,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2547559235979024309, guid: 42a4b06df7e696e4696e9089229da084,
         type: 3}
@@ -416,6 +443,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4209589550366872449, guid: 42a4b06df7e696e4696e9089229da084,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5800601800369974997, guid: 42a4b06df7e696e4696e9089229da084,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -425,6 +457,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570094650642871723, guid: 42a4b06df7e696e4696e9089229da084,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8838387253790371698, guid: 42a4b06df7e696e4696e9089229da084,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

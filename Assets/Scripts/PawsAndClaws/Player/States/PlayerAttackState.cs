@@ -30,10 +30,10 @@ namespace PawsAndClaws.Player
         }
         private IEnumerator AttackCoroutine()
         {
-            _stateMachine.animator.Play(GameConstants.AutoAttackAnim);
-            yield return new WaitForSeconds(1 / _playerManager.CharacterStats.TotalAttackSpeed);
+            _stateMachine.animator.SetTrigger(GameConstants.AutoAttackAnim);
+            _playerManager.Attack(_stateMachine.EnemyTarget);
 
-            _playerManager.Attack(_stateMachine.enemyTarget);
+            yield return new WaitForSeconds(1f / _playerManager.CharacterStats.TotalAttackSpeed);
 
             _attackCoroutine = null;
         }

@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using UnityEngine.Serialization;
 using PawsAndClaws.FSM;
 using PawsAndClaws.Entities;
+using PawsAndClaws.Player.States;
 
 namespace PawsAndClaws.Player
 {
@@ -11,18 +12,19 @@ namespace PawsAndClaws.Player
         public Animator animator;
 
         public Vector3 target;
+        public IGameEntity EnemyTarget;
 
-        public IGameEntity enemyTarget;
-
-        public PlayerIdleState idleState;
-        public PlayerMovingState movingState;
-        public PlayerAttackState attackState;
+        public PlayerIdleState IdleState;
+        public PlayerMovingState MovingState;
+        public PlayerAttackState AttackState;
+        public PlayerChaseState ChaseState;
         
         public override void Start()
         {
-            idleState = new PlayerIdleState(this, gameObject);
-            movingState = new PlayerMovingState(this, gameObject);
-            attackState = new PlayerAttackState(this, gameObject);
+            IdleState = new PlayerIdleState(this, gameObject);
+            MovingState = new PlayerMovingState(this, gameObject);
+            AttackState = new PlayerAttackState(this, gameObject);
+            ChaseState = new PlayerChaseState(this, gameObject);
 
             var agent = GetComponent<NavMeshAgent>();
             agent.updateRotation = false;
@@ -32,7 +34,7 @@ namespace PawsAndClaws.Player
         }
         protected override State GetInitialState()
         {
-            return idleState;
+            return IdleState;
         }
     }
 }

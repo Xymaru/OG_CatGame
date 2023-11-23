@@ -9,7 +9,7 @@ namespace PawsAndClaws.UI
 {
     public class PlayerInfoUI : MonoBehaviour
     {
-        public PlayerManager manager;
+        public LocalPlayerManager manager;
         [Header("UI elements")]
         [SerializeField] private Image playerImage;
         [SerializeField] private TMPro.TextMeshProUGUI respawnCooldownTimer;
@@ -48,7 +48,7 @@ namespace PawsAndClaws.UI
             manager.onStatsChanged          -= statsUI.UpdateStats;
         }
         
-        private void Awake()
+        private void Start()
         {
             playerImage.sprite = manager.characterData.sprite;
             respawnCooldownTimer.text = "";

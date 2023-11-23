@@ -1,32 +1,26 @@
 using PawsAndClaws.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using PawsAndClaws.Entities;
 using PawsAndClaws.Game;
+using PawsAndClaws.Player.Abilities;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace PawsAndClaws.Player
 {
-    [RequireComponent(typeof(PlayerInputHandler))]
     public class PlayerManager : MonoBehaviour, IGameEntity
     {
-        // Player object references
-        [SerializeField] private GameObject playerCamera;
-        [SerializeField] private PlayerInputHandler inputHandler;
-
+        [SerializeField] protected List<Ability> abilities = new List<Ability>();
+        
         // Character data
         public CharacterDataSO characterData;
         public CharacterStats CharacterStats;
+        protected GameObject _character;
         public string userName;
-        private GameObject _character;
-        private bool _isAlive = true;
         
-        // Components
-        private PlayerCameraController _playerCameraController;
-        private PlayerStateMachine _playerStateMachine;
-        private InGamePlayerHealthBarUI _healthBar;
-        private Camera _playerCameraComp;
-
         // Events
         public Action<float, float> onHealthChange;
         public Action<float> onHealthRegenChange;
@@ -38,72 +32,46 @@ namespace PawsAndClaws.Player
         public Action onPlayerSpawn;
         public Action<CharacterStats> onStatsChanged;
         public Action onAutoAttack;
-    
+        
         // Respawn variables
-        private const float BaseRespawnTime = 30f;
-        private const float LevelRespawnMultiplier = 2f;
-        private Coroutine _respawnCoroutine;
+        protected const float BaseRespawnTime = 30f;
+        protected const float LevelRespawnMultiplier = 2f;
+        protected Coroutine _respawnCoroutine;
         
-
         public string GetCurrentStateName() => _playerStateMachine.GetCurrentStateName();
-
         
+        protected PlayerStateMachine _playerStateMachine;
+        protected InGamePlayerHealthBarUI _healthBar;
+        protected NavMeshAgent _agent;
+        public Team Team {get => characterData.team; set { } }
+        public bool IsAlive { get => _isAlive; set { } }
+        protected bool _isAlive = true;
+        GameObject IGameEntity.GameObject { get => gameObject; set {} }
         
-        #region IGameEntity
-        Team IGameEntity.Team {get => characterData.team; set { } }
-        bool IGameEntity.IsAlive { get => _isAlive; set => _isAlive = value; }
-        GameObject IGameEntity.GameObject { get => gameObject; set { } }
-        #endregion
-        
-
-        private void Start()
+        protected void CollectAbilities()
         {
-            _playerCameraController = playerCamera.GetComponent<PlayerCameraController>();
-            _playerStateMachine = GetComponent<PlayerStateMachine>();
-            _playerCameraComp = playerCamera.GetComponent<Camera>();
-            _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
-            
-            // Setup the reference for the player movement script
-            inputHandler.playerCamera = _playerCameraComp;
-            inputHandler.playerStateMachine = _playerStateMachine;
-            
-            // Setup the reference for the camera controller script
-            _playerCameraController.player = transform;
-            _playerCameraController.inputHandler = inputHandler;
+            var ab = _character.GetComponents<Ability>();
 
+            foreach (var ability in ab)
+            {
+                abilities.Add(ability);
+                ability.manager = this;
+            }
 
-            // Spawn the character
-            _character = characterData.Spawn(transform, ref CharacterStats);
-
-            GameManager.Instance.playerTeam = characterData.team;
-
-            gameObject.layer = characterData.team == Team.Cat ?
-                GameConstants.CatLayerMask:
-                GameConstants.HamsterLayerMask;
-            
-            // Update the UI
-            NotifyUIStats();
+            abilities = abilities.OrderBy(x => x.id).ToList();
         }
-
-        private void NotifyUIStats()
+        private void UpdateHealthUI()
         {
             _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);
-            _healthBar.UpdateName(userName);
             onHealthChange?.Invoke(CharacterStats.Health, CharacterStats.MaxHealth);
-            onHealthRegenChange?.Invoke(CharacterStats.HealthRegen);
-            onManaChange?.Invoke(CharacterStats.Mana, CharacterStats.MaxMana);
-            onManaRegenChange?.Invoke(CharacterStats.ManaRegen);
-            onExpChange?.Invoke(CharacterStats.Experience, CharacterStats.ExpToNextLevel);
-            onLevelUp?.Invoke(CharacterStats.Level);
-            onStatsChanged?.Invoke(CharacterStats);
         }
-
-        public void Attack(IGameEntity enemy)
+        
+        protected virtual void NotifyUIStats()
         {
-            onAutoAttack?.Invoke();
+            
         }
-    
-        public bool Damage(float damage)
+        
+        public virtual bool Damage(float damage)
         {
             var finalDamage =  Mathf.Max(1f, damage - CharacterStats.Shield);
             CharacterStats.Health -= finalDamage;
@@ -119,21 +87,21 @@ namespace PawsAndClaws.Player
             Debug.Log($"Damaging player manager with {finalDamage} damage, {CharacterStats.Health} health remaining");
             return false;
         }
-
-        private void UpdateHealthUI()
+        public virtual void Attack(IGameEntity enemy)
         {
-            _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);
-            onHealthChange?.Invoke(CharacterStats.Health, CharacterStats.MaxHealth);
+            enemy.Damage(CharacterStats.TotalDamage);
+            Debug.Log($"Player Attacking {CharacterStats.TotalDamage}");
+            onAutoAttack?.Invoke();
         }
-
-        public void Die()
+        
+        public virtual void Die()
         {
             _isAlive = false;
             Destroy(_character);
             _character = null;
             _respawnCoroutine ??= StartCoroutine(RespawnCoroutine());
         }
-
+        
         private IEnumerator RespawnCoroutine()
         {
             // TODO: Set the screen grayscale
@@ -162,25 +130,5 @@ namespace PawsAndClaws.Player
             _isAlive = true;
             _respawnCoroutine = null;
         }
-
-        #region Gizmos
-
-        private void OnMouseOver()
-        {
-            if(GameManager.Instance.playerTeam != characterData.team)
-                PlayerInputHandler.SetCursorAttack();
-        }
-
-        private void OnMouseExit()
-        {
-            if(GameManager.Instance.playerTeam != characterData.team)
-                PlayerInputHandler.SetCursorDefault();
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawWireSphere(transform.position, CharacterStats.Range);
-        }
-        #endregion
     }
 }

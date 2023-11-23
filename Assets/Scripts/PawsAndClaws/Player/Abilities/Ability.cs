@@ -10,6 +10,10 @@ namespace PawsAndClaws.Player.Abilities
         public bool active;
         public PlayerManager manager;
         public Action onActivate;
+        public AbilityInfoSO abilityInfo;
+        public int id;
+        
+
         public virtual void Activate()
         {
             onActivate?.Invoke();

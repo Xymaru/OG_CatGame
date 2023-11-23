@@ -14,8 +14,7 @@ namespace PawsAndClaws.Utils
         /// <returns>The IGameEntity script if found</returns>
         public static IGameEntity GetIfHasIGameEntity(GameObject gameObject)
         {
-            var gameEntity = gameObject.GetComponent<IGameEntity>();
-            return gameEntity;
+            var gameEntity = gameObject.GetComponent<IGameEntity>(); return gameEntity;
         }
 
         /// <summary>
@@ -50,19 +49,31 @@ namespace PawsAndClaws.Utils
             return goInterface.Team != otherInterface.Team ? otherInterface : null;
         }
 
-        public static LayerMask GetOppositeLayer(GameObject gameObject)
+        public static IGameEntity CheckIfOtherTeam(GameObject gameObject, Team team)
         {
-            if (gameObject.layer == GameConstants.CatLayerMask)
+            var goInterface = GetIfHasIGameEntity(gameObject);
+            return goInterface?.Team != team ? goInterface : null;
+        }
+        
+        public static bool AreLayerMasksEqual(LayerMask mask1, LayerMask mask2)
+        {
+            return mask1.value == mask2.value;
+        }
+        
+        public static int GetOppositeLayer(GameObject gameObject)
+        {
+            if (AreLayerMasksEqual(gameObject.layer, GameConstants.CatLayerMask))
             {
                 return GameConstants.HamsterLayerMask;
             }
-            else if (gameObject.layer == GameConstants.HamsterLayerMask)
+            
+            if (AreLayerMasksEqual(gameObject.layer, GameConstants.HamsterLayerMask))
             {
                 return GameConstants.CatLayerMask;
             }
 
-            return LayerMask.GetMask();
+            return ~LayerMask.GetMask();
         }
-    }
+    } 
    
 }

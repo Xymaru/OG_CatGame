@@ -84,7 +84,7 @@ namespace PawsAndClaws.Game
                 NetworkData.NetSocket = new NetworkSocket(null, null, null);
                 NetworkData.NetSocket.PlayerI = new PlayerInfo();
                 NetworkData.NetSocket.PlayerI.client_id = 0;
-                for (var i = 0; i < 6; i++)
+                for (var i = 0; i < 5; i++)
                 {
                     var info = new PlayerInfo();
                     info.character_id = 0;
@@ -125,13 +125,13 @@ namespace PawsAndClaws.Game
                         continue;
 
                     var characterData = database.GetCharacter(userInfo.team, userInfo.character_id);
-                    var spawnPoint = userInfo.team == Team.Cat ? catSpawnPoint : hamsterSpawnPoint;
+                    var spawnPoint = userInfo.team == Team.Cat ? catSpawnPoint[userId] : hamsterSpawnPoint[userId];
                     
                     // Check if this is the local player
                     if (userInfo.client_id == NetworkData.NetSocket.PlayerI.client_id)
                     {
-                        var player = Instantiate(localPlayerPrefab, spawnPoint[userId].position, Quaternion.identity, null);
-                        var playerMan = player.GetComponentInChildren<PlayerManager>();
+                        var player = Instantiate(localPlayerPrefab, spawnPoint.position, Quaternion.identity, null);
+                        var playerMan = player.GetComponentInChildren<LocalPlayerManager>();
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;
                         
@@ -143,7 +143,7 @@ namespace PawsAndClaws.Game
                     
                     // Spawn the network player
                     {
-                        var player = Instantiate(netPlayerPrefab, spawnPoint[userId].position, Quaternion.identity, null);
+                        var player = Instantiate(netPlayerPrefab, spawnPoint.position, Quaternion.identity, null);
                         var playerMan = player.GetComponentInChildren<NetworkPlayerManager>();
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;

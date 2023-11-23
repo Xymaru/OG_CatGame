@@ -206,8 +206,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 5
   maxHealth: 1000
-  damage: 10
-  damageMultiplier: 1.4
+  damage: 20
+  damageMultiplier: 2.5
   team: 1
   healthBar: {fileID: 8447040333967949069}
   timeToAttack: 3

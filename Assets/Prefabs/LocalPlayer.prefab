@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 57573958773270345}
   - component: {fileID: 100139275003766242}
   - component: {fileID: 6937580944603061406}
-  - component: {fileID: 4633994898981911522}
+  - component: {fileID: 431119492036754958}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 8976748820900126192}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &100139275003766243
 NavMeshAgent:
@@ -158,11 +158,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b95a8f92364f7408722a9b96e0f5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCursorTexture: {fileID: 0}
-  attackCursorTexture: {fileID: 0}
+  defaultCursorTexture: {fileID: 2800000, guid: 537606e3c43342745bc887939d0e8d4b,
+    type: 3}
+  attackCursorTexture: {fileID: 2800000, guid: 0b516ada0f8475a458767b739e0ddcaa, type: 3}
+  oppositeTeam: 0
   playerCamera: {fileID: 0}
   playerStateMachine: {fileID: 0}
---- !u!114 &4633994898981911522
+  playerManager: {fileID: 0}
+--- !u!114 &431119492036754958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,13 +174,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 100139275003766247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33ccc34415a1c2a468deaae7e668c0d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4187a756c504c244ba00c0776f61b099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
-  inputHandler: {fileID: 6937580944603061406}
-  characterData: {fileID: 11400000, guid: 1b4140663f241444cac2399d619e3bcc, type: 2}
+  abilities: []
+  characterData: {fileID: 0}
   userName: 
+  playerCamera: {fileID: 0}
+  inputHandler: {fileID: 0}
 --- !u!1001 &1777267785453334650
 PrefabInstance:
   m_ObjectHideFlags: 0

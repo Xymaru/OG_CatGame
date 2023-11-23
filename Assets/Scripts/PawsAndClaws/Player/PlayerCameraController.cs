@@ -12,7 +12,7 @@ namespace PawsAndClaws.Player
         [SerializeField] private bool lockToPlayer = false;
         public PlayerInputHandler inputHandler;
         public Transform player;
-        private void Start()
+        public void Initialize()
         {
             inputHandler.InputManager.Gameplay.LockCamera.performed += context => HandleLockToPlayer();
             cameraFollowScript.player = player;

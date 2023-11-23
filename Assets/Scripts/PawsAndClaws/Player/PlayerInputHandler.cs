@@ -8,21 +8,18 @@ namespace PawsAndClaws.Player
         [SerializeField] private Texture2D defaultCursorTexture;
         [SerializeField] private Texture2D attackCursorTexture;
         
+        public int oppositeTeam;
         public Camera playerCamera;
         public PlayerStateMachine playerStateMachine;
         public static Texture2D DefaultCursorTexture;
         public static Texture2D AttackCursorTexture;
         public PlayerInputManager InputManager { get; private set; }
-        
-        private LayerMask _oppositeTeam;
-        private void OnEnable()
-        {
-            InputManager.Gameplay.Enable();
-        }
 
-        private void Awake()
+        public LocalPlayerManager playerManager;
+        public void Initialize()
         {
             InputManager = new PlayerInputManager();
+            InputManager.Gameplay.Enable();
             Cursor.lockState = CursorLockMode.Confined;
 
             AttackCursorTexture = attackCursorTexture;
@@ -31,8 +28,9 @@ namespace PawsAndClaws.Player
             Cursor.SetCursor(defaultCursorTexture,  new Vector2(0.5f, 0.5f), CursorMode.Auto);
             
             InputManager.Gameplay.Move.performed += c => HandlePlayerMoveInput();
-            
-            _oppositeTeam = Utils.GameUtils.GetOppositeLayer(gameObject);
+            InputManager.Gameplay.Ability1.performed += c => playerManager.ActivateAbility1();
+            InputManager.Gameplay.Ability2.performed += c => playerManager.ActivateAbility2();
+            InputManager.Gameplay.Ultimate.performed += c => playerManager.ActivateUltimate();
         }
 
         public static void SetCursorAttack()
@@ -50,31 +48,27 @@ namespace PawsAndClaws.Player
             InputManager.Gameplay.Disable();
         }
         
-        
         void HandlePlayerMoveInput()
         {
             // Check if the player wants to attack
             var ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            var hit = Physics2D.Raycast(ray.origin, ray.direction, 1000, _oppositeTeam);
+            var hit = Physics2D.Raycast(ray.origin, ray.direction, 1000);
             if (hit.collider != null)
             {
-                Debug.Log("Player requested attack");
-                playerStateMachine.movingState.doAttack = true;
-                var target = Utils.GameUtils.GetIfHasIGameEntity(hit.collider.gameObject);
+                var target = Utils.GameUtils.GetIfIsEntityFromOtherTeam(gameObject, hit.collider.gameObject);
                 if(target is { IsAlive: true })
                 {
-                    playerStateMachine.enemyTarget = target;
+                    Debug.Log("Player requested attack");
+                    playerStateMachine.EnemyTarget = target;
+                    playerStateMachine.ChangeState(playerStateMachine.ChaseState);
                 }
             }
             else
             {
-                playerStateMachine.movingState.doAttack = false;
+                playerStateMachine.ChangeState(playerStateMachine.MovingState);
             }
-            
             playerStateMachine.target = playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            playerStateMachine.movingState.target = playerStateMachine.target;
-
-            playerStateMachine.ChangeState(playerStateMachine.movingState);
+            playerStateMachine.MovingState.target = playerStateMachine.target;
         }
     }
 }

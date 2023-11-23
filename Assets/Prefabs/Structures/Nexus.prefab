@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5125964021972792355}
   - component: {fileID: 2974935388078679636}
-  - component: {fileID: 4235258305236798714}
+  - component: {fileID: 25441332196044733}
   m_Layer: 0
   m_Name: Nexus
   m_TagString: Untagged
@@ -50,8 +50,8 @@ MonoBehaviour:
   healthBar: {fileID: 4364922398157785089}
   team: 0
   maxHealth: 1000
---- !u!58 &4235258305236798714
-CircleCollider2D:
+--- !u!61 &25441332196044733
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,9 +82,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.066833496, y: -0.60707355}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 1
+  m_Size: {x: 3.6287918, y: 3.6399302}
+  m_EdgeRadius: 0
 --- !u!1 &7384256828605946577
 GameObject:
   m_ObjectHideFlags: 0

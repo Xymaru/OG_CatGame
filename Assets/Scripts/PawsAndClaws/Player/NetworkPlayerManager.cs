@@ -7,29 +7,18 @@ using UnityEngine.AI;
 
 namespace PawsAndClaws.Player
 {
-    public class NetworkPlayerManager : MonoBehaviour, IGameEntity
+    public class NetworkPlayerManager : PlayerManager
     {
-        // Character data
-        public CharacterDataSO characterData;
-        public CharacterStats CharacterStats;
-        private GameObject _character;
-        public string userName;
-        
-        private InGamePlayerHealthBarUI _healthBar;
-        private NavMeshAgent _agent;
-        public Team Team {get => characterData.team; set { } }
-        public bool IsAlive { get => _isAlive; set { } }
-        private bool _isAlive = true;
-        GameObject IGameEntity.GameObject { get => gameObject; set {} }
-
         private void Start()
         {
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
+            _playerStateMachine = GetComponent<PlayerStateMachine>();
             _agent = GetComponent<NavMeshAgent>();
             
             // Spawn the character
             _character = characterData.Spawn(transform, ref CharacterStats);
-            
+            CollectAbilities();
+            _playerStateMachine.Start();
             
             gameObject.layer = characterData.team == Team.Cat ?
                 GameConstants.CatLayerMask:
@@ -44,7 +33,7 @@ namespace PawsAndClaws.Player
             _agent.nextPosition = new Vector3(pos.x, pos.y, 0f);
         }
         
-        public bool Damage(float damage)
+        public override bool Damage(float damage)
         {
             var finalDamage =  Mathf.Max(1f, damage - CharacterStats.Shield);
             CharacterStats.Health -= finalDamage;
@@ -61,7 +50,11 @@ namespace PawsAndClaws.Player
             return false;  
         }
 
-        public void Die()
+        public override void Attack(IGameEntity enemy)
+        {
+        }
+
+        public override void Die()
         {
             
         }
