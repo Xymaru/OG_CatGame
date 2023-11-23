@@ -8,7 +8,8 @@ namespace PawsAndClaws.Player
     public enum Team : byte
     {
         Cat,
-        Hamster
+        Hamster,
+        None
     }
 
     [System.Serializable]

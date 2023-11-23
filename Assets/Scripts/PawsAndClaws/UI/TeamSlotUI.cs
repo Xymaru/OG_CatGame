@@ -19,24 +19,23 @@ namespace PawsAndClaws.UI
         
         
         private void Awake()
-        {
-            button.onClick.AddListener(OnClick);
-            
+        {            
             button.gameObject.SetActive(true);
             userText.gameObject.SetActive(false);
             checkMark.gameObject.SetActive(false);
         }
-        
-        private void OnClick()
-        {
-            OnUserChange(GameConstants.UserName);
-        }
 
-        private void OnUserChange(string userName)
+        public void OnUserChange(string userName)
         {
             button.gameObject.SetActive(false);
             userText.gameObject.SetActive(true);
             userText.text = userName;
+        }
+
+        public void OnUserRemove()
+        {
+            button.gameObject.SetActive(true);
+            userText.gameObject.SetActive(false);
         }
     }
 }

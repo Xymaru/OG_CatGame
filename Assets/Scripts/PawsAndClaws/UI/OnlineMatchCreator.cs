@@ -46,6 +46,7 @@ namespace PawsAndClaws.UI
             listenSocket.Bind(ep);
 
             NetworkData.NetSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());
+            NetworkData.NetSocket.PlayerI.name = GameConstants.UserName;
 
             OpenLobby();
         }
@@ -112,6 +113,7 @@ namespace PawsAndClaws.UI
             if (nlobres.response == ResponseType.ACCEPTED)
             {
                 NetworkData.NetSocket.PlayerI.client_id = nlobres.player_id;
+                NetworkData.NetSocket.PlayerI.name = GameConstants.UserName;
 
                 NPLobbyReq nlobreq = new NPLobbyReq();
                 nlobreq.name = GameConstants.UserName;

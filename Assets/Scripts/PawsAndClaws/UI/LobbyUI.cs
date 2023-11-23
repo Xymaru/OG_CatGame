@@ -9,47 +9,52 @@ using PawsAndClaws.Networking.Packets;
 
 using System;
 
+using PawsAndClaws.UI;
+
 namespace PawsAndClaws
 {
+    public class SlotChangeStats
+    {
+        public PlayerInfo playerInfo;
+        public ushort slot;
+        public Player.Team team;
+
+        public SlotChangeStats(PlayerInfo pinfo, ushort sl, Player.Team t)
+        {
+            playerInfo = pinfo;
+            slot = sl;
+            team = t;
+        }
+    }
+
     public class LobbyUI : MonoBehaviour
     {
-        public TMP_Text[] hamsters_texts = new TMP_Text[3];
-        public TMP_Text[] cats_texts = new TMP_Text[3];
+        public TeamSlotUI[] cat_slots = new TeamSlotUI[3];
+        public TeamSlotUI[] hamster_slots = new TeamSlotUI[3];
+
+        bool _slotChanged = false;
+        SlotChangeStats _slotChangeStats = null;
 
         void Start()
         {
             if(NetworkData.NetSocket.NetCon == NetCon.Client)
             {
-
+                LobbyClient _cl = gameObject.AddComponent<LobbyClient>();
+                _cl.OnSlotUpdate += ReqSlotChange;
             }
             else{
-                gameObject.AddComponent<LobbyServer>();
+                LobbyServer _srv = gameObject.AddComponent<LobbyServer>();
+                _srv.OnSlotUpdate += ReqSlotChange;
             }
         }
 
         void Update()
         {
-            for(int i = 0; i < 3; i++)
+            if (_slotChanged)
             {
-                PlayerInfo c_info = NetworkData.Teams[(int)Player.Team.Cat].members[i];
-                if (c_info != null)
-                {
-                    cats_texts[i].text = c_info.name;
-                }
-                else
-                {
-                    cats_texts[i].text = "Empty slot";
-                }
+                OnSlotChange(_slotChangeStats.playerInfo, _slotChangeStats.slot, _slotChangeStats.team);
 
-                PlayerInfo h_info = NetworkData.Teams[(int)Player.Team.Hamster].members[i];
-                if (h_info != null)
-                {
-                    hamsters_texts[i].text = h_info.name;
-                }
-                else
-                {
-                    hamsters_texts[i].text = "Empty slot";
-                }
+                _slotChanged = false;
             }
         }
 
@@ -96,10 +101,8 @@ namespace PawsAndClaws
             if (NetworkData.Teams[(int)team].members[index] == null)
             {
                 PlayerInfo info = NetworkData.NetSocket.PlayerI;
-                info.slot = Convert.ToUInt16(index);
-                info.team = team;
 
-                NetworkData.Teams[(int)team].members[index] = info;
+                OnSlotChange(info, Convert.ToUInt16(index), team);
 
                 NPLobbySpotUpdate spot_update = new NPLobbySpotUpdate();
                 spot_update.id = NetworkData.NetSocket.PlayerI.client_id;
@@ -108,6 +111,46 @@ namespace PawsAndClaws
 
                 // Broadcast packet to all clients
                 FindObjectOfType<NetServerTCP>().BroadcastPacket(spot_update);
+            }
+        }
+
+        private void ReqSlotChange(PlayerInfo info, ushort new_slot, Player.Team new_team)
+        {
+            _slotChanged = true;
+
+            _slotChangeStats = new SlotChangeStats(info, new_slot, new_team);
+        }
+
+        private void OnSlotChange(PlayerInfo info, ushort new_slot, Player.Team new_team)
+        {
+            // Remove previous position
+            if (info.slot != ushort.MaxValue)
+            {
+                NetworkData.Teams[(int)info.team].members[info.slot] = null;
+
+                if (info.team == Player.Team.Cat)
+                {
+                    cat_slots[info.slot].OnUserRemove();
+                }
+                else
+                {
+                    hamster_slots[info.slot].OnUserRemove();
+                }
+            }
+
+            // Set info
+            info.slot = new_slot;
+            info.team = new_team;
+
+            NetworkData.Teams[(int)new_team].members[new_slot] = info;
+
+            if (info.team == Player.Team.Cat)
+            {
+                cat_slots[info.slot].OnUserChange(info.name);
+            }
+            else
+            {
+                hamster_slots[info.slot].OnUserChange(info.name);
             }
         }
     }
