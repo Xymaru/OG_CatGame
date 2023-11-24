@@ -24,7 +24,6 @@ namespace PawsAndClaws.FSM
                 return;
 
             CurrentState?.Exit();
-            Debug.Log($"Exiting {CurrentState?.Name} and entering {newState.Name}");
             CurrentState = newState;
             CurrentState.Enter();
         }

@@ -20,18 +20,19 @@ namespace PawsAndClaws.Networking
         public NetCon NetCon = NetCon.Client;
         public IPAddress IPAddr;
         public Socket Socket;
-
-        public NetworkSocket(Socket s, IPAddress ipaddr, string ipStr)
+        public EndPoint EndPoint;
+        public NetworkSocket(Socket s, IPAddress ipaddr, string ipStr, EndPoint endPoint)
         {
             Socket = s;
             IPAddrStr = ipStr;
             IPAddr = ipaddr;
+            EndPoint = endPoint;
         }
     }
 
     public class NetworkServerSocket : NetworkSocket
     {
-        public NetworkServerSocket(Socket s, IPAddress ipaddr, string ipStr) : base(s, ipaddr, ipStr)
+        public NetworkServerSocket(Socket s, IPAddress ipaddr, string ipStr) : base(s, ipaddr, ipStr, null)
         {
             NetCon = NetCon.Host;
         }
@@ -40,7 +41,6 @@ namespace PawsAndClaws.Networking
     public static class NetworkData
     {
         public const int Port = 3154;
-
         public static NetworkSocket NetSocket;
 
         public static EndPoint ServerEndPoint;

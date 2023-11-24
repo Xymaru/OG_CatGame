@@ -92,7 +92,7 @@ namespace PawsAndClaws.UI
             }
 
             // After connection has been made, set data
-            NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipInput.text);
+            NetworkData.NetSocket = new NetworkSocket(clientSocket, ipaddr, ipInput.text, NetworkData.ServerEndPoint);
 
             // Speak with server
             BeginRequest();

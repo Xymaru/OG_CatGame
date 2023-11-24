@@ -95,7 +95,8 @@ namespace PawsAndClaws.Networking
     public abstract class ClientNetworkPacket : NetworkPacket
     {
         public ushort id;
-
+        public ushort team_id;
+        public ushort slot_id;
         public ClientNetworkPacket()
         {
 
@@ -113,7 +114,13 @@ namespace PawsAndClaws.Networking
             BitConverter.GetBytes(id).CopyTo(buffer, index);
 
             index += 2;
-
+            
+            //IDS
+            BitConverter.GetBytes(team_id).CopyTo(buffer, index);
+            index += 2;
+            
+            BitConverter.GetBytes(slot_id).CopyTo(buffer, index);
+            index += 2;
             return index;
         }
 
@@ -123,6 +130,16 @@ namespace PawsAndClaws.Networking
 
             // Read ID
             id = BitConverter.ToUInt16(buffer, index);
+
+            index += 2;
+            
+            // Read ID
+            team_id = BitConverter.ToUInt16(buffer, index);
+
+            index += 2;
+            
+            // Read ID
+            slot_id = BitConverter.ToUInt16(buffer, index);
 
             index += 2;
 

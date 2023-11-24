@@ -32,6 +32,7 @@ namespace PawsAndClaws.Player
         public void SetPosition(Vector2 pos)
         {
             _agent.nextPosition = new Vector3(pos.x, pos.y, 0f);
+            transform.position = new Vector3(pos.x, pos.y, 0f);
         }
         
 

@@ -66,7 +66,7 @@ namespace PawsAndClaws.Networking
 
             IPAddress clientAddr = IPAddress.Parse(addr.ToString());
 
-            NetworkSocket clientSocket = new NetworkSocket(client, clientAddr, ipAddrStr);
+            NetworkSocket clientSocket = new NetworkSocket(client, clientAddr, ipAddrStr, client.RemoteEndPoint);
 
             Packets.NPLobbyRes lres = new();
 

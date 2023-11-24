@@ -219,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraFollowScript: {fileID: 6938703142118641137}
   cameraScrollScript: {fileID: 6938703142118641142}
-  lockToPlayer: 0
+  lockToPlayer: 1
   inputHandler: {fileID: 103512980662271239}
   player: {fileID: 6938703141436884088}
 --- !u!1001 &7001124472867627417

@@ -20,12 +20,8 @@ namespace PawsAndClaws.Networking
         public void Start()
         {
             _netServerTCP = FindObjectOfType<NetServerTCP>();
-
+            Debug.Log($"Starting to receive");
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            _socket.Bind(NetworkData.ServerEndPoint);
-
-            _packetManagerUDP.OnPacketReceived += OnPacketReceived;
-
             _packetManagerUDP.BeginReceive(_socket);
         }
 
@@ -44,42 +40,30 @@ namespace PawsAndClaws.Networking
 
         public void SendPlayerPos()
         {
+            Debug.Log("Sending player pos server!");
             GameObject player_obj = NetworkData.NetSocket.PlayerI.player_obj;
 
             NPPlayerPos packet = new NPPlayerPos();
-            packet.x = player_obj.transform.position.x;
-            packet.y = player_obj.transform.position.y;
+            packet.team_id = (ushort)NetworkData.NetSocket.PlayerI.team;
+            packet.slot_id = NetworkData.NetSocket.PlayerI.slot;
+            packet.x = 0;
+            packet.y = 0;
 
             byte[] data = packet.ToByteArray();
 
             // Send position to server
             foreach(NetworkSocket socket in _netServerTCP.ConnectedClients)
             {
-                if (socket != null){
-                    _socket.SendTo(data, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, socket.Socket.RemoteEndPoint);
+                if (socket != null)
+                {
+                    Debug.Log($"Data sent to {socket.EndPoint}");
+                    _socket.SendTo(data, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, socket.EndPoint);
                 }
             }
         }
+        
 
-        void OnPlayerPos(NPPlayerPos packet)
-        {
-            Debug.Log($"Received position packet from {packet.id} with coords {packet.x},{packet.y}");
-
-            // Set player position
-            GameObject player_obj = _netServerTCP.ConnectedClients[packet.id].PlayerI.player_obj;
-
-            Player.NetworkPlayerManager netman = player_obj.GetComponent<Player.NetworkPlayerManager>();
-            netman.SetPosition(new Vector2(packet.x, packet.y));
-        }
-
-        void OnPacketReceived(NetworkPacket packet)
-        {
-            switch (packet.p_type)
-            {
-                case NPacketType.PLAYERPOS:
-                    OnPlayerPos((NPPlayerPos)packet);
-                    break;
-            }
-        }
+        
+        
     }
 }
