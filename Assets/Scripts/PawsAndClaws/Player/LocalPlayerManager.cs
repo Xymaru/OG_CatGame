@@ -25,9 +25,7 @@ namespace PawsAndClaws.Player
             _playerStateMachine = GetComponent<PlayerStateMachine>();
             _playerCameraComp = playerCamera.GetComponent<Camera>();
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
-            _agent = GetComponent<NavMeshAgent>();
-            _agent.updateRotation = false;
-            _agent.updateUpAxis = false;
+            rigidBody = GetComponent<Rigidbody2D>();
             // Setup the reference for the player movement script
             inputHandler.playerCamera = _playerCameraComp;
             inputHandler.playerStateMachine = _playerStateMachine;

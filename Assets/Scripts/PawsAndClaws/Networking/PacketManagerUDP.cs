@@ -12,77 +12,84 @@ namespace PawsAndClaws.Networking
     {
         public Socket socket;
         public EndPoint remoteEP;
+        public EndPoint remoteInternetEP;
         public byte[] buffer;
     }
 
     public class PacketManagerUDP
     {
-        private Thread _thread;
-        private object _mutex = new();
 
+        public Action<NetworkPacket> OnPacketReceived;
+        private Thread _thread;
+        PacketStateUDP pstate;
+        object mutex = new();
         public void BeginReceive(Socket socket)
         {
-            PacketStateUDP pstate = new PacketStateUDP();
+            pstate = new PacketStateUDP();
             pstate.socket = socket;
             pstate.buffer = new byte[NetworkPacket.MAX_BUFFER_SIZE];
+            
             if (NetworkData.NetSocket.NetCon == NetCon.Client)
             {
-                pstate.remoteEP = NetworkData.ServerEndPoint;
+                pstate.remoteEP = new IPEndPoint(NetworkData.NetSocket.IPAddr, NetworkData.PortUDP);
             }
-            else
+
+            if (NetworkData.NetSocket.NetCon == NetCon.Host)
             {
-                pstate.remoteEP = new IPEndPoint(IPAddress.Any, NetworkData.Port);
+                pstate.remoteEP = new IPEndPoint(IPAddress.Any, NetworkData.PortUDP);
+                pstate.remoteInternetEP = new IPEndPoint(IPAddress.Any, 0);
+                pstate.socket.Bind(pstate.remoteEP);
             }
 
             _thread = new Thread(() => ReceiveCB(pstate));
             _thread.Start();
         }
 
+        public void SendPacket(byte[] data)
+        {
+            pstate.socket.SendTo(data, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, pstate.remoteEP);
+        }
+        public void SendPacket(byte[] data, EndPoint endPoint)
+        {
+            pstate.socket.SendTo(data, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, endPoint);
+        }
+
         void ReceiveCB(PacketStateUDP pstate)
         {
             while (true)
             {
-                int bytes_read = pstate.socket.ReceiveFrom(pstate.buffer, SocketFlags.None, ref pstate.remoteEP);
-                Debug.Log($"Started receiving from {pstate.remoteEP}, {bytes_read}");
-                if (bytes_read == 0) return;
-
-                NetworkPacket npacket = NetworkPacket.FromByteArray(pstate.buffer);
-                // Redirect packet
-                OnPacketReceived(npacket);
-
-
-                if (NetworkData.NetSocket.NetCon == NetCon.Host)
+                try
                 {
-                    pstate.remoteEP = new IPEndPoint(IPAddress.Any, NetworkData.Port);
-                }
+                    if (NetworkData.NetSocket.NetCon == NetCon.Client)
+                    {
+                        int bytes_read = pstate.socket.ReceiveFrom(pstate.buffer, SocketFlags.None, ref pstate.remoteEP);
+                        if (bytes_read == 0)
+                            return;
 
+                        NetworkPacket npacket = NetworkPacket.FromByteArray(pstate.buffer);
+                        OnPacketReceived?.Invoke(npacket);
+                    }
+
+                    if (NetworkData.NetSocket.NetCon == NetCon.Host)
+                    {
+                        int bytes_read = pstate.socket.ReceiveFrom(pstate.buffer, SocketFlags.None, ref pstate.remoteInternetEP);
+                        if (bytes_read == 0)
+                            return;
+                        NetworkPacket npacket = NetworkPacket.FromByteArray(pstate.buffer);
+
+                        OnPacketReceived?.Invoke(npacket);
+                        pstate.remoteEP = new IPEndPoint(IPAddress.Any, NetworkData.PortUDP);
+                    }
+                }
+                catch(Exception e) 
+                {
+                    Debug.LogError(e);
+                }
                 // Continue listening
                 //pstate.socket.BeginReceiveFrom(pstate.buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, ref pstate.remoteEP, new AsyncCallback(ReceiveCB), pstate);
             }
         }
-
-        void OnPacketReceived(NetworkPacket packet)
-        {
-            switch (packet.p_type)
-            {
-                case NPacketType.PLAYERPOS:
-                    OnPlayerPos((NPPlayerPos)packet);
-                    break;
-            }
-        }
-
-        void OnPlayerPos(NPPlayerPos packet)
-        {
-            Debug.Log(
-                $"Received position packet from {packet.id}, {packet.team_id}, {packet.slot_id} with coords {packet.x},{packet.y}");
-
-            // Set player position
-            GameObject player_obj = NetworkData.Teams[packet.team_id].members[packet.slot_id].player_obj;
-            Player.NetworkPlayerManager netman = player_obj.GetComponent<Player.NetworkPlayerManager>();
-            netman.SetPosition(new Vector2(packet.x, packet.y));
-        }
-
-        ~PacketManagerUDP()
+        public void Close()
         {
             if (_thread.IsAlive)
             {

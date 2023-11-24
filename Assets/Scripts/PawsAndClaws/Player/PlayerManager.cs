@@ -43,7 +43,7 @@ namespace PawsAndClaws.Player
         
         protected PlayerStateMachine _playerStateMachine;
         protected InGamePlayerHealthBarUI _healthBar;
-        protected NavMeshAgent _agent;
+        protected Rigidbody2D rigidBody;
         public Team Team {get => characterData.team; set { } }
         public bool IsAlive { get => _isAlive; set { } }
         protected bool _isAlive = true;

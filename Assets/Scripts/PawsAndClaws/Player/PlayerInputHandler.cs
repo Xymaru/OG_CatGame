@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PawsAndClaws.Player
 {
@@ -7,15 +8,20 @@ namespace PawsAndClaws.Player
     {
         [SerializeField] private Texture2D defaultCursorTexture;
         [SerializeField] private Texture2D attackCursorTexture;
-        
+
+        [SerializeField] private Rigidbody2D rb;
+
         public int oppositeTeam;
         public Camera playerCamera;
         public PlayerStateMachine playerStateMachine;
         public static Texture2D DefaultCursorTexture;
         public static Texture2D AttackCursorTexture;
+        
         public PlayerInputManager InputManager { get; private set; }
 
         public LocalPlayerManager playerManager;
+
+        Vector2 movement;
         public void Initialize()
         {
             InputManager = new PlayerInputManager();
@@ -26,8 +32,11 @@ namespace PawsAndClaws.Player
             DefaultCursorTexture = defaultCursorTexture;
             
             Cursor.SetCursor(defaultCursorTexture,  new Vector2(0.5f, 0.5f), CursorMode.Auto);
-            
-            InputManager.Gameplay.Move.performed += c => HandlePlayerMoveInput();
+
+
+            rb = GetComponent<Rigidbody2D>();
+
+           
             InputManager.Gameplay.Ability1.performed += c => playerManager.ActivateAbility1();
             InputManager.Gameplay.Ability2.performed += c => playerManager.ActivateAbility2();
             InputManager.Gameplay.Ultimate.performed += c => playerManager.ActivateUltimate();
@@ -47,28 +56,30 @@ namespace PawsAndClaws.Player
         {
             InputManager.Gameplay.Disable();
         }
-        
+
+
+        public void Update()
+        {
+            UpdateInput();
+        }
+
+        private void UpdateInput()
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
+        }
+
+        public void FixedUpdate()
+        {
+            if (playerManager == null)
+                return;
+
+            HandlePlayerMoveInput();
+        }
+
         void HandlePlayerMoveInput()
         {
-            // Check if the player wants to attack
-            var ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            var hit = Physics2D.Raycast(ray.origin, ray.direction, 1000);
-            if (hit.collider != null)
-            {
-                var target = Utils.GameUtils.GetIfIsEntityFromOtherTeam(gameObject, hit.collider.gameObject);
-                if(target is { IsAlive: true })
-                {
-                    Debug.Log("Player requested attack");
-                    playerStateMachine.EnemyTarget = target;
-                    playerStateMachine.ChangeState(playerStateMachine.ChaseState);
-                }
-            }
-            else
-            {
-                playerStateMachine.ChangeState(playerStateMachine.MovingState);
-            }
-            playerStateMachine.target = playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            playerStateMachine.MovingState.target = playerStateMachine.target;
+            rb.MovePosition(rb.position + movement * playerManager.CharacterStats.Speed * Time.fixedDeltaTime);
         }
     }
 }

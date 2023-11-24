@@ -41,6 +41,7 @@ namespace PawsAndClaws.Networking
     public static class NetworkData
     {
         public const int Port = 3154;
+        public const int PortUDP = 6969;
         public static NetworkSocket NetSocket;
 
         public static EndPoint ServerEndPoint;

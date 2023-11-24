@@ -14,7 +14,8 @@
         public float ManaRegen;
 
         public float Range;
-        
+
+        public float Speed;
         public float TotalDamage => Damage * DamageMultiplier;
         public float Damage;
         public float DamageMultiplier;
@@ -47,7 +48,9 @@
             
             Damage = data.startingDamage;
             DamageMultiplier = data.damageLevelMultiplier;
-            
+
+            Speed = data.speed;
+
             AttackSpeed = data.attackSpeed;
             AttackSpeedMultiplier = data.attackSpeedMultiplier;
             

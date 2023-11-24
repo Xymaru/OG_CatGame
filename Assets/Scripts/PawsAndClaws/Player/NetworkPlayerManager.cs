@@ -13,14 +13,12 @@ namespace PawsAndClaws.Player
         {
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
             _playerStateMachine = GetComponent<PlayerStateMachine>();
-            _agent = GetComponent<NavMeshAgent>();
-            _agent.updateRotation = false;
-            _agent.updateUpAxis = false;
+           
             // Spawn the character
             _character = characterData.Spawn(transform, ref CharacterStats);
             CollectAbilities();
             _playerStateMachine.Start();
-            
+            rigidBody = GetComponent<Rigidbody2D>();
             gameObject.layer = characterData.team == Team.Cat ?
                 GameConstants.CatLayerMask:
                 GameConstants.HamsterLayerMask;
@@ -31,8 +29,7 @@ namespace PawsAndClaws.Player
 
         public void SetPosition(Vector2 pos)
         {
-            _agent.nextPosition = new Vector3(pos.x, pos.y, 0f);
-            transform.position = new Vector3(pos.x, pos.y, 0f);
+            rigidBody.MovePosition(pos);
         }
         
 

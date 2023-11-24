@@ -12,31 +12,63 @@ namespace PawsAndClaws.Networking
     {
         Socket _socket;
         PacketManagerUDP _packetManagerUDP = new PacketManagerUDP();
+        private Coroutine coroutine;
+
+        NetworkPacket lastPacket;
 
         public void Start()
         {
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            _packetManagerUDP.OnPacketReceived += OnPacketReceived;
             _packetManagerUDP.BeginReceive(_socket);
+            coroutine = StartCoroutine(SendPacketCoroutine());
         }
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            if (lastPacket != null)
             {
-                SendPlayerPos();
+                switch (lastPacket.p_type)
+                {
+                    case NPacketType.PLAYERPOS:
+                        OnPlayerPos((NPPlayerPos)lastPacket);
+                        break;
+                }
+
+                lastPacket = null;
             }
+        }
+
+        void OnPacketReceived(NetworkPacket packet)
+        {
+            lastPacket = packet;
+        }
+        void OnPlayerPos(NPPlayerPos packet)
+        {
+            Debug.Log($"Received position packet from {packet.id}, {packet.team_id}, {packet.slot_id} with coords {packet.x},{packet.y}");
+
+            GameObject player_obj = NetworkData.Teams[packet.team_id].members[packet.slot_id].player_obj;
+            Player.NetworkPlayerManager netman = player_obj.GetComponent<Player.NetworkPlayerManager>();
+            netman.SetPosition(new Vector2(packet.x, packet.y));
         }
 
         private void OnDestroy()
         {
+            _packetManagerUDP.Close();
             _socket.Close();
+        }
+        private IEnumerator SendPacketCoroutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(0.01f);
+                SendPlayerPos();
+            }
         }
 
         public void SendPlayerPos()
         {
-            Debug.Log("Sending player pos client!");
             GameObject player_obj = NetworkData.NetSocket.PlayerI.player_obj;
-
             NPPlayerPos packet = new NPPlayerPos();
             packet.team_id = (ushort)NetworkData.NetSocket.PlayerI.team;
             packet.slot_id = NetworkData.NetSocket.PlayerI.slot;
@@ -44,10 +76,9 @@ namespace PawsAndClaws.Networking
             packet.y = player_obj.transform.position.y;
 
             byte[] data = packet.ToByteArray();
-            
-            Debug.Log($"Data send to {NetworkData.ServerEndPoint}");
+
             // Send position to server
-            _socket.SendTo(data, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, NetworkData.ServerEndPoint);
+            _packetManagerUDP.SendPacket(data);
         }
         
     }

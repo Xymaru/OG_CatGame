@@ -32,6 +32,8 @@ namespace PawsAndClaws.Player
 
         public Team team;
 
+        public float speed;
+
         public float startingHealth;
         public float healthLevelMultiplier;
         public float healthRegen;

@@ -16,54 +16,74 @@ namespace PawsAndClaws.Networking
         Socket _socket;
 
         PacketManagerUDP _packetManagerUDP = new PacketManagerUDP();
+        private Coroutine coroutine;
+        NetworkPacket lastPacket;
 
         public void Start()
         {
             _netServerTCP = FindObjectOfType<NetServerTCP>();
-            Debug.Log($"Starting to receive");
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            _packetManagerUDP.OnPacketReceived += OnPacketReceived;
             _packetManagerUDP.BeginReceive(_socket);
+            coroutine = StartCoroutine(SendPacketCoroutine());
         }
 
-        private void Update()
+        public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            if (lastPacket != null)
             {
-                SendPlayerPos();
+                switch (lastPacket.p_type)
+                {
+                    case NPacketType.PLAYERPOS:
+                        OnPlayerPos((NPPlayerPos)lastPacket);
+                        break;
+                }
+
+                lastPacket = null;
             }
         }
 
+        void OnPacketReceived(NetworkPacket packet)
+        {
+            lastPacket = packet;
+        }
+        void OnPlayerPos(NPPlayerPos packet)
+        {
+            GameObject player_obj = NetworkData.Teams[packet.team_id].members[packet.slot_id].player_obj;
+            Player.NetworkPlayerManager netman = player_obj.GetComponent<Player.NetworkPlayerManager>();
+            netman.SetPosition(new Vector2(packet.x, packet.y));
+        }
+        private IEnumerator SendPacketCoroutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(0.01f);
+                SendPlayerPos();
+            }
+        }
         private void OnDestroy()
         {
+            _packetManagerUDP.Close();
             _socket.Close();
         }
 
         public void SendPlayerPos()
         {
-            Debug.Log("Sending player pos server!");
             GameObject player_obj = NetworkData.NetSocket.PlayerI.player_obj;
 
             NPPlayerPos packet = new NPPlayerPos();
             packet.team_id = (ushort)NetworkData.NetSocket.PlayerI.team;
             packet.slot_id = NetworkData.NetSocket.PlayerI.slot;
-            packet.x = 0;
-            packet.y = 0;
+            packet.x = player_obj.transform.position.x;
+            packet.y = player_obj.transform.position.y;
 
             byte[] data = packet.ToByteArray();
 
             // Send position to server
-            foreach(NetworkSocket socket in _netServerTCP.ConnectedClients)
+            foreach (NetworkSocket socket in _netServerTCP.ConnectedClients)
             {
-                if (socket != null)
-                {
-                    Debug.Log($"Data sent to {socket.EndPoint}");
-                    _socket.SendTo(data, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, socket.EndPoint);
-                }
+                _packetManagerUDP.SendPacket(data, socket.EndPoint);
             }
         }
-        
-
-        
-        
     }
 }
