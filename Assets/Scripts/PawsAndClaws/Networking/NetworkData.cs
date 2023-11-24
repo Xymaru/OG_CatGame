@@ -65,5 +65,6 @@ namespace PawsAndClaws.Networking
         public ushort slot = ushort.MaxValue;
         public Player.Team team = Player.Team.None;
         public ushort character_id;
+        public GameObject player_obj;
     }
 }

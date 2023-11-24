@@ -45,6 +45,9 @@ namespace PawsAndClaws.UI
                
             listenSocket.Bind(ep);
 
+            // Make connection
+            NetworkData.ServerEndPoint = ep;
+
             NetworkData.NetSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());
             NetworkData.NetSocket.PlayerI.name = GameConstants.UserName;
             NetworkData.NetSocket.PlayerI.client_id = 5;

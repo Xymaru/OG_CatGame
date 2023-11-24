@@ -53,6 +53,7 @@ namespace PawsAndClaws.Game
         public Team playerTeam;
         public static GameManager Instance;
         public static LayerMask OppositeTeamLayer;
+        public static GameObject LocalPlayer;
         
         private Coroutine _startCoroutine;
         
@@ -132,6 +133,10 @@ namespace PawsAndClaws.Game
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;
                         playerMan.spawnPoint = spawnPoint;
+
+                        LocalPlayer = playerMan.gameObject;
+
+                        userInfo.player_obj = LocalPlayer;
                         
                         Debug.Log($"Spawning local player at [{spawnPoint.position}], with character: [{characterData.name}]");
                         
@@ -145,6 +150,8 @@ namespace PawsAndClaws.Game
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;
                         playerMan.spawnPoint = spawnPoint;
+
+                        userInfo.player_obj = playerMan.gameObject;
                         
                         Debug.Log($"Spawning remote player at [{spawnPoint.position}], with character: [{characterData.name}]");
                     }

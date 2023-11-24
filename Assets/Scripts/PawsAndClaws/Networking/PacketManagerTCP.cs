@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace PawsAndClaws.Networking
 {
-    public class PacketState
+    class PacketState
     {
         public NetworkSocket socket;
         public byte[] buffer;
