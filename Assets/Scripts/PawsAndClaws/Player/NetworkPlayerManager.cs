@@ -14,7 +14,8 @@ namespace PawsAndClaws.Player
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
             _playerStateMachine = GetComponent<PlayerStateMachine>();
             _agent = GetComponent<NavMeshAgent>();
-            
+            _agent.updateRotation = false;
+            _agent.updateUpAxis = false;
             // Spawn the character
             _character = characterData.Spawn(transform, ref CharacterStats);
             CollectAbilities();

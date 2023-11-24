@@ -127,7 +127,7 @@ namespace PawsAndClaws.Game
                     // Check if this is the local player
                     if (userInfo.client_id == NetworkData.NetSocket.PlayerI.client_id)
                     {
-                        var player = Instantiate(localPlayerPrefab, spawnPoint.position, Quaternion.identity, null);
+                        var player = Instantiate(localPlayerPrefab, spawnPoint.position, Quaternion.identity);
                         var playerMan = player.GetComponentInChildren<LocalPlayerManager>();
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;
@@ -140,7 +140,7 @@ namespace PawsAndClaws.Game
                     
                     // Spawn the network player
                     {
-                        var player = Instantiate(netPlayerPrefab, spawnPoint.position, Quaternion.identity, null);
+                        var player = Instantiate(netPlayerPrefab, spawnPoint.position, Quaternion.identity);
                         var playerMan = player.GetComponentInChildren<NetworkPlayerManager>();
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;

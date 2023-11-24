@@ -4,6 +4,7 @@ using PawsAndClaws.Game;
 using PawsAndClaws.Player.Abilities;
 using PawsAndClaws.UI;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace PawsAndClaws.Player
 {
@@ -24,7 +25,9 @@ namespace PawsAndClaws.Player
             _playerStateMachine = GetComponent<PlayerStateMachine>();
             _playerCameraComp = playerCamera.GetComponent<Camera>();
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
-            
+            _agent = GetComponent<NavMeshAgent>();
+            _agent.updateRotation = false;
+            _agent.updateUpAxis = false;
             // Setup the reference for the player movement script
             inputHandler.playerCamera = _playerCameraComp;
             inputHandler.playerStateMachine = _playerStateMachine;

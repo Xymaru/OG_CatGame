@@ -26,9 +26,7 @@ namespace PawsAndClaws.Player
             AttackState = new PlayerAttackState(this, gameObject);
             ChaseState = new PlayerChaseState(this, gameObject);
 
-            var agent = GetComponent<NavMeshAgent>();
-            agent.updateRotation = false;
-            agent.updateUpAxis = false;
+           
 
             animator = GetComponentInChildren<Animator>();
         }
