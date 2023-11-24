@@ -47,7 +47,7 @@ namespace PawsAndClaws.Networking
 
         public void SendPacket(byte[] data)
         {
-            pstate.socket.SendTo(data, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, pstate.remoteEP);
+            pstate.socket.SendTo(data, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, NetworkData.NetSocket.NetCon == NetCon.Host ? pstate.remoteInternetEP : pstate.remoteEP);
         }
         public void SendPacket(byte[] data, EndPoint endPoint)
         {
