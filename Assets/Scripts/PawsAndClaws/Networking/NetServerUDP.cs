@@ -80,10 +80,9 @@ namespace PawsAndClaws.Networking
             byte[] data = packet.ToByteArray();
 
             // Send position to server
-            foreach (NetworkSocket socket in _netServerTCP.ConnectedClients)
-            {
-                _packetManagerUDP.SendPacket(data, socket.EndPoint);
-            }
+            
+             _packetManagerUDP.SendPacket(data);
+            
         }
     }
 }
