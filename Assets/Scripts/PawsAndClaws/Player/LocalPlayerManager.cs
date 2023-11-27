@@ -22,13 +22,11 @@ namespace PawsAndClaws.Player
         private void Start()
         {
             _playerCameraController = playerCamera.GetComponent<PlayerCameraController>();
-            _playerStateMachine = GetComponent<PlayerStateMachine>();
             _playerCameraComp = playerCamera.GetComponent<Camera>();
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
             rigidBody = GetComponent<Rigidbody2D>();
             // Setup the reference for the player movement script
             inputHandler.playerCamera = _playerCameraComp;
-            inputHandler.playerStateMachine = _playerStateMachine;
             inputHandler.playerManager = this;
             
             // Setup the reference for the camera controller script
@@ -39,7 +37,6 @@ namespace PawsAndClaws.Player
             // Spawn the character
             _character = characterData.Spawn(transform, ref CharacterStats);
             CollectAbilities();
-            _playerStateMachine.Start();
             
             inputHandler.Initialize();
             _playerCameraController.Initialize();

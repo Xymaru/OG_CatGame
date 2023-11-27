@@ -17,7 +17,7 @@ namespace PawsAndClaws.Debugging
             ImGui.Separator();
 
             ImGui.Text($"Team: {GameManager.Instance.playerTeam}");
-            ImGui.Text($"Current State: {PlayerManager.GetCurrentStateName()}");
+          
 
             if(ImGui.CollapsingHeader("Stats"))
             {

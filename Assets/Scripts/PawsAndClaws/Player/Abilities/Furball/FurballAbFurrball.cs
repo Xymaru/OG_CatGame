@@ -13,16 +13,16 @@ namespace PawsAndClaws.Player.Abilities.Furball
         private float time = 0f;
         
 
-        public override void Activate()
+        public override void Activate(int cooldown = 0)
         {
             if (manager.CharacterStats.Mana < cost || time > cooldown)
             {
-                //return;
+                return;
             }
             
-            base.Activate();
-            //manager.CharacterStats.Mana -= cost;
-            //time = cooldown;
+            base.Activate(cooldown);
+            manager.CharacterStats.Mana -= cost;
+            time = cooldown;
             
             // Calculate the direction from the player to the mouse position
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -40,7 +40,7 @@ namespace PawsAndClaws.Player.Abilities.Furball
             FurballProjectile projectile = bullet.GetComponent<FurballProjectile>();
             projectile.team = manager.Team;
             projectile.damage = manager.CharacterStats.TotalDamage * damage;
-            projectile.owner = manager.gameObject;
+            projectile.owner = manager;
         }
 
         private void Update()

@@ -1,3 +1,4 @@
+using PawsAndClaws.Game;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,21 +8,21 @@ namespace PawsAndClaws.Player
     public class PlayerInputHandler : MonoBehaviour
     {
         [SerializeField] private Texture2D defaultCursorTexture;
+        public static Texture2D DefaultCursorTexture;
         [SerializeField] private Texture2D attackCursorTexture;
+        public static Texture2D AttackCursorTexture;
 
         [SerializeField] private Rigidbody2D rb;
+        private Vector2 moveDirection;
 
         public int oppositeTeam;
         public Camera playerCamera;
-        public PlayerStateMachine playerStateMachine;
-        public static Texture2D DefaultCursorTexture;
-        public static Texture2D AttackCursorTexture;
-        
         public PlayerInputManager InputManager { get; private set; }
-
         public LocalPlayerManager playerManager;
+        private Animator _animator;
+        private SpriteRenderer _spriteRenderer;
+        private bool _wasRight = false;
 
-        Vector2 movement;
         public void Initialize()
         {
             InputManager = new PlayerInputManager();
@@ -35,8 +36,9 @@ namespace PawsAndClaws.Player
 
 
             rb = GetComponent<Rigidbody2D>();
+            _animator = GetComponentInChildren<Animator>();
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-           
             InputManager.Gameplay.Ability1.performed += c => playerManager.ActivateAbility1();
             InputManager.Gameplay.Ability2.performed += c => playerManager.ActivateAbility2();
             InputManager.Gameplay.Ultimate.performed += c => playerManager.ActivateUltimate();
@@ -61,12 +63,35 @@ namespace PawsAndClaws.Player
         public void Update()
         {
             UpdateInput();
+            UpdateAnimator();
+
+        }
+
+        private void UpdateAnimator()
+        {
+            _animator.SetFloat(GameConstants.SpeedAnim, Mathf.Abs(rb.velocity.magnitude));
+
+            switch (rb.velocity.x)
+            {
+                case > 0.1f when _wasRight:
+                case < -0.1f when !_wasRight:
+                    FlipX();
+                    break;
+            }
+        }
+
+        private void FlipX()
+        {
+            _wasRight = !_wasRight;
+            _spriteRenderer.flipX = _wasRight;
         }
 
         private void UpdateInput()
         {
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+            var moveX = Input.GetAxisRaw("Horizontal");
+            var moveY = Input.GetAxisRaw("Vertical");
+
+            moveDirection = new Vector2 (moveX, moveY).normalized;
         }
 
         public void FixedUpdate()
@@ -74,12 +99,12 @@ namespace PawsAndClaws.Player
             if (playerManager == null)
                 return;
 
-            HandlePlayerMoveInput();
+            Move();
         }
 
-        void HandlePlayerMoveInput()
+        void Move()
         {
-            rb.MovePosition(rb.position + movement * playerManager.CharacterStats.Speed * Time.fixedDeltaTime);
+            rb.velocity = new Vector2(moveDirection.x * playerManager.CharacterStats.Speed, moveDirection.y * playerManager.CharacterStats.Speed);
         }
     }
 }

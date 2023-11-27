@@ -38,10 +38,8 @@ namespace PawsAndClaws.Player
         protected const float BaseRespawnTime = 30f;
         protected const float LevelRespawnMultiplier = 2f;
         protected Coroutine _respawnCoroutine;
+       
         
-        public string GetCurrentStateName() => _playerStateMachine.GetCurrentStateName();
-        
-        protected PlayerStateMachine _playerStateMachine;
         protected InGamePlayerHealthBarUI _healthBar;
         protected Rigidbody2D rigidBody;
         public Team Team {get => characterData.team; set { } }
@@ -108,7 +106,6 @@ namespace PawsAndClaws.Player
             // TODO: Set the screen grayscale
             
             // Disable necessary components
-            _playerStateMachine.enabled = false;
             _healthBar.gameObject.SetActive(false);
             _healthBar.StopAllCoroutines();
             
@@ -119,7 +116,6 @@ namespace PawsAndClaws.Player
             yield return new WaitForSeconds(timeToSpawn);
             
             // Disable necessary components
-            _playerStateMachine.enabled = true;
             _healthBar.gameObject.SetActive(true);
             
             // TODO: Set the screen to normal

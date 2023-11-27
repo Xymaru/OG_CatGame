@@ -9,14 +9,14 @@ namespace PawsAndClaws.Player.Abilities
     {
         public bool active;
         public PlayerManager manager;
-        public Action onActivate;
+        public Action<int> onActivate;
         public AbilityInfoSO abilityInfo;
         public int id;
-        
 
-        public virtual void Activate()
+
+        public virtual void Activate(int cooldown = 0)
         {
-            onActivate?.Invoke();
+            onActivate?.Invoke(cooldown);
         }
     }
 }

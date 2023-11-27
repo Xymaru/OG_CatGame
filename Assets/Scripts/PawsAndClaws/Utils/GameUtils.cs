@@ -54,7 +54,13 @@ namespace PawsAndClaws.Utils
             var goInterface = GetIfHasIGameEntity(gameObject);
             return goInterface?.Team != team ? goInterface : null;
         }
-        
+
+        public static bool CheckIfOtherTeam(GameObject gameObject, Team team, ref IGameEntity result)
+        {
+            result = GetIfHasIGameEntity(gameObject);
+            return result?.Team != team ? true : false;
+        }
+
         public static bool AreLayerMasksEqual(LayerMask mask1, LayerMask mask2)
         {
             return mask1.value == mask2.value;

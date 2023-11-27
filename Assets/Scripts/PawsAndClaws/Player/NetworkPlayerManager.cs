@@ -12,12 +12,9 @@ namespace PawsAndClaws.Player
         private void Start()
         {
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
-            _playerStateMachine = GetComponent<PlayerStateMachine>();
-           
             // Spawn the character
             _character = characterData.Spawn(transform, ref CharacterStats);
             CollectAbilities();
-            _playerStateMachine.Start();
             rigidBody = GetComponent<Rigidbody2D>();
             gameObject.layer = characterData.team == Team.Cat ?
                 GameConstants.CatLayerMask:

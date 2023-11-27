@@ -11,7 +11,7 @@ namespace PawsAndClaws.Player.Abilities.Furball
 
         
 
-        public override void Activate()
+        public override void Activate(int cooldown = 0)
         {
             _attackCount++;
             var mult = manager.CharacterStats.DamageMultiplier;
