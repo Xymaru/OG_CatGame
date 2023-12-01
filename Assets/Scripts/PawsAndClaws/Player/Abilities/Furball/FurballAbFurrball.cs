@@ -13,16 +13,17 @@ namespace PawsAndClaws.Player.Abilities.Furball
         private float time = 0f;
         
 
-        public override void Activate(int cooldown = 0)
+        public override void Activate(float cooldown = 0)
         {
-            if (manager.CharacterStats.Mana < cost || time > cooldown)
+            if (manager.CharacterStats.Mana < cost || time > 0f)
             {
                 return;
             }
             
-            base.Activate(cooldown);
+            time = this.cooldown;
             manager.CharacterStats.Mana -= cost;
-            time = cooldown;
+            manager.onManaChange?.Invoke(manager.CharacterStats.Mana, manager.CharacterStats.MaxMana);
+            base.Activate(this.cooldown);
             
             // Calculate the direction from the player to the mouse position
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -46,6 +47,7 @@ namespace PawsAndClaws.Player.Abilities.Furball
         private void Update()
         {
             time -= Time.deltaTime;
+
         }
     }
 }

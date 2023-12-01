@@ -13,7 +13,7 @@ namespace PawsAndClaws.UI
         [Header("UI elements")]
         [SerializeField] private Image playerImage;
         [SerializeField] private TMPro.TextMeshProUGUI respawnCooldownTimer;
-        [SerializeField] private AbilitiesUI abilitiesUI;
+        [SerializeField] public AbilitiesUI abilitiesUI;
         [SerializeField] private RegenBarUI healthBar;
         [SerializeField] private RegenBarUI manaBar;
         [SerializeField] private BarUI levelBar;
@@ -48,11 +48,13 @@ namespace PawsAndClaws.UI
             manager.onStatsChanged          -= statsUI.UpdateStats;
         }
         
-        private void Start()
+        public void Initialize()
         {
             playerImage.sprite = manager.characterData.sprite;
             respawnCooldownTimer.text = "";
+            abilitiesUI.SetupImages(manager.characterData);
         }
+
 
         private void OnPlayerDied(float timer)
         {
