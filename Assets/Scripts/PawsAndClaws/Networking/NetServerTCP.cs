@@ -13,7 +13,7 @@ namespace PawsAndClaws.Networking
     public class NetServerTCP : NetServer
     {
         private PacketManagerTCP _packetManager = new PacketManagerTCP();
-        private const int MAX_CONNECTIONS = 5;
+        private const int MAX_CONNECTIONS = 6;
 
         void Start()
         {
@@ -96,7 +96,7 @@ namespace PawsAndClaws.Networking
                 ConnectedClients.Add(clientSocket);
 
                 // Execute callbacks
-                OnConnectionAccept.Invoke(clientSocket);
+                OnConnectionAccept?.Invoke(clientSocket);
             }
 
             // Keep accepting connections

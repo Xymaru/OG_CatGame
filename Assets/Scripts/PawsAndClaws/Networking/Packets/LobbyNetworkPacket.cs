@@ -73,10 +73,10 @@ namespace PawsAndClaws.Networking.Packets
             offset = readBasePacketData(buffer);
 
             response = (ResponseType)BitConverter.ToUInt16(buffer, offset);
-            offset += 2;
+            offset += sizeof(ushort);
 
             player_id = BitConverter.ToUInt16(buffer, offset);
-            offset += 4;
+            offset += sizeof(ushort);
 
             return this;
         }
