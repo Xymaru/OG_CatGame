@@ -17,6 +17,8 @@ namespace PawsAndClaws.Networking
 
         void Start()
         {
+            ConnectedClients.Add(null);
+
             // Listen to a maximum of 10 connections
             _serverSocket.Socket.Listen(10);
             
@@ -35,10 +37,7 @@ namespace PawsAndClaws.Networking
 
             foreach(NetworkSocket socket in ConnectedClients)
             {
-                if(socket != null)
-                {
-                    socket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
-                }
+                socket?.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
             }
         }
 
@@ -122,24 +121,27 @@ namespace PawsAndClaws.Networking
 
         private void OnDestroy()
         {
+            for (int i = 0; i < ConnectedClients.Count; i++)
+            {
+                NetworkSocket clientsock = ConnectedClients[i];
+
+                if (clientsock != null)
+                {
+                    if (clientsock.Socket.Connected)
+                    {
+                        clientsock.Socket.Shutdown(SocketShutdown.Both);
+                    }
+
+                    clientsock.Socket.Close();
+                }
+            }
+
             if (_serverSocket.Socket.Connected)
             {
                 _serverSocket.Socket.Shutdown(SocketShutdown.Both);
             }
 
             _serverSocket.Socket.Close();
-
-            for (int i = 0; i < ConnectedClients.Count; i++)
-            {
-                NetworkSocket clientsock = ConnectedClients[i];
-
-                if (clientsock.Socket.Connected)
-                {
-                    clientsock.Socket.Shutdown(SocketShutdown.Both);
-                }
-
-                clientsock.Socket.Close();
-            }
         }
     }
 }

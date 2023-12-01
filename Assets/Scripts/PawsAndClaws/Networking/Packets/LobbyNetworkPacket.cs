@@ -73,10 +73,10 @@ namespace PawsAndClaws.Networking.Packets
             offset = readBasePacketData(buffer);
 
             response = (ResponseType)BitConverter.ToUInt16(buffer, offset);
-            offset += 2;
+            offset += sizeof(ushort);
 
             player_id = BitConverter.ToUInt16(buffer, offset);
-            offset += 4;
+            offset += sizeof(ushort);
 
             return this;
         }
@@ -90,11 +90,11 @@ namespace PawsAndClaws.Networking.Packets
 
             // Set if accepted or not
             BitConverter.GetBytes((ushort)response).CopyTo(data, index);
-            index += 1; // bool(1)
+            index += sizeof(ushort);
 
             // Set player id
             BitConverter.GetBytes(player_id).CopyTo(data, index);
-            index += 4;
+            index += sizeof(ushort);
 
             // Set packet size in bytes
             p_size = index;

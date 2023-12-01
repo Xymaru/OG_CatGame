@@ -52,7 +52,7 @@ namespace PawsAndClaws
             byte[] data = player_con.ToByteArray();
 
             NetworkSocket netSocket = _netServerTCP.ConnectedClients[packet.id];
-            netSocket.Socket.Send(data);
+            netSocket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
 
             // Tell new connection about all other clients
             foreach (NetworkSocket socket in _netServerTCP.ConnectedClients)
@@ -64,7 +64,7 @@ namespace PawsAndClaws
 
                     data = player_con.ToByteArray();
 
-                    netSocket.Socket.Send(data);
+                    netSocket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
                 }
             }
         }
