@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: FurBall
   sprite: {fileID: -1416882108, guid: d9d96b7dc41fba248b409074a3054440, type: 3}
-  passiveImage: {fileID: 0}
-  ability1Sprite: {fileID: 0}
-  ability2Sprite: {fileID: 0}
-  ultimateSprite: {fileID: 0}
+  passiveImage: {fileID: 21300000, guid: f9f4b316848451e4194f815523893ba2, type: 3}
+  ability1Sprite: {fileID: 21300000, guid: ff3f2e0f72780174ca93ea7cab6c4515, type: 3}
+  ability2Sprite: {fileID: 21300000, guid: f57ceacdf2ef9f14781a1dba25715233, type: 3}
+  ultimateSprite: {fileID: 21300000, guid: adfaf8ed3b65a9a40b69b0952107edc1, type: 3}
   team: 0
   speed: 5
   startingHealth: 100

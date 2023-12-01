@@ -65,7 +65,7 @@ namespace PawsAndClaws.Player
             onHealthChange?.Invoke(CharacterStats.Health, CharacterStats.MaxHealth);
         }
         
-        protected virtual void NotifyUIStats()
+        public virtual void NotifyUIStats()
         {
             
         }
