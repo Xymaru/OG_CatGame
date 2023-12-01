@@ -41,5 +41,10 @@ namespace PawsAndClaws.Entities.Nexus
         {
             // TODO: Lose condition
         }
+
+        public void Stun(float stunTime)
+        {
+            
+        }
     }
 }

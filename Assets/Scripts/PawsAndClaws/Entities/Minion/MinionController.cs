@@ -31,6 +31,7 @@ namespace PawsAndClaws.Entities.Minion
 
         [Header("References")]
         [SerializeField] private InGameHealthBarUI healthBar;
+        [SerializeField] private MinionStateMachine stateMachine;
         
         private NavMeshAgent _agent;
         
@@ -133,5 +134,15 @@ namespace PawsAndClaws.Entities.Minion
             if (GameManager.Instance.playerTeam != team)
                 PlayerInputHandler.SetCursorDefault();
         }
+
+        public void Stun(float stunTime)
+        {
+            // TODO: Stun
+            Debug.Log("Enemy stunned");
+            stateMachine.StunState.stunTime = stunTime;
+            stateMachine.ChangeState(stateMachine.StunState);
+        }
+
+        
     }
 }

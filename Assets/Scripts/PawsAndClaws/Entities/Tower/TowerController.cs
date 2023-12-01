@@ -128,5 +128,10 @@ namespace PawsAndClaws.Entities.Tower
         void IGameEntity.Die()
         {
         }
+
+        public void Stun(float stunTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

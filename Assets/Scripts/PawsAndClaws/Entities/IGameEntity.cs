@@ -14,6 +14,8 @@ namespace PawsAndClaws.Entities
         // Returns true if the entity died
         public abstract bool Damage(float damage);
         public abstract void Die();
+
+        public abstract void Stun(float stunTime);
         
     }
 }

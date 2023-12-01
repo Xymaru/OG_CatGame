@@ -11,6 +11,7 @@ namespace PawsAndClaws.Entities.Minion
         public MinionStateMoving MovingState;
         public MinionStateAttack AttackState;
         public MinionStateChase ChaseState;
+        public MinionStateStun StunState;
         public IGameEntity Target;
 
 
@@ -19,6 +20,7 @@ namespace PawsAndClaws.Entities.Minion
             MovingState = new MinionStateMoving(this, gameObject);
             AttackState = new MinionStateAttack(this, gameObject);
             ChaseState = new MinionStateChase(this, gameObject);
+            StunState  = new MinionStateStun(this, gameObject);
         }
         protected override State GetInitialState()
         {

@@ -127,5 +127,10 @@ namespace PawsAndClaws.Player
             _isAlive = true;
             _respawnCoroutine = null;
         }
+
+        public void Stun(float stunTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

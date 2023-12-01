@@ -55,5 +55,10 @@ namespace PawsAndClaws.Entities.Inhibitor
             _isAlive = true;
             _respawnCoroutine = null;
         }
+
+        public void Stun(float stunTime)
+        {
+            
+        }
     }
 }
