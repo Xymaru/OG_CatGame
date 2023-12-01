@@ -90,11 +90,11 @@ namespace PawsAndClaws.Networking.Packets
 
             // Set if accepted or not
             BitConverter.GetBytes((ushort)response).CopyTo(data, index);
-            index += sizeof(ushort);
+            index += 1; // bool(1)
 
             // Set player id
             BitConverter.GetBytes(player_id).CopyTo(data, index);
-            index += sizeof(ushort);
+            index += 4;
 
             // Set packet size in bytes
             p_size = index;

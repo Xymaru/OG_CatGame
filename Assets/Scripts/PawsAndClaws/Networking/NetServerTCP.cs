@@ -13,12 +13,10 @@ namespace PawsAndClaws.Networking
     public class NetServerTCP : NetServer
     {
         private PacketManagerTCP _packetManager = new PacketManagerTCP();
-        private const int MAX_CONNECTIONS = 5;
+        private const int MAX_CONNECTIONS = 6;
 
         void Start()
         {
-            ConnectedClients.Add(null);
-
             // Listen to a maximum of 10 connections
             _serverSocket.Socket.Listen(10);
             
@@ -37,7 +35,10 @@ namespace PawsAndClaws.Networking
 
             foreach(NetworkSocket socket in ConnectedClients)
             {
-                socket?.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+                if(socket != null)
+                {
+                    socket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+                }
             }
         }
 
@@ -96,7 +97,7 @@ namespace PawsAndClaws.Networking
                 ConnectedClients.Add(clientSocket);
 
                 // Execute callbacks
-                OnConnectionAccept.Invoke(clientSocket);
+                OnConnectionAccept?.Invoke(clientSocket);
             }
 
             // Keep accepting connections
@@ -121,27 +122,24 @@ namespace PawsAndClaws.Networking
 
         private void OnDestroy()
         {
-            for (int i = 0; i < ConnectedClients.Count; i++)
-            {
-                NetworkSocket clientsock = ConnectedClients[i];
-
-                if (clientsock != null)
-                {
-                    if (clientsock.Socket.Connected)
-                    {
-                        clientsock.Socket.Shutdown(SocketShutdown.Both);
-                    }
-
-                    clientsock.Socket.Close();
-                }
-            }
-
             if (_serverSocket.Socket.Connected)
             {
                 _serverSocket.Socket.Shutdown(SocketShutdown.Both);
             }
 
             _serverSocket.Socket.Close();
+
+            for (int i = 0; i < ConnectedClients.Count; i++)
+            {
+                NetworkSocket clientsock = ConnectedClients[i];
+
+                if (clientsock.Socket.Connected)
+                {
+                    clientsock.Socket.Shutdown(SocketShutdown.Both);
+                }
+
+                clientsock.Socket.Close();
+            }
         }
     }
 }
