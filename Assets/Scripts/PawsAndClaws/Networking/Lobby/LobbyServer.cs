@@ -46,7 +46,7 @@ namespace PawsAndClaws
             _netServerTCP.BroadcastPacket(player_con);
 
             // Tell new connection about server
-            player_con.client_id = 5;
+            player_con.client_id = NetworkData.NetSocket.PlayerI.client_id;
             player_con.name = Game.GameConstants.UserName;
 
             byte[] data = player_con.ToByteArray();
@@ -65,6 +65,31 @@ namespace PawsAndClaws
                     data = player_con.ToByteArray();
 
                     netSocket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+                }
+            }
+
+            // Make slot update packet
+            NPLobbySpotUpdate spot_update = new NPLobbySpotUpdate();
+
+            // Tell new connection about all other spots
+            for (byte i = 0; i < 2; i++) {
+                for(ushort j = 0; j < 3; j++)
+                {
+                    PlayerInfo pinfo = NetworkData.Teams[i].members[j];
+
+                    if(pinfo != null)
+                    {
+                        spot_update.id = pinfo.client_id;
+                        spot_update.team = (Player.Team)i;
+                        spot_update.spot = j;
+
+                        data = spot_update.ToByteArray();
+
+                        Debug.Log($"Name: {pinfo.name} Slot: {pinfo.slot} Team: {pinfo.team}");
+
+                        // Send slot
+                        netSocket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+                    }
                 }
             }
         }

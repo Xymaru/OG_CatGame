@@ -50,7 +50,7 @@ namespace PawsAndClaws.UI
 
             NetworkData.NetSocket = new NetworkServerSocket(listenSocket, hostIP, hostIP.ToString());
             NetworkData.NetSocket.PlayerI.name = GameConstants.UserName;
-            NetworkData.NetSocket.PlayerI.client_id = 5;
+            NetworkData.NetSocket.PlayerI.client_id = 0;
 
             OpenLobby();
         }

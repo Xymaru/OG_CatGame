@@ -107,7 +107,10 @@ namespace PawsAndClaws.Networking.Packets
     [System.Serializable]
     public class NPLobbyReadyReq : ClientNetworkPacket
     {
-        public uint userId;
+        public NPLobbyReadyReq(byte[] data) : base(data)
+        {
+            p_type = NPacketType.LOBBY_READY_REQ;
+        }
 
         public NPLobbyReadyReq()
         {
@@ -116,12 +119,18 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
+            readBasePacketData(buffer);
+
             return this;
         }
 
         public override byte[] ToByteArray()
         {
-            throw new NotImplementedException();
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+
+            setBasePacketData(data);
+
+            return data;
         }
     }
 
@@ -212,10 +221,10 @@ namespace PawsAndClaws.Networking.Packets
             offset = readBasePacketData(buffer);
 
             spot = BitConverter.ToUInt16(buffer, offset);
-            offset += 2;
+            offset += sizeof(ushort);
 
             team = (Player.Team)buffer[offset];
-            offset += 1;
+            offset += sizeof(Player.Team);
 
             return this;
         }
@@ -227,10 +236,10 @@ namespace PawsAndClaws.Networking.Packets
             int offset = setBasePacketData(data);
 
             BitConverter.GetBytes(spot).CopyTo(data, offset);
-            offset += 2;
+            offset += sizeof(ushort);
 
             data[offset] = (byte)team;
-            offset += 1;
+            offset += sizeof(Player.Team);
 
             return data;
         }

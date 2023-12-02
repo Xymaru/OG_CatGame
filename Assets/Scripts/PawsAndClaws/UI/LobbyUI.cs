@@ -33,8 +33,9 @@ namespace PawsAndClaws
         public TeamSlotUI[] cat_slots = new TeamSlotUI[3];
         public TeamSlotUI[] hamster_slots = new TeamSlotUI[3];
 
-        bool _slotChanged = false;
-        SlotChangeStats _slotChangeStats = null;
+        List<SlotChangeStats> _slotChanges = new List<SlotChangeStats>();
+
+        object _slotChangeMutex = new object();
 
         void Start()
         {
@@ -53,11 +54,17 @@ namespace PawsAndClaws
 
         void Update()
         {
-            if (_slotChanged)
+            lock (_slotChangeMutex)
             {
-                OnSlotChange(_slotChangeStats.playerInfo, _slotChangeStats.slot, _slotChangeStats.team);
+                if (_slotChanges.Count > 0)
+                {
+                    for (int i = 0; i < _slotChanges.Count; i++)
+                    {
+                        OnSlotChange(_slotChanges[i].playerInfo, _slotChanges[i].slot, _slotChanges[i].team);
+                    }
 
-                _slotChanged = false;
+                    _slotChanges.Clear();
+                }
             }
         }
 
@@ -119,9 +126,10 @@ namespace PawsAndClaws
 
         private void ReqSlotChange(PlayerInfo info, ushort new_slot, Player.Team new_team)
         {
-            _slotChanged = true;
-
-            _slotChangeStats = new SlotChangeStats(info, new_slot, new_team);
+            lock (_slotChangeMutex)
+            {
+                _slotChanges.Add(new SlotChangeStats(info, new_slot, new_team));
+            }
         }
 
         private void OnSlotChange(PlayerInfo info, ushort new_slot, Player.Team new_team)

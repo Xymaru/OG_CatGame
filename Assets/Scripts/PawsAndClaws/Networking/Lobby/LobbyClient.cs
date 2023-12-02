@@ -48,6 +48,8 @@ namespace PawsAndClaws.Networking {
 
             if (pinfo == null) return;
 
+            Debug.Log($"Name: {pinfo.name} Slot: {spot_update.spot} Team: {spot_update.team}");
+
             OnSlotUpdate?.Invoke(pinfo, spot_update.spot, spot_update.team);
         }
 
