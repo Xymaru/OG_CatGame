@@ -68,6 +68,9 @@ namespace PawsAndClaws.Networking
                 case NPacketType.LOBBYSTARTGAME:
                     packet = new NPLobbyStartGame(buffer);
                     break;
+                case NPacketType.LOBBY_READY_REQ:
+                    packet = new NPLobbyReadyReq(buffer);
+                    break;
             }
 
             return packet;

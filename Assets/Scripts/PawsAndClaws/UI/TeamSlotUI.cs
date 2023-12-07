@@ -47,5 +47,10 @@ namespace PawsAndClaws.UI
         {
             checkMark.gameObject.SetActive(false);
         }
+
+        public void SetUserReady(bool is_rdy)
+        {
+            checkMark.gameObject.SetActive(is_rdy);
+        }
     }
 }

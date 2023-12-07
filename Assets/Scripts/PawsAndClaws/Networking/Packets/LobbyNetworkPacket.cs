@@ -107,6 +107,7 @@ namespace PawsAndClaws.Networking.Packets
     [System.Serializable]
     public class NPLobbyReadyReq : ClientNetworkPacket
     {
+        public bool is_ready;
         public NPLobbyReadyReq(byte[] data) : base(data)
         {
             p_type = NPacketType.LOBBY_READY_REQ;
@@ -119,7 +120,10 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
-            readBasePacketData(buffer);
+            int offset = readBasePacketData(buffer);
+
+            is_ready = BitConverter.ToBoolean(buffer, offset);
+            offset += sizeof(bool);
 
             return this;
         }
@@ -128,7 +132,10 @@ namespace PawsAndClaws.Networking.Packets
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
 
-            setBasePacketData(data);
+            int offset = setBasePacketData(data);
+
+            BitConverter.GetBytes(is_ready).CopyTo(data, offset);
+            offset += sizeof(bool);
 
             return data;
         }

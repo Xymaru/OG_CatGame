@@ -583,7 +583,7 @@ PrefabInstance:
     - target: {fileID: 6510061066015309029, guid: 69d8614c15c58c14f8063119e0de19ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6510061066015309029, guid: 69d8614c15c58c14f8063119e0de19ea,
         type: 3}
@@ -594,7 +594,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1729015376}
+      objectReference: {fileID: 1895885716}
     - target: {fileID: 6510061066015309029, guid: 69d8614c15c58c14f8063119e0de19ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -603,12 +603,12 @@ PrefabInstance:
     - target: {fileID: 6510061066015309029, guid: 69d8614c15c58c14f8063119e0de19ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SendReadyPacket
+      value: RequestReady
       objectReference: {fileID: 0}
     - target: {fileID: 6510061066015309029, guid: 69d8614c15c58c14f8063119e0de19ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PawsAndClaws.Networking.NetworkManager, Assembly-CSharp
+      value: PawsAndClaws.LobbyUI, PawsAndClaws
       objectReference: {fileID: 0}
     - target: {fileID: 6510061066015309029, guid: 69d8614c15c58c14f8063119e0de19ea,
         type: 3}

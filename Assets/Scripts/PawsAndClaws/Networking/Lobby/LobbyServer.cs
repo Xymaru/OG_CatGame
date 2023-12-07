@@ -14,6 +14,7 @@ namespace PawsAndClaws
         NetServerTCP _netServerTCP;
 
         public Action<PlayerInfo, ushort, Player.Team> OnSlotUpdate;
+        public Action<PlayerInfo> OnUserReadyUpdate;
 
         void Start()
         {
@@ -116,6 +117,22 @@ namespace PawsAndClaws
             _netServerTCP.BroadcastPacket(spot_update);
         }
 
+        private void OnUserReady(NPLobbyReadyReq packet)
+        {
+            PlayerInfo pinfo = _netServerTCP.ConnectedClients[packet.id].PlayerI;
+
+            if(pinfo.team != Player.Team.None)
+            {
+                pinfo.is_ready = packet.is_ready;
+
+                // Ready update callback
+                OnUserReadyUpdate?.Invoke(pinfo);
+
+                // Broadcast user ready to everyone
+                _netServerTCP.BroadcastPacket(packet);
+            }
+        }
+
         private void OnPacketRecv(NetworkPacket packet)
         {
             switch (packet.p_type)
@@ -125,6 +142,9 @@ namespace PawsAndClaws
                     break;
                 case NPacketType.LOBBYSPOTREQ:
                     OnLobbySpotReq((NPLobbySpotReq)packet);
+                    break;
+                case NPacketType.LOBBY_READY_REQ:
+                    OnUserReady((NPLobbyReadyReq)packet);
                     break;
             }
         }

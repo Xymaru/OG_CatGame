@@ -39,10 +39,12 @@ namespace PawsAndClaws
             {
                 LobbyClient _cl = gameObject.AddComponent<LobbyClient>();
                 _cl.OnSlotUpdate += OnSlotChange;
+                _cl.OnUserReadyUpdate += OnUserReady;
             }
             else{
                 LobbyServer _srv = gameObject.AddComponent<LobbyServer>();
                 _srv.OnSlotUpdate += OnSlotChange;
+                _srv.OnUserReadyUpdate += OnUserReady;
 
                 start_btn.SetActive(true);
             }
@@ -58,8 +60,39 @@ namespace PawsAndClaws
             RequestSpot(index, Player.Team.Cat);
         }
 
+        public void RequestReady()
+        {
+            PlayerInfo pinfo = NetworkData.NetSocket.PlayerI;
+
+            if(pinfo.slot != ushort.MaxValue)
+            {
+                pinfo.is_ready = !pinfo.is_ready;
+
+                NPLobbyReadyReq req_ready = new NPLobbyReadyReq();
+                req_ready.id = pinfo.client_id;
+                req_ready.is_ready = pinfo.is_ready;
+
+                // Request ready
+                if (NetworkData.NetSocket.NetCon == NetCon.Client)
+                {
+                    byte[] data = req_ready.ToByteArray();
+
+                    NetworkData.NetSocket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+                }
+                else
+                {
+                    OnUserReady(pinfo);
+
+                    // Broadcast packet to all clients
+                    FindObjectOfType<NetServerTCP>().BroadcastPacket(req_ready);
+                }
+            }
+        }
+
         private void RequestSpot(int index, Player.Team team)
         {
+            if (NetworkData.NetSocket.PlayerI.is_ready) return;
+
             if (NetworkData.Teams[(int)team].members[index] != null) return;
 
             if(NetworkData.NetSocket.NetCon == NetCon.Client)
@@ -134,6 +167,18 @@ namespace PawsAndClaws
             else
             {
                 hamster_slots[info.slot].OnUserChange(info.name);
+            }
+        }
+
+        private void OnUserReady(PlayerInfo pinfo)
+        {
+            if (pinfo.team == Player.Team.Cat)
+            {
+                cat_slots[pinfo.slot].SetUserReady(pinfo.is_ready);
+            }
+            else
+            {
+                hamster_slots[pinfo.slot].SetUserReady(pinfo.is_ready);
             }
         }
 

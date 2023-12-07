@@ -12,6 +12,7 @@ namespace PawsAndClaws.Networking {
         NetClientTCP _netClientTCP;
 
         public Action<PlayerInfo, ushort, Player.Team> OnSlotUpdate;
+        public Action<PlayerInfo> OnUserReadyUpdate;
 
         bool _startGame = false;
 
@@ -71,6 +72,19 @@ namespace PawsAndClaws.Networking {
             _startGame = true;
         }
 
+        private void OnUserReady(NPLobbyReadyReq packet)
+        {
+            PlayerInfo pinfo = _netClientTCP.ConnectedClients[packet.id];
+
+            if (pinfo.team != Player.Team.None)
+            {
+                pinfo.is_ready = packet.is_ready;
+
+                // Ready update callback
+                OnUserReadyUpdate?.Invoke(pinfo);
+            }
+        }
+
         private void OnPacketRecv(NetworkPacket packet)
         {
             switch (packet.p_type)
@@ -83,6 +97,9 @@ namespace PawsAndClaws.Networking {
                     break;
                 case NPacketType.LOBBYSTARTGAME:
                     OnLobbyStartGame((NPLobbyStartGame)packet);
+                    break;
+                case NPacketType.LOBBY_READY_REQ:
+                    OnUserReady((NPLobbyReadyReq)packet);
                     break;
             }
         }
