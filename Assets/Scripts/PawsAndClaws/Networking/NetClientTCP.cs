@@ -17,6 +17,8 @@ namespace PawsAndClaws.Networking
 
         void Start()
         {
+            ConnectedClients[NetworkData.NetSocket.PlayerI.client_id] = NetworkData.NetSocket.PlayerI;
+
             _packetManagerTCP.OnPacketReceived += OnReceivedPacket;
             _packetManagerTCP.OnSocketDisconnected += OnSocketDisconnect;
 

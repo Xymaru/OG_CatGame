@@ -72,6 +72,9 @@ namespace PawsAndClaws
             // Make slot update packet
             NPLobbySpotUpdate spot_update = new NPLobbySpotUpdate();
 
+            // Make ready update packet
+            NPLobbyReadyReq ready_update = new NPLobbyReadyReq();
+
             // Tell new connection about all other spots
             for (byte i = 0; i < 2; i++) {
                 for(ushort j = 0; j < 3; j++)
@@ -86,13 +89,24 @@ namespace PawsAndClaws
 
                         data = spot_update.ToByteArray();
 
-                        Debug.Log($"Name: {pinfo.name} Slot: {pinfo.slot} Team: {pinfo.team}");
-
                         // Send slot
                         netSocket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+
+                        if (pinfo.is_ready)
+                        {
+                            ready_update.id = pinfo.client_id;
+                            ready_update.is_ready = true;
+
+                            data = ready_update.ToByteArray();
+
+                            // Send if player is ready
+                            netSocket.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+                        }
                     }
                 }
             }
+
+            
         }
 
         private void OnLobbySpotReq(NPLobbySpotReq packet)
