@@ -37,5 +37,15 @@ namespace PawsAndClaws.UI
             button.gameObject.SetActive(true);
             userText.gameObject.SetActive(false);
         }
+
+        public void OnUserChecked()
+        {
+            checkMark.gameObject.SetActive(true);
+        }
+
+        public void OnUserUnchecked()
+        {
+            checkMark.gameObject.SetActive(false);
+        }
     }
 }
