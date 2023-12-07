@@ -12,6 +12,9 @@ namespace PawsAndClaws.Networking
 
         PacketManagerTCP _packetManagerTCP = new PacketManagerTCP();
 
+        private List<NetworkPacket> _packetList = new();
+        private object _packetMutex = new();
+
         void Start()
         {
             _packetManagerTCP.OnPacketReceived += OnReceivedPacket;
@@ -23,12 +26,23 @@ namespace PawsAndClaws.Networking
 
         void Update()
         {
+            lock (_packetMutex)
+            {
+                for(int i = 0; i < _packetList.Count; i++)
+                {
+                    NetworkManager.OnPacketReceived?.Invoke(_packetList[i]);
+                }
 
+                _packetList.Clear();
+            }
         }
 
         void OnReceivedPacket(NetworkPacket packet)
         {
-            NetworkManager.OnPacketReceived?.Invoke(packet);
+            lock (_packetMutex)
+            {
+                _packetList.Add(packet);
+            }
         }
 
         void OnSocketDisconnect(NetworkSocket socket)

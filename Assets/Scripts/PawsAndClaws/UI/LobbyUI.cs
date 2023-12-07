@@ -33,38 +33,18 @@ namespace PawsAndClaws
         public TeamSlotUI[] cat_slots = new TeamSlotUI[3];
         public TeamSlotUI[] hamster_slots = new TeamSlotUI[3];
 
-        List<SlotChangeStats> _slotChanges = new List<SlotChangeStats>();
-
-        object _slotChangeMutex = new object();
-
         void Start()
         {
             if(NetworkData.NetSocket.NetCon == NetCon.Client)
             {
                 LobbyClient _cl = gameObject.AddComponent<LobbyClient>();
-                _cl.OnSlotUpdate += ReqSlotChange;
+                _cl.OnSlotUpdate += OnSlotChange;
             }
             else{
                 LobbyServer _srv = gameObject.AddComponent<LobbyServer>();
-                _srv.OnSlotUpdate += ReqSlotChange;
+                _srv.OnSlotUpdate += OnSlotChange;
 
                 start_btn.SetActive(true);
-            }
-        }
-
-        void Update()
-        {
-            lock (_slotChangeMutex)
-            {
-                if (_slotChanges.Count > 0)
-                {
-                    for (int i = 0; i < _slotChanges.Count; i++)
-                    {
-                        OnSlotChange(_slotChanges[i].playerInfo, _slotChanges[i].slot, _slotChanges[i].team);
-                    }
-
-                    _slotChanges.Clear();
-                }
             }
         }
 
@@ -124,14 +104,6 @@ namespace PawsAndClaws
             }
         }
 
-        private void ReqSlotChange(PlayerInfo info, ushort new_slot, Player.Team new_team)
-        {
-            lock (_slotChangeMutex)
-            {
-                _slotChanges.Add(new SlotChangeStats(info, new_slot, new_team));
-            }
-        }
-
         private void OnSlotChange(PlayerInfo info, ushort new_slot, Player.Team new_team)
         {
             // Remove previous position
@@ -148,7 +120,7 @@ namespace PawsAndClaws
                     hamster_slots[info.slot].OnUserRemove();
                 }
             }
-
+            
             // Set info
             info.slot = new_slot;
             info.team = new_team;

@@ -12,8 +12,12 @@ namespace PawsAndClaws.Networking
 {
     public class NetServerTCP : NetServer
     {
-        private PacketManagerTCP _packetManager = new PacketManagerTCP();
         private const int MAX_CONNECTIONS = 6;
+
+        private PacketManagerTCP _packetManager = new PacketManagerTCP();
+
+        private List<NetworkPacket> _packetList = new();
+        private object _packetMutex = new();
 
         void Start()
         {
@@ -30,7 +34,20 @@ namespace PawsAndClaws.Networking
             // Begin accepting connections
             BeginAccept();
         }
-        
+
+        private void Update()
+        {
+            lock (_packetMutex)
+            {
+                for (int i = 0; i < _packetList.Count; i++)
+                {
+                    NetworkManager.OnPacketReceived?.Invoke(_packetList[i]);
+                }
+
+                _packetList.Clear();
+            }
+        }
+
         public void BroadcastPacket(NetworkPacket packet)
         {
             byte[] data = packet.ToByteArray();
@@ -116,7 +133,10 @@ namespace PawsAndClaws.Networking
 
         void OnReceivedPacket(NetworkPacket packet)
         {
-            NetworkManager.OnPacketReceived?.Invoke(packet);
+            lock (_packetMutex)
+            {
+                _packetList.Add(packet);
+            }
         }
 
         private void OnDestroy()
