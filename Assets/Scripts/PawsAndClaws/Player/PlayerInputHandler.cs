@@ -2,6 +2,7 @@ using PawsAndClaws.Game;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace PawsAndClaws.Player
 {
@@ -19,7 +20,7 @@ namespace PawsAndClaws.Player
         public Camera playerCamera;
         public PlayerInputManager InputManager { get; private set; }
         public LocalPlayerManager playerManager;
-        private Animator _animator;
+        public Animator animator;
         private SpriteRenderer _spriteRenderer;
         private bool _wasRight = false;
 
@@ -36,9 +37,8 @@ namespace PawsAndClaws.Player
 
 
             rb = GetComponent<Rigidbody2D>();
-            _animator = GetComponentInChildren<Animator>();
-            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
+            _spriteRenderer = animator.GetComponent<SpriteRenderer>();
+            
             InputManager.Gameplay.Ability1.performed += c => playerManager.ActivateAbility1();
             InputManager.Gameplay.Ability2.performed += c => playerManager.ActivateAbility2();
             InputManager.Gameplay.Ultimate.performed += c => playerManager.ActivateUltimate();
@@ -64,12 +64,12 @@ namespace PawsAndClaws.Player
         {
             UpdateInput();
             UpdateAnimator();
-
         }
 
         private void UpdateAnimator()
         {
-            _animator.SetFloat(GameConstants.SpeedAnim, Mathf.Abs(rb.velocity.magnitude));
+            if(animator != null)
+                animator.SetFloat(GameConstants.SpeedAnim, Mathf.Abs(rb.velocity.magnitude));
 
             switch (rb.velocity.x)
             {

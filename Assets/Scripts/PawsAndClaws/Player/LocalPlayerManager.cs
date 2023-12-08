@@ -22,7 +22,7 @@ namespace PawsAndClaws.Player
         private PlayerCameraController _playerCameraController;
         private Camera _playerCameraComp;
         
-        private void Awake()
+        private void Start()
         {
             _playerCameraController = playerCamera.GetComponent<PlayerCameraController>();
             _playerCameraComp = playerCamera.GetComponent<Camera>();
@@ -40,7 +40,7 @@ namespace PawsAndClaws.Player
             // Spawn the character
             _character = characterData.Spawn(transform, ref CharacterStats);
             CollectAbilities();
-            
+            inputHandler.animator = _character.GetComponent<Animator>();
             inputHandler.Initialize();
             _playerCameraController.Initialize();
             
