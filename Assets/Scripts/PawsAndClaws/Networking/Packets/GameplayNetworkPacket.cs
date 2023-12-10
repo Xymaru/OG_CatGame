@@ -4,6 +4,7 @@ using UnityEngine;
 
 using System;
 using System.Text;
+using PawsAndClaws.Utils;
 
 namespace PawsAndClaws.Networking
 {
@@ -41,19 +42,13 @@ namespace PawsAndClaws.Networking
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-
+            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
             // Set type and size
-            int index = setBasePacketData(data);
+            SetBasePacketData(ref blob);
 
-            BitConverter.GetBytes(x).CopyTo(data, index);
-            index += 4;
-
-            BitConverter.GetBytes(y).CopyTo(data, index);
-            index += 4;
-
-            p_size = index;
-            BitConverter.GetBytes(p_size).CopyTo(data, 0);
-
+            // Write the position
+            blob.Write(x);
+            blob.Write(y);
             return data;
         }
     }

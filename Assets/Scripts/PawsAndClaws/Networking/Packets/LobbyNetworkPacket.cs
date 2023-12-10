@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using PawsAndClaws.Utils;
 
 namespace PawsAndClaws.Networking.Packets
 {
@@ -33,20 +34,15 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-
+            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
             // Set base packet data
-            int index = setBasePacketData(data);
+            SetBasePacketData(ref blob);
 
             byte[] name_bytes = Encoding.ASCII.GetBytes(name);
 
             // Set client name
-            name_bytes.CopyTo(data, index);
-            index += name.Length; // char count in string
-
-            // Set packet size in bytes
-            p_size = index;
-            BitConverter.GetBytes(p_size).CopyTo(data, 0); // size index
-
+            blob.Write(name_bytes, name_bytes.Length);
+            
             return data;
         }
     }
@@ -84,22 +80,16 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-
+            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
             // Set type and size
-            int index = setBasePacketData(data);
+            SetBasePacketData(ref blob);
 
             // Set if accepted or not
-            BitConverter.GetBytes((ushort)response).CopyTo(data, index);
-            index += sizeof(ushort);
+            blob.Write((ushort)response);
 
             // Set player id
-            BitConverter.GetBytes(player_id).CopyTo(data, index);
-            index += sizeof(ushort);
-
-            // Set packet size in bytes
-            p_size = index;
-            BitConverter.GetBytes(p_size).CopyTo(data, 0); // size index
-
+            blob.Write(player_id);
+            
             return data;
         }
     }
@@ -131,12 +121,10 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-
-            int offset = setBasePacketData(data);
-
-            BitConverter.GetBytes(is_ready).CopyTo(data, offset);
-            offset += sizeof(bool);
-
+            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            SetBasePacketData(ref blob);
+            // Write ready flag
+            blob.Write(is_ready);
             return data;
         }
     }
@@ -193,15 +181,12 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            SetBasePacketData(ref blob);
 
-            int offset = setBasePacketData(data);
-
-            BitConverter.GetBytes(spot).CopyTo(data, offset);
-            offset += 2;
-
-            data[offset] = (byte)team;
-            offset += 1;
-
+            blob.Write(spot);
+            blob.Write((byte)team);
+            
             return data;
         }
     }
@@ -239,15 +224,12 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            SetBasePacketData(ref blob);
 
-            int offset = setBasePacketData(data);
-
-            BitConverter.GetBytes(spot).CopyTo(data, offset);
-            offset += sizeof(ushort);
-
-            data[offset] = (byte)team;
-            offset += sizeof(Player.Team);
-
+            blob.Write(spot);
+            blob.Write((byte)team);
+            
             return data;
         }
     }
@@ -274,8 +256,8 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-
-            setBasePacketData(data);
+            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            SetBasePacketData(ref blob);
 
             return data;
         }
@@ -311,19 +293,13 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            SetBasePacketData(ref blob);
 
-            int offset = setBasePacketData(data);
-
-            BitConverter.GetBytes(client_id).CopyTo(data, offset);
-            offset += 2;
-
-            Encoding.ASCII.GetBytes(name).CopyTo(data, offset);
-            offset += name.Length;
-
-            // Set packet size in bytes
-            p_size = offset;
-            BitConverter.GetBytes(p_size).CopyTo(data, 0); // size index
-
+            blob.Write(client_id);
+            var buff = Encoding.ASCII.GetBytes(name);
+            blob.Write(buff, buff.Length);
+            
             return data;
         }
     }

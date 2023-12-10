@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using PawsAndClaws.Networking.Packets;
+using PawsAndClaws.Utils;
 
 namespace PawsAndClaws.Networking
 {
@@ -43,7 +44,7 @@ namespace PawsAndClaws.Networking
         {
             NetworkPacket packet = null;
 
-            NPacketType type = (NPacketType)BitConverter.ToUInt16(buffer, 4);
+            NPacketType type = (NPacketType)BitConverter.ToUInt16(buffer, 0);
 
             switch (type)
             {
@@ -76,21 +77,16 @@ namespace PawsAndClaws.Networking
             return packet;
         }
 
-        public virtual int setBasePacketData(byte[] data)
+        public virtual void SetBasePacketData(ref BlobStreamWriter blob)
         {
-            // Packet type at index 4
-            BitConverter.GetBytes((ushort)p_type).CopyTo(data, 4); // first 4 is size, second is type
-
-            // Leave 4 of space for size (int(4) + ushort(2))
-            return 6;
+            // Packet type
+            blob.Write((ushort)p_type);
         }
 
         public virtual int readBasePacketData(byte[] buffer)
         {
-            p_size = BitConverter.ToInt32(buffer, 0);
-
-            // Leave 4 of space for size (int(4) + ushort(2))
-            return 6;
+            p_type = (NPacketType)BitConverter.ToInt16(buffer, 0);
+            return 2;
         }
     }
 
@@ -110,21 +106,11 @@ namespace PawsAndClaws.Networking
 
         }
 
-        public override int setBasePacketData(byte[] buffer){
-            int index = base.setBasePacketData(buffer);
-
+        public override void SetBasePacketData(ref BlobStreamWriter blob)
+        {
+            base.SetBasePacketData(ref blob);
             // Copy ID
-            BitConverter.GetBytes(id).CopyTo(buffer, index);
-
-            index += 2;
-            
-            //IDS
-            BitConverter.GetBytes(team_id).CopyTo(buffer, index);
-            index += 2;
-            
-            BitConverter.GetBytes(slot_id).CopyTo(buffer, index);
-            index += 2;
-            return index;
+            blob.Write(id);
         }
 
         public override int readBasePacketData(byte[] buffer)
@@ -133,16 +119,6 @@ namespace PawsAndClaws.Networking
 
             // Read ID
             id = BitConverter.ToUInt16(buffer, index);
-
-            index += 2;
-            
-            // Read ID
-            team_id = BitConverter.ToUInt16(buffer, index);
-
-            index += 2;
-            
-            // Read ID
-            slot_id = BitConverter.ToUInt16(buffer, index);
 
             index += 2;
 
