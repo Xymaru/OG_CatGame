@@ -42,7 +42,7 @@ namespace PawsAndClaws.Networking
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             // Set type and size
             SetBasePacketData(ref blob);
 

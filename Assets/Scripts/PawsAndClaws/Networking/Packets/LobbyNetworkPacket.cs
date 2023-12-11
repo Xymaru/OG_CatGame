@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using PawsAndClaws.Utils;
+using UnityEngine;
 
 namespace PawsAndClaws.Networking.Packets
 {
@@ -28,22 +29,24 @@ namespace PawsAndClaws.Networking.Packets
             // Read name
             name = Encoding.ASCII.GetString(buffer, offset, p_size - offset);
 
+
+            Debug.Log($"Lobby packet {this}");
             return this;
         }
 
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             // Set base packet data
             SetBasePacketData(ref blob);
 
             byte[] name_bytes = Encoding.ASCII.GetBytes(name);
 
             // Set client name
-            blob.Write(name_bytes, name_bytes.Length);
+            blob.Write(name_bytes);
             
-            return data;
+            return blob.Data;
         }
     }
 
@@ -80,7 +83,7 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             // Set type and size
             SetBasePacketData(ref blob);
 
@@ -90,7 +93,7 @@ namespace PawsAndClaws.Networking.Packets
             // Set player id
             blob.Write(player_id);
             
-            return data;
+            return blob.Data;
         }
     }
 
@@ -121,11 +124,11 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             SetBasePacketData(ref blob);
             // Write ready flag
             blob.Write(is_ready);
-            return data;
+            return blob.Data;
         }
     }
 
@@ -181,13 +184,13 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             SetBasePacketData(ref blob);
 
             blob.Write(spot);
             blob.Write((byte)team);
             
-            return data;
+            return blob.Data;
         }
     }
 
@@ -224,13 +227,13 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             SetBasePacketData(ref blob);
 
             blob.Write(spot);
             blob.Write((byte)team);
             
-            return data;
+            return blob.Data;
         }
     }
 
@@ -256,10 +259,9 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             SetBasePacketData(ref blob);
-
-            return data;
+            return blob.Data;
         }
     }
 
@@ -293,14 +295,14 @@ namespace PawsAndClaws.Networking.Packets
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
-            BlobStreamWriter blob = new BlobStreamWriter(ref data, MAX_BUFFER_SIZE);
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             SetBasePacketData(ref blob);
 
             blob.Write(client_id);
             var buff = Encoding.ASCII.GetBytes(name);
-            blob.Write(buff, buff.Length);
+            blob.Write(buff);
             
-            return data;
+            return blob.Data;
         }
     }
 }
