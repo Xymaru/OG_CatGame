@@ -161,10 +161,9 @@ namespace PawsAndClaws.Networking.Packets
             BlobStreamReader blob = new BlobStreamReader(buffer);
 
             spot = blob.Read<ushort>();
-            offset += 2;
 
-            team = (Player.Team)buffer[offset];
-            offset += 1;
+            team = (Player.Team)blob.Read<byte>();
+
 
             return this;
         }
