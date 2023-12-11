@@ -85,6 +85,8 @@ namespace PawsAndClaws.Utils
     }
     public class BlobStreamReader
     {
+        public int Position => _position;
+        public byte[] Data => _buffer;
         private int _position;
         private byte[] _buffer;
         public BlobStreamReader(byte[] buffer)

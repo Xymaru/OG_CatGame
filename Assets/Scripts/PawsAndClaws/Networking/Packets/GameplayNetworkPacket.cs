@@ -26,15 +26,11 @@ namespace PawsAndClaws.Networking
 
         public override NetworkPacket LoadByteArray(byte[] data)
         {
-            int offset = 0;
+            BlobStreamReader blob = new BlobStreamReader(data);
+            base.ReadBasePacketData(ref blob);
 
-            offset = readBasePacketData(data);
-
-            x = BitConverter.ToSingle(data, offset);
-            offset += 4;
-
-            y = BitConverter.ToSingle(data, offset);
-            offset += 4;
+            x = blob.Read<float>();
+            y = blob.Read<float>();
 
             return this;
         }

@@ -22,15 +22,11 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
-            int offset = 0;
-
-            offset = readBasePacketData(buffer);
-
+            BlobStreamReader blob = new BlobStreamReader(buffer);
+            base.ReadBasePacketData(ref blob);
             // Read name
-            name = Encoding.ASCII.GetString(buffer, offset, p_size - offset);
+            name = Encoding.ASCII.GetString(buffer, blob.Position, p_size - blob.Position);
 
-
-            Debug.Log($"Lobby packet {this}");
             return this;
         }
 
@@ -67,15 +63,10 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
-            int offset = 0;
+            BlobStreamReader blob = new BlobStreamReader(buffer);
 
-            offset = readBasePacketData(buffer);
-
-            response = (ResponseType)BitConverter.ToUInt16(buffer, offset);
-            offset += sizeof(ushort);
-
-            player_id = BitConverter.ToUInt16(buffer, offset);
-            offset += sizeof(ushort);
+            response = (ResponseType)blob.Read<ushort>();
+            player_id = blob.Read<ushort>();
 
             return this;
         }
@@ -113,11 +104,10 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
-            int offset = readBasePacketData(buffer);
+            BlobStreamReader blob = new BlobStreamReader(buffer);
+            base.ReadBasePacketData(ref blob);
 
-            is_ready = BitConverter.ToBoolean(buffer, offset);
-            offset += sizeof(bool);
-
+            is_ready = blob.Read<bool>();
             return this;
         }
 
@@ -168,11 +158,9 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
-            int offset = 0;
+            BlobStreamReader blob = new BlobStreamReader(buffer);
 
-            offset = readBasePacketData(buffer);
-
-            spot = BitConverter.ToUInt16(buffer, offset);
+            spot = blob.Read<ushort>();
             offset += 2;
 
             team = (Player.Team)buffer[offset];

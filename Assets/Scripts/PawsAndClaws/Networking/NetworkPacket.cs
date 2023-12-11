@@ -83,10 +83,9 @@ namespace PawsAndClaws.Networking
             blob.Write((ushort)p_type);
         }
 
-        public virtual int readBasePacketData(byte[] buffer)
+        public virtual void ReadBasePacketData(ref BlobStreamReader blob)
         {
-            p_type = (NPacketType)BitConverter.ToInt16(buffer, 0);
-            return 2;
+            p_type = (NPacketType)blob.Read<ushort>();
         }
     }
 
@@ -113,16 +112,11 @@ namespace PawsAndClaws.Networking
             blob.Write(id);
         }
 
-        public override int readBasePacketData(byte[] buffer)
+        public override void ReadBasePacketData(ref BlobStreamReader blob)
         {
-            int index = base.readBasePacketData(buffer);
-
+            base.ReadBasePacketData(ref blob);
             // Read ID
-            id = BitConverter.ToUInt16(buffer, index);
-
-            index += 2;
-
-            return index;
+            id = blob.Read<ushort>();
         }
     }
 }
