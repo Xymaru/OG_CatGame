@@ -23,9 +23,9 @@ namespace PawsAndClaws.Networking.Packets
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
             BlobStreamReader blob = new BlobStreamReader(buffer);
-            base.ReadBasePacketData(ref blob);
+            ReadBasePacketData(ref blob);
             // Read name
-            name = Encoding.ASCII.GetString(buffer, blob.Position, p_size - blob.Position);
+            name = blob.Read<string>();
 
             return this;
         }
@@ -36,11 +36,9 @@ namespace PawsAndClaws.Networking.Packets
             BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             // Set base packet data
             SetBasePacketData(ref blob);
-
-            byte[] name_bytes = Encoding.ASCII.GetBytes(name);
-
+            
             // Set client name
-            blob.Write(name_bytes);
+            blob.Write(name);
             
             return blob.Data;
         }
@@ -64,7 +62,7 @@ namespace PawsAndClaws.Networking.Packets
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
             BlobStreamReader blob = new BlobStreamReader(buffer);
-
+            ReadBasePacketData(ref blob);
             response = (ResponseType)blob.Read<ushort>();
             player_id = blob.Read<ushort>();
 
@@ -105,8 +103,7 @@ namespace PawsAndClaws.Networking.Packets
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
             BlobStreamReader blob = new BlobStreamReader(buffer);
-            base.ReadBasePacketData(ref blob);
-
+            ReadBasePacketData(ref blob);
             is_ready = blob.Read<bool>();
             return this;
         }
@@ -132,12 +129,20 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
+            BlobStreamReader blob = new BlobStreamReader(buffer);
+            ReadBasePacketData(ref blob);
+            accepted = blob.Read<bool>();
             return this;
         }
 
         public override byte[] ToByteArray()
         {
-            throw new NotImplementedException();
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(data);
+            SetBasePacketData(ref blob);
+            blob.Write(accepted);
+
+            return blob.Data;
         }
     }
 
@@ -159,12 +164,11 @@ namespace PawsAndClaws.Networking.Packets
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
             BlobStreamReader blob = new BlobStreamReader(buffer);
-
+            ReadBasePacketData(ref blob);
+            
             spot = blob.Read<ushort>();
-
             team = (Player.Team)blob.Read<byte>();
-
-
+            
             return this;
         }
 
@@ -198,15 +202,11 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
-            int offset = 0;
+            BlobStreamReader blob = new BlobStreamReader(buffer);
+            ReadBasePacketData(ref blob);
 
-            offset = readBasePacketData(buffer);
-
-            spot = BitConverter.ToUInt16(buffer, offset);
-            offset += sizeof(ushort);
-
-            team = (Player.Team)buffer[offset];
-            offset += sizeof(Player.Team);
+            spot = blob.Read<ushort>();
+            team = (Player.Team)blob.Read<byte>();
 
             return this;
         }
@@ -238,7 +238,8 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
-            readBasePacketData(buffer);
+            BlobStreamReader blob = new BlobStreamReader(buffer);
+            ReadBasePacketData(ref blob);
 
             return this;
         }
@@ -269,12 +270,10 @@ namespace PawsAndClaws.Networking.Packets
 
         public override NetworkPacket LoadByteArray(byte[] buffer)
         {
-            int offset = readBasePacketData(buffer);
-
-            client_id = BitConverter.ToUInt16(buffer, offset);
-            offset += 2;
-
-            name = Encoding.ASCII.GetString(buffer, offset, p_size - offset);
+            BlobStreamReader blob = new BlobStreamReader(buffer);
+            ReadBasePacketData(ref blob);
+            client_id = blob.Read<ushort>();
+            name = blob.Read<string>();
 
             return this;
         }
@@ -286,8 +285,7 @@ namespace PawsAndClaws.Networking.Packets
             SetBasePacketData(ref blob);
 
             blob.Write(client_id);
-            var buff = Encoding.ASCII.GetBytes(name);
-            blob.Write(buff);
+            blob.Write(name);
             
             return blob.Data;
         }

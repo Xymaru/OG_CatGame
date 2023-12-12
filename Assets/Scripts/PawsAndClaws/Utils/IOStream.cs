@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Runtime.InteropServices;
+using System.Text;
 
 
 namespace PawsAndClaws.Utils
@@ -19,7 +20,7 @@ namespace PawsAndClaws.Utils
     }
     public class Reader : IReader<char>, IReader<int>, IReader<byte>,
         IReader<long>, IReader<ulong>, IReader<uint>, IReader<float>,
-        IReader<double>, IReader<bool>, IReader<ushort>
+        IReader<double>, IReader<bool>, IReader<ushort>, IReader<string>
     {
         public static Reader P = new Reader();
 
@@ -82,6 +83,14 @@ namespace PawsAndClaws.Utils
             size = sizeof(double);
             return BitConverter.ToDouble(buff, offset);
         }
+
+        string IReader<string>.Read(byte[] buff, int offset, ref int size)
+        {
+            // Get the size of the string on the first 4 bytes
+            int strSize = BitConverter.ToInt32(buff, offset);
+            size = sizeof(int) + strSize;
+            return Encoding.ASCII.GetString(buff, offset + sizeof(uint), strSize);
+        }
     }
     public class BlobStreamReader
     {
@@ -102,6 +111,7 @@ namespace PawsAndClaws.Utils
             _position += size;
             return val;
         }
+        
         public void Skip(int offset)
         {
             _position += offset;
@@ -146,7 +156,6 @@ namespace PawsAndClaws.Utils
         }
         public void Write(bool value)
         {
-            Debug.Assert((_bufferSize - _position) >= sizeof(bool), "Buffer is too small to contain the value");
             byte[] buffer = BitConverter.GetBytes(value);
             Write(buffer);
         }
@@ -196,6 +205,18 @@ namespace PawsAndClaws.Utils
             Write(buffer);
         }
 
+        public void Write(string value)
+        {
+            // Create a buffer to allocate both size and value
+            byte[] buffer = new byte[sizeof(int) +  Encoding.ASCII.GetByteCount(value)];
+            // Write the first bytes as the size of the string
+            BitConverter.GetBytes(value.Length).CopyTo(buffer, 0);
+            // Write the value of the string
+            Encoding.ASCII.GetBytes(value).CopyTo(buffer, sizeof(int));
+
+            Write(buffer);
+        }
+        
         public void Write(byte[] buffer)
         {
             Debug.Assert((_bufferSize - _position) >= buffer.Length, "Buffer is too small to contain the value");
