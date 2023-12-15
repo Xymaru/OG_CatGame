@@ -27,14 +27,14 @@ namespace PawsAndClaws.Networking {
 
         public void SendPosition()
         {
-            if (NetworkData.NetSocket.NetCon == NetCon.Client)
-            {
-                _client?.SendPlayerPos();
-            }
-            else
-            {
-                _serv?.SendPlayerPos();
-            }
+            //if (NetworkData.NetSocket.NetCon == NetCon.Client)
+            //{
+            //    _client?.SendPlayerPos();
+            //}
+            //else
+            //{
+            //    _serv?.SendPlayerPos();
+            //}
         }
     }
 }

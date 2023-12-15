@@ -49,6 +49,8 @@ namespace PawsAndClaws.Networking
         public static ProtocolType ProtocolType = ProtocolType.Tcp;
 
         public static TeamInfo[] Teams = new TeamInfo[2] { new TeamInfo(), new TeamInfo() };
+
+        public static float PacketSendInterval = 0.025f;
     }
 
     [System.Serializable]

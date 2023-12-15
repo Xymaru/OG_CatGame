@@ -15,6 +15,7 @@ namespace PawsAndClaws.Networking
         LOBBYSPOTUPDATE,
         LOBBY_READY_REQ,
         LOBBY_READY_RES,
+        HELLO,
         PLAYERPOS
     }
 
@@ -72,6 +73,9 @@ namespace PawsAndClaws.Networking
                 case NPacketType.LOBBY_READY_REQ:
                     packet = new NPLobbyReadyReq(buffer);
                     break;
+                case NPacketType.HELLO:
+                    packet = new NPHello(buffer);
+                    break;
             }
 
             return packet;
@@ -93,8 +97,6 @@ namespace PawsAndClaws.Networking
     public abstract class ClientNetworkPacket : NetworkPacket
     {
         public ushort id;
-        public ushort team_id;
-        public ushort slot_id;
         public ClientNetworkPacket()
         {
 

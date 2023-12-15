@@ -18,7 +18,6 @@ namespace PawsAndClaws.Networking
 
     public class PacketManagerUDP
     {
-
         public Action<NetworkPacket> OnPacketReceived;
         private Thread _thread;
         PacketStateUDP pstate;

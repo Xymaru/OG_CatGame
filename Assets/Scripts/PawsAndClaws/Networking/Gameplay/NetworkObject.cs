@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace PawsAndClaws.Networking
 {
-    public interface INetChat
+    public class NetworkObject : MonoBehaviour
     {
-        public void SendMessageChat(string message);
+        public int NetID = 0;
+
     }
 }
