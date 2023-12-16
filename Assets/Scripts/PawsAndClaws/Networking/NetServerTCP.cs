@@ -147,12 +147,15 @@ namespace PawsAndClaws.Networking
 
                 if (clientsock != null)
                 {
-                    if (clientsock.Socket.Connected)
+                    if (clientsock.Socket != null)
                     {
-                        clientsock.Socket.Shutdown(SocketShutdown.Both);
-                    }
+                        if (clientsock.Socket.Connected)
+                        {
+                            clientsock.Socket.Shutdown(SocketShutdown.Both);
+                        }
 
-                    clientsock.Socket.Close();
+                        clientsock.Socket.Close();
+                    }
                 }
             }
 
