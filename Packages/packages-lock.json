@@ -7,15 +7,6 @@
       "dependencies": {},
       "hash": "f8a1aedbf0bc7c4aebe0f52300b002912690ce1a"
     },
-    "com.realgames.dear-imgui": {
-      "version": "https://github.com/mattmanj17/dear-imgui-unity.git#matthewd",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.collections": "0.5.0-preview.9"
-      },
-      "hash": "101996d5fced0e6601279e89cb753c474343e8aa"
-    },
     "com.unity.2d.animation": {
       "version": "9.0.3",
       "depth": 0,

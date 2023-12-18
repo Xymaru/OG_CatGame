@@ -1,26 +1,18 @@
-using ImGuiNET;
-using PawsAndClaws.Networking;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace PawsAndClaws.Debugging
 {
-    public class NetworkDebugWindow : DebugWindow
+    public class NetworkDebugWindow : MonoBehaviour
     {
-
-      
-
-        public override void OnImGuiRenderer()
+        private void OnGUI()
         {
-            ImGui.Begin("Network");
-
-
-            ImGui.Text($"Protocol: {NetworkData.ProtocolType}");
-            ImGui.Text($"EndPoint: {NetworkData.ServerEndPoint}");
-
-
-            ImGui.End();
+            GUI.Box(new Rect(10, 10, 100, 90), "Network");
+            
+            GUI.Label(new Rect(20, 20, 70, 20), "Packets sent");
+            GUI.Label(new Rect(20, 50, 70, 20), "Packets received");
+            
+            
         }
     }
 }

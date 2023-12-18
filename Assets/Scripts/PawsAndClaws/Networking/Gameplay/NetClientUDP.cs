@@ -10,65 +10,57 @@ namespace PawsAndClaws.Networking
 {
     public class NetClientUDP : MonoBehaviour
     {
-        private PacketManagerUDP packetManagerUDP = new PacketManagerUDP();
-        private Socket socket;
+        private PacketStateUDP stateObj = new PacketStateUDP();
         private bool connected = false;
-        private NetworkPacket lastPacketReceived = null;
 
         private void Start()
         {
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            packetManagerUDP.OnPacketReceived += OnPacketReceived;
-            packetManagerUDP.BeginReceive(socket);
+            stateObj.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            stateObj.RemoteEP  = new IPEndPoint(NetworkData.NetSocket.IPAddr, NetworkData.PortUDP);
+            stateObj.Buffer = new byte[NetworkPacket.MAX_BUFFER_SIZE];
+            
             StartCoroutine(SendHelloPacket());
+            BeginReceive();
         }
 
-        private void OnPacketReceived(NetworkPacket packet)
+        private void BeginReceive()
         {
-            lastPacketReceived = packet;
-        }
-        private void Update()
-        {
-            ProcessPackets();
+            stateObj.Socket.BeginReceiveFrom(stateObj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, 
+                ref stateObj.RemoteEP, new AsyncCallback(ReceiveCB), stateObj);
         }
 
-        public void SendPacket(NetworkPacket packet)
+        private void ReceiveCB(IAsyncResult ar)
         {
-            packetManagerUDP.SendPacket(packet.ToByteArray());
-        }
-
-        private void ProcessPackets()
-        {
-            if (lastPacketReceived == null)
+            PacketStateUDP obj = (PacketStateUDP) ar.AsyncState;
+            int bytesReceived = obj.Socket.EndReceiveFrom(ar, ref stateObj.RemoteEP);
+            if (bytesReceived == 0)
                 return;
 
-            // Wait for the server handshake to then start processing all the other packets
-            if(lastPacketReceived.p_type == NPacketType.HELLO)
+            NetworkPacket packet = NetworkPacket.FromByteArray(stateObj.Buffer);
+            if (packet.p_type == NPacketType.HELLO)
             {
                 connected = true;
+                Debug.Log($"Correctly connected to server UDP");
             }
-            else if(connected)
+            else
             {
-                ReplicationManager.Instance.ProcessPacket(lastPacketReceived);
+                ReplicationManager.Instance.ProcessPacket(packet);
             }
-            // Clean the packet
-            lastPacketReceived = null;
+            stateObj.Socket.BeginReceiveFrom(stateObj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, 
+                ref stateObj.RemoteEP, new AsyncCallback(ReceiveCB), stateObj);
+        }
+        
+        public void SendPacket(NetworkPacket packet)
+        {
+            stateObj.Socket.SendTo(packet.ToByteArray(), SocketFlags.None, stateObj.RemoteEP);
         }
 
-        private IEnumerator SendHelloPacket()
+       private IEnumerator SendHelloPacket()
         {
-            while(connected) 
+            while(!connected) 
             {
                 SendPacket(new NPHello());
                 yield return new WaitForSeconds(NetworkData.PacketSendInterval);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if(socket != null)
-            {
-                socket.Dispose();
             }
         }
     }

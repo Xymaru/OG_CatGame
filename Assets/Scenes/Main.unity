@@ -2134,8 +2134,8 @@ Canvas:
   m_GameObject: {fileID: 1612365846}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 554295006}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4652,6 +4652,11 @@ PrefabInstance:
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3841542968457974287, guid: 50b7614d7660f464dbd9f31d61a46091,
+        type: 3}
+      propertyPath: embeddedEventSystem
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4018957583821707641, guid: 50b7614d7660f464dbd9f31d61a46091,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4712,6 +4717,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -18
       objectReference: {fileID: 0}
+    - target: {fileID: 5591614627560212755, guid: 50b7614d7660f464dbd9f31d61a46091,
+        type: 3}
+      propertyPath: editorWindows.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7815895182170846450, guid: 50b7614d7660f464dbd9f31d61a46091,
         type: 3}
       propertyPath: m_RootOrder
@@ -4770,7 +4780,7 @@ PrefabInstance:
     - target: {fileID: 9079163127137816563, guid: 50b7614d7660f464dbd9f31d61a46091,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9196447961404780343, guid: 50b7614d7660f464dbd9f31d61a46091,
         type: 3}
