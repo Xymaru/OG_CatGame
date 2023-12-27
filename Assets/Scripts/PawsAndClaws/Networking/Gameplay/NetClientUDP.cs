@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace PawsAndClaws.Networking
 {
@@ -12,7 +13,7 @@ namespace PawsAndClaws.Networking
     {
         private PacketStateUDP stateObj = new PacketStateUDP();
         private bool connected = false;
-
+        private Thread _thread;
         private void Start()
         {
             stateObj.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -20,13 +21,41 @@ namespace PawsAndClaws.Networking
             stateObj.Buffer = new byte[NetworkPacket.MAX_BUFFER_SIZE];
             
             StartCoroutine(SendHelloPacket());
-            BeginReceive();
+            _thread = new Thread(BeginReceive);
+            _thread.Start();
         }
 
         private void BeginReceive()
         {
-            stateObj.Socket.BeginReceiveFrom(stateObj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, 
-                ref stateObj.RemoteEP, new AsyncCallback(ReceiveCB), stateObj);
+            //stateObj.Socket.BeginReceiveFrom(stateObj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, ref stateObj.RemoteEP, new AsyncCallback(ReceiveCB), stateObj);
+
+            while (true)
+            {
+                try
+                {
+                    Debug.Log("Started to receive");
+                    stateObj.RemoteEP = new IPEndPoint(NetworkData.NetSocket.IPAddr, NetworkData.PortUDP);
+                    int bytesReceived = stateObj.Socket.ReceiveFrom(stateObj.Buffer, SocketFlags.None, ref stateObj.RemoteEP);
+                    if (bytesReceived == 0)
+                        return;
+                    
+                    NetworkPacket packet = NetworkPacket.FromByteArray(stateObj.Buffer);
+                    if (packet.p_type == NPacketType.HELLO)
+                    {
+                        connected = true;
+                        Debug.Log($"Correctly connected to server UDP");
+                    }
+                    else
+                    {
+                        ReplicationManager.Instance.ProcessPacket(packet);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                    break;
+                }
+            }
         }
 
         private void ReceiveCB(IAsyncResult ar)
@@ -63,5 +92,13 @@ namespace PawsAndClaws.Networking
                 yield return new WaitForSeconds(NetworkData.PacketSendInterval);
             }
         }
+
+       private void OnDestroy()
+       {
+           if (_thread.IsAlive)
+           {
+               _thread.Abort();
+           }
+       }
     }
 }

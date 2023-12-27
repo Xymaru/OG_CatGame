@@ -50,17 +50,28 @@ namespace PawsAndClaws.Networking
                 
                 // Send the hello packet
                 NPHello helloPacket = new NPHello();
-                stateObj.Socket.SendTo(helloPacket.ToByteArray(), ipenp);
+                obj.Socket.SendTo(helloPacket.ToByteArray(), ipenp);
             }
             else
             {
-                // TODO: Process and replicate packets
                 ReplicationManager.Instance.ProcessPacket(packet);
-                
+                foreach (var client in ConnectedClients)
+                {
+                    obj.Socket.SendTo(obj.Buffer, client.EndPoint);
+                }
             }
             
             ipenp = new IPEndPoint(IPAddress.Any, 0);
-            stateObj.Socket.BeginReceiveFrom(stateObj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, ref ipenp, new AsyncCallback(ReceiveCB), stateObj);
+            obj.Socket.BeginReceiveFrom(obj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, ref ipenp, new AsyncCallback(ReceiveCB), obj);
+        }
+
+        public void SendPacket(NetworkPacket packet)
+        {
+            byte[] data = packet.ToByteArray();
+            foreach (var client in ConnectedClients)
+            {
+                stateObj.Socket.SendTo(data, client.EndPoint);
+            }
         }
     }
 }

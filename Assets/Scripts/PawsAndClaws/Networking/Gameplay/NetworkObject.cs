@@ -7,6 +7,5 @@ namespace PawsAndClaws.Networking
     public class NetworkObject : MonoBehaviour
     {
         public int NetID = 0;
-
     }
 }

@@ -38,19 +38,19 @@ namespace PawsAndClaws.Networking
 
 
     [System.Serializable]
-    public class NPPlayerPos : ClientNetworkPacket
+    public class NPObjectPos : ClientNetworkPacket
     {
         public float x;
         public float y;
 
-        public NPPlayerPos(byte[] data) : base(data)
+        public NPObjectPos(byte[] data) : base(data)
         {
-            p_type = NPacketType.PLAYERPOS;
+            p_type = NPacketType.OBJECTPOS;
         }
 
-        public NPPlayerPos()
+        public NPObjectPos()
         {
-            p_type = NPacketType.PLAYERPOS;
+            p_type = NPacketType.OBJECTPOS;
         }
 
         public override NetworkPacket LoadByteArray(byte[] data)

@@ -16,7 +16,7 @@ namespace PawsAndClaws.Networking
         LOBBY_READY_REQ,
         LOBBY_READY_RES,
         HELLO,
-        PLAYERPOS
+        OBJECTPOS
     }
 
     [System.Serializable]
@@ -61,8 +61,8 @@ namespace PawsAndClaws.Networking
                 case NPacketType.LOBBYSPOTUPDATE:
                     packet = new NPLobbySpotUpdate(buffer);
                     break;
-                case NPacketType.PLAYERPOS:
-                    packet = new NPPlayerPos(buffer);
+                case NPacketType.OBJECTPOS:
+                    packet = new NPObjectPos(buffer);
                     break;
                 case NPacketType.LOBBYPLAYERCON:
                     packet = new NPLobbyPlayerCon(buffer);
