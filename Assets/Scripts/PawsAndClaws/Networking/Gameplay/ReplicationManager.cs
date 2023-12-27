@@ -35,7 +35,16 @@ namespace PawsAndClaws.Networking
                 _serv = gameObject.AddComponent<NetServerUDP>();
             }
         }
-        
+
+        public GameObject CreateLocalNetObject(GameObject prefab, Vector3 position)
+        {
+            var id = _networkObjects.Count;
+            var netObject = Instantiate(prefab, position, Quaternion.identity);
+            var netComp = netObject.GetComponent<NetworkObject>();
+            _networkObjects.Add(netComp);
+
+            return netObject;
+        }
         public GameObject CreateNetObject(GameObject prefab, Vector3 position)
         {
             var id = _networkObjects.Count;

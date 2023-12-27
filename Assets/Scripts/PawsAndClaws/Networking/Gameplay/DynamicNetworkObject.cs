@@ -9,7 +9,7 @@ namespace PawsAndClaws.Networking.Gameplay
         [SerializeField] private bool isLocalOnly = false;
         private void Start()
         {
-            StartCoroutine(SendPositionPacket());
+            StartCoroutine(SendPacketCoroutine());
         }
 
         public void SetPosition(float x, float y)
@@ -19,15 +19,20 @@ namespace PawsAndClaws.Networking.Gameplay
             transform.position = new Vector3(x, y, transform.position.z);
         }
 
-        private IEnumerator SendPositionPacket()
+        protected virtual void SendPackets()
+        {
+            NPObjectPos packet = new NPObjectPos();
+            var position = transform.position;
+            packet.x = position.x;
+            packet.y = position.y;
+            ReplicationManager.Instance.SendPacket(packet);
+        }
+
+        private IEnumerator SendPacketCoroutine()
         {
             while (true)
             {
-                NPObjectPos packet = new NPObjectPos();
-                var position = transform.position;
-                packet.x = position.x;
-                packet.y = position.y;
-                ReplicationManager.Instance.SendPacket(packet);
+                SendPackets();
                 yield return new WaitForSeconds(NetworkData.PacketSendInterval);
             }
         }
