@@ -23,16 +23,10 @@ namespace PawsAndClaws.Networking
     public class NetServerUDP : NetServer
     {
         UdpClient _server = null;
-
-        private void Awake()
-        {
-            _server = new UdpClient(NetworkData.PortUDP);
-        }
-
+        
         private void Start()
         {
-            
-
+            _server = new UdpClient(NetworkData.PortUDP);
             // Resize list
             for (int i = 0; i < NetServerTCP.MAX_CONNECTIONS; i++)
             {
@@ -93,6 +87,9 @@ namespace PawsAndClaws.Networking
             byte[] data = packet.ToByteArray();
             foreach (var client in ConnectedClients)
             {
+                if(client == null)
+                    continue;
+                
                 _server.Send(data, NetworkPacket.MAX_BUFFER_SIZE, (IPEndPoint)client.EndPoint);
             }
         }
