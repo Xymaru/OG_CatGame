@@ -12,6 +12,7 @@ namespace PawsAndClaws.Player
         private void Start()
         {
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
+
             // Spawn the character
             _character = characterData.Spawn(transform, ref CharacterStats);
             CollectAbilities();

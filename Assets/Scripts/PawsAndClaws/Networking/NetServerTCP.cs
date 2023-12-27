@@ -12,7 +12,7 @@ namespace PawsAndClaws.Networking
 {
     public class NetServerTCP : NetServer
     {
-        private const int MAX_CONNECTIONS = 6;
+        public const int MAX_CONNECTIONS = 6;
 
         private PacketManagerTCP _packetManager = new PacketManagerTCP();
 
@@ -54,7 +54,7 @@ namespace PawsAndClaws.Networking
 
             foreach(NetworkSocket socket in ConnectedClients)
             {
-                socket?.Socket.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
+                socket?.Socket?.Send(data, NetworkPacket.MAX_BUFFER_SIZE, 0);
             }
         }
 

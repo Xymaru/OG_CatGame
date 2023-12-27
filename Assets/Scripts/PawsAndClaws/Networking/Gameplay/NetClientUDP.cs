@@ -10,33 +10,51 @@ namespace PawsAndClaws.Networking
 {
     public class NetClientUDP : MonoBehaviour
     {
-        private PacketStateUDP stateObj = new PacketStateUDP();
+
+        UdpClient socket = null;
+
         private bool connected = false;
+
+        private void Awake()
+        {
+            int port = NetworkData.PortUDP + NetworkData.NetSocket.PlayerI.client_id;
+
+            Debug.Log(port);
+
+            // Port is 6969 + ID (1 to 5)
+            socket = new UdpClient(port);
+
+            // Connect to server
+            socket.Connect("localhost", NetworkData.PortUDP);
+        }
 
         private void Start()
         {
-            stateObj.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            stateObj.RemoteEP  = new IPEndPoint(NetworkData.NetSocket.IPAddr, NetworkData.PortUDP);
-            stateObj.Buffer = new byte[NetworkPacket.MAX_BUFFER_SIZE];
+            NPHello p_hello = new NPHello();
+            p_hello.id = NetworkData.NetSocket.PlayerI.client_id;
+
+            SendPacket(p_hello);
             
-            StartCoroutine(SendHelloPacket());
+            //StartCoroutine(SendHelloPacket());
             BeginReceive();
         }
 
         private void BeginReceive()
         {
-            stateObj.Socket.BeginReceiveFrom(stateObj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, 
-                ref stateObj.RemoteEP, new AsyncCallback(ReceiveCB), stateObj);
+            PacketStateUDP stateObj = new PacketStateUDP();
+            
+            stateObj.Socket = socket;
+            stateObj.Buffer = new byte[NetworkPacket.MAX_BUFFER_SIZE];
+
+            stateObj.Socket.BeginReceive(new AsyncCallback(ReceiveCB), stateObj);
         }
 
         private void ReceiveCB(IAsyncResult ar)
         {
             PacketStateUDP obj = (PacketStateUDP) ar.AsyncState;
-            int bytesReceived = obj.Socket.EndReceiveFrom(ar, ref stateObj.RemoteEP);
-            if (bytesReceived == 0)
-                return;
+            obj.Buffer = obj.Socket.EndReceive(ar, ref obj.RemoteEP);
 
-            NetworkPacket packet = NetworkPacket.FromByteArray(stateObj.Buffer);
+            NetworkPacket packet = NetworkPacket.FromByteArray(obj.Buffer);
             if (packet.p_type == NPacketType.HELLO)
             {
                 connected = true;
@@ -46,13 +64,13 @@ namespace PawsAndClaws.Networking
             {
                 ReplicationManager.Instance.ProcessPacket(packet);
             }
-            stateObj.Socket.BeginReceiveFrom(stateObj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, SocketFlags.None, 
-                ref stateObj.RemoteEP, new AsyncCallback(ReceiveCB), stateObj);
+
+            obj.Socket.BeginReceive(new AsyncCallback(ReceiveCB), obj);
         }
         
         public void SendPacket(NetworkPacket packet)
         {
-            stateObj.Socket.SendTo(packet.ToByteArray(), SocketFlags.None, stateObj.RemoteEP);
+            socket.Send(packet.ToByteArray(), NetworkPacket.MAX_BUFFER_SIZE);
         }
 
        private IEnumerator SendHelloPacket()
