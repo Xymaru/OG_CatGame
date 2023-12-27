@@ -10,7 +10,6 @@ namespace PawsAndClaws.Networking
 {
     public class NetClientUDP : MonoBehaviour
     {
-
         UdpClient socket = null;
 
         private bool connected = false;

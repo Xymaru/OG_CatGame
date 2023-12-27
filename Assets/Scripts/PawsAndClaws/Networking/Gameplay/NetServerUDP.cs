@@ -22,8 +22,17 @@ namespace PawsAndClaws.Networking
     }
     public class NetServerUDP : NetServer
     {
+        UdpClient _server = null;
+
+        private void Awake()
+        {
+            _server = new UdpClient(NetworkData.PortUDP);
+        }
+
         private void Start()
         {
+            
+
             // Resize list
             for (int i = 0; i < NetServerTCP.MAX_CONNECTIONS; i++)
             {
@@ -37,7 +46,7 @@ namespace PawsAndClaws.Networking
         {
             PacketStateUDP state = new PacketStateUDP();
             state.Buffer = new byte[NetworkPacket.MAX_BUFFER_SIZE];
-            state.Socket = new UdpClient(NetworkData.PortUDP);
+            state.Socket = _server;
 
             state.Socket.BeginReceive(new AsyncCallback(ReceiveCB), state);
         }
@@ -63,24 +72,20 @@ namespace PawsAndClaws.Networking
                 
                 // Send the hello packet
                 NPHello helloPacket = new NPHello();
-<<<<<<< HEAD
-                obj.Socket.SendTo(helloPacket.ToByteArray(), ipenp);
-=======
+
                 obj.Socket.Send(helloPacket.ToByteArray(), NetworkPacket.MAX_BUFFER_SIZE, obj.RemoteEP);
->>>>>>> 4f7d1b1b53805ee386b4c59185d91ac0ccdb650f
             }
             else
             {
                 ReplicationManager.Instance.ProcessPacket(packet);
-<<<<<<< HEAD
+
                 foreach (var client in ConnectedClients)
                 {
-                    obj.Socket.SendTo(obj.Buffer, client.EndPoint);
+                    obj.Socket.Send(obj.Buffer, NetworkPacket.MAX_BUFFER_SIZE, (IPEndPoint)client.EndPoint);
                 }
             }
-            
-            ipenp = new IPEndPoint(IPAddress.Any, 0);
-            obj.Socket.BeginReceiveFrom(obj.Buffer, 0, NetworkPacket.MAX_BUFFER_SIZE, 0, ref ipenp, new AsyncCallback(ReceiveCB), obj);
+
+            obj.Socket.BeginReceive(new AsyncCallback(ReceiveCB), obj);
         }
 
         public void SendPacket(NetworkPacket packet)
@@ -88,13 +93,8 @@ namespace PawsAndClaws.Networking
             byte[] data = packet.ToByteArray();
             foreach (var client in ConnectedClients)
             {
-                stateObj.Socket.SendTo(data, client.EndPoint);
+                _server.Send(data, NetworkPacket.MAX_BUFFER_SIZE, (IPEndPoint)client.EndPoint);
             }
-=======
-            }
-
-            obj.Socket.BeginReceive(new AsyncCallback(ReceiveCB), obj);
->>>>>>> 4f7d1b1b53805ee386b4c59185d91ac0ccdb650f
         }
     }
 }
