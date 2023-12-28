@@ -239,12 +239,12 @@ TextureImporter:
       name: T_TowersSpriteSheet_2
       rect:
         serializedVersion: 2
-        x: 1212
-        y: 255
-        width: 762
-        height: 609
+        x: 1199
+        y: 223
+        width: 959
+        height: 641
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -260,12 +260,12 @@ TextureImporter:
       name: T_TowersSpriteSheet_3
       rect:
         serializedVersion: 2
-        x: 1973
-        y: 255
-        width: 765
-        height: 609
+        x: 2176
+        y: 225
+        width: 963
+        height: 639
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
