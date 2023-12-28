@@ -36,4 +36,4 @@ MonoBehaviour:
   range: 0
   attackSpeed: 0
   attackSpeedMultiplier: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 8164089564192595539, guid: 3d6f4f8b0128077429d0b2cb0f8da5d3, type: 3}

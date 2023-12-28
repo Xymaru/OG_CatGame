@@ -72,16 +72,4 @@ namespace PawsAndClaws.Networking
         public ushort character_id;
         public GameObject player_obj;
     }
-    
-    class PacketStateUDP
-    {
-        public Socket Socket;
-        public EndPoint RemoteEP;
-        public byte[] Buffer;
-
-        ~PacketStateUDP()
-        {
-            Socket?.Dispose();
-        }
-    }
 }

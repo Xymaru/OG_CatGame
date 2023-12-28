@@ -1,4 +1,5 @@
 using System;
+using PawsAndClaws.Game;
 using PawsAndClaws.Player;
 using PawsAndClaws.UI;
 using UnityEngine;
@@ -39,7 +40,7 @@ namespace PawsAndClaws.Entities.Nexus
 
         public void Die()
         {
-            // TODO: Lose condition
+            GameManager.Instance.LoseGame(team);
         }
 
         public void Stun(float stunTime)
