@@ -143,5 +143,8 @@ MonoBehaviour:
   id: 1
   cooldown: 0
   cost: 0
+  damage: 0
+  firePoint: {fileID: 0}
   bulletPrefab: {fileID: 178347089455993043, guid: 149bc638c255b2e43b4504a56ef5118d,
     type: 3}
+  bulletForce: 20

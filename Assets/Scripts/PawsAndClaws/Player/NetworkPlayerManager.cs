@@ -34,8 +34,7 @@ namespace PawsAndClaws.Player
         public override void Attack(IGameEntity enemy)
         {
         }
-        
-        
+
         #region Gizmos
         private void OnMouseOver()
         {

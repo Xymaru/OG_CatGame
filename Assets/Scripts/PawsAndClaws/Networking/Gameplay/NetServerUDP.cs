@@ -23,10 +23,17 @@ namespace PawsAndClaws.Networking
     public class NetServerUDP : NetServer
     {
         UdpClient _server = null;
+
+        List<NetworkPacket> m_PacketQueue = new();
+        object m_PacketMutex = new();
+
+        List<NetworkPacket> m_SendPacketQueue = new();
+        object m_SendPacketMutex = new();
         
         private void Start()
         {
             _server = new UdpClient(NetworkData.PortUDP);
+
             // Resize list
             for (int i = 0; i < NetServerTCP.MAX_CONNECTIONS; i++)
             {
@@ -34,6 +41,29 @@ namespace PawsAndClaws.Networking
             }
 
             BeginReceive();
+        }
+
+        private void Update()
+        {
+            lock (m_PacketMutex)
+            {
+                foreach(NetworkPacket p in m_PacketQueue)
+                {
+                    ReplicationManager.Instance.ProcessPacket(p);
+                }
+
+                m_PacketQueue.Clear();
+            }
+
+            lock (m_SendPacketMutex)
+            {
+                foreach(NetworkPacket p in m_SendPacketQueue)
+                {
+                    _broadcast_packet_impl(p);
+                }
+
+                m_SendPacketQueue.Clear();
+            }
         }
 
         private void BeginReceive()
@@ -57,13 +87,16 @@ namespace PawsAndClaws.Networking
             {
                 NPHello client_hello = (NPHello)packet;
 
-                // Register the client
-                NetworkSocket client = new NetworkSocket(null, obj.RemoteEP.Address, obj.RemoteEP.Address.ToString(), obj.RemoteEP);
+                if (ConnectedClients[client_hello.id] == null)
+                {
+                    // Register the client
+                    NetworkSocket client = new NetworkSocket(null, obj.RemoteEP.Address, obj.RemoteEP.Address.ToString(), obj.RemoteEP);
 
-                Debug.Log($"Connected client from address [{obj.RemoteEP.Address}] and port [{obj.RemoteEP.Port}]");
+                    Debug.Log($"Connected UDP client from address [{obj.RemoteEP.Address}] and port [{obj.RemoteEP.Port}]");
 
-                ConnectedClients[client_hello.id] = client;
-                
+                    ConnectedClients[client_hello.id] = client;
+                }
+
                 // Send the hello packet
                 NPHello helloPacket = new NPHello();
 
@@ -71,26 +104,32 @@ namespace PawsAndClaws.Networking
             }
             else
             {
-                ReplicationManager.Instance.ProcessPacket(packet);
-
-                foreach (var client in ConnectedClients)
+                lock (m_PacketMutex)
                 {
-                    obj.Socket.Send(obj.Buffer, NetworkPacket.MAX_BUFFER_SIZE, (IPEndPoint)client.EndPoint);
+                    m_PacketQueue.Add(packet);
                 }
             }
 
             obj.Socket.BeginReceive(new AsyncCallback(ReceiveCB), obj);
         }
 
-        public void SendPacket(NetworkPacket packet)
+        private void _broadcast_packet_impl(NetworkPacket packet)
         {
             byte[] data = packet.ToByteArray();
             foreach (var client in ConnectedClients)
             {
-                if(client == null)
+                if (client == null)
                     continue;
-                
+
                 _server.Send(data, NetworkPacket.MAX_BUFFER_SIZE, (IPEndPoint)client.EndPoint);
+            }
+        }
+
+        public void BroadcastPacket(NetworkPacket packet)
+        {
+            lock (m_SendPacketMutex)
+            {
+                m_SendPacketQueue.Add(packet);
             }
         }
     }

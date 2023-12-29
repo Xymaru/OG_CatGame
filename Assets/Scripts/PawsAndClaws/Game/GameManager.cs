@@ -128,7 +128,7 @@ namespace PawsAndClaws.Game
                     // Check if this is the local player
                     if (userInfo.client_id == NetworkData.NetSocket.PlayerI.client_id)
                     {
-                        var player = ReplicationManager.Instance.CreateLocalNetObject(localPlayerPrefab, spawnPoint.position);
+                        var player = ReplicationManager.Instance.CreateNetObject(localPlayerPrefab, spawnPoint.position);
                         var playerMan = player.GetComponentInChildren<LocalPlayerManager>();
                         playerMan.characterData = characterData;
                         playerMan.userName = userInfo.name;

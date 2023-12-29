@@ -7,9 +7,12 @@ namespace PawsAndClaws.Networking.Gameplay
     public class DynamicNetworkObject : NetworkObject
     {
         [SerializeField] private bool isLocalOnly = false;
-        private void Start()
+        protected virtual void Start()
         {
-            StartCoroutine(SendPacketCoroutine());
+            if (NetworkData.NetSocket.NetCon == NetCon.Host)
+            {
+                StartCoroutine(SendPacketCoroutine());
+            }
         }
 
         public void SetPosition(float x, float y)
@@ -22,13 +25,16 @@ namespace PawsAndClaws.Networking.Gameplay
         protected virtual void SendPackets()
         {
             NPObjectPos packet = new NPObjectPos();
+            packet.net_id = NetID;
+
             var position = transform.position;
             packet.x = position.x;
             packet.y = position.y;
+
             ReplicationManager.Instance.SendPacket(packet);
         }
 
-        private IEnumerator SendPacketCoroutine()
+        protected IEnumerator SendPacketCoroutine()
         {
             while (true)
             {

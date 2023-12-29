@@ -9,6 +9,36 @@ using PawsAndClaws.Utils;
 namespace PawsAndClaws.Networking
 {
     [System.Serializable]
+    public abstract class GameplayPacket : NetworkPacket
+    {
+        public int net_id;
+
+        public GameplayPacket()
+        {
+
+        }
+
+        public GameplayPacket(byte[] data) : base(data)
+        {
+
+        }
+
+        public override void SetBasePacketData(ref BlobStreamWriter blob)
+        {
+            base.SetBasePacketData(ref blob);
+            // Copy ID
+            blob.Write(net_id);
+        }
+
+        public override void ReadBasePacketData(ref BlobStreamReader blob)
+        {
+            base.ReadBasePacketData(ref blob);
+            // Read ID
+            net_id = blob.Read<int>();
+        }
+    }
+
+    [System.Serializable]
     public class NPHello : ClientNetworkPacket
     {
         public NPHello(byte[] data) : base(data)
@@ -36,9 +66,8 @@ namespace PawsAndClaws.Networking
         }
     }
 
-
     [System.Serializable]
-    public class NPObjectPos : ClientNetworkPacket
+    public class NPObjectPos : GameplayPacket
     {
         public float x;
         public float y;
@@ -74,6 +103,7 @@ namespace PawsAndClaws.Networking
             // Write the position
             blob.Write(x);
             blob.Write(y);
+
             return blob.Data;
         }
     }

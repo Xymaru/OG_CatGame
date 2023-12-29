@@ -11,7 +11,6 @@ namespace PawsAndClaws.Networking
         public static ReplicationManager Instance { get; private set; }
         private readonly List<NetworkObject> _networkObjects = new List<NetworkObject>();
         
-        
         private NetClientUDP _client;
         private NetServerUDP _serv;
         
@@ -36,15 +35,6 @@ namespace PawsAndClaws.Networking
             }
         }
 
-        public GameObject CreateLocalNetObject(GameObject prefab, Vector3 position)
-        {
-            var id = _networkObjects.Count;
-            var netObject = Instantiate(prefab, position, Quaternion.identity);
-            var netComp = netObject.GetComponent<NetworkObject>();
-            _networkObjects.Add(netComp);
-
-            return netObject;
-        }
         public GameObject CreateNetObject(GameObject prefab, Vector3 position)
         {
             var id = _networkObjects.Count;
@@ -52,6 +42,28 @@ namespace PawsAndClaws.Networking
             var netComp = netObject.GetComponent<NetworkObject>();
             netComp.NetID = id;
             _networkObjects.Add(netComp);
+
+            return netObject;
+        }
+
+        public GameObject CreateNetObject(GameObject prefab, Vector3 position, int net_id)
+        {
+            // Resize array to fit net ids
+            if(_networkObjects.Count <= net_id)
+            {
+                int dif = net_id - _networkObjects.Count + 1;
+
+                for(int i = 0; i < dif; i++)
+                {
+                    _networkObjects.Add(null);
+                }
+            }
+
+            var netObject = Instantiate(prefab, position, Quaternion.identity);
+            var netComp = netObject.GetComponent<NetworkObject>();
+            netComp.NetID = net_id;
+
+            _networkObjects[net_id] = netComp;
 
             return netObject;
         }
@@ -64,7 +76,7 @@ namespace PawsAndClaws.Networking
             }
             else
             {
-                _serv.SendPacket(packet);
+                _serv.BroadcastPacket(packet);
             }
         }
 
@@ -75,7 +87,8 @@ namespace PawsAndClaws.Networking
                 case NPacketType.OBJECTPOS:
                 {
                     NPObjectPos p = packet as NPObjectPos;
-                    DynamicNetworkObject netObj = _networkObjects[p.id] as DynamicNetworkObject;
+
+                    DynamicNetworkObject netObj = _networkObjects[p.net_id] as DynamicNetworkObject;
                     if (netObj != null) 
                         netObj.SetPosition(p.x, p.y);
                 } break;
