@@ -81,25 +81,20 @@ namespace PawsAndClaws.Networking
 
         private void ReceiveCB(IAsyncResult ar)
         {
-            Debug.Log("Before data");
-
             PacketStateUDP obj = (PacketStateUDP) ar.AsyncState;
-
-            Debug.Log("ASYNC");
 
             obj.RemoteEP = m_ServerIPEP;
 
-            Debug.Log("REMOTEP");
-
-            obj.Buffer = obj.Socket.EndReceive(ar, ref obj.RemoteEP);
-
-            Debug.Log("BUFFER");
+            try
+            {
+                obj.Buffer = obj.Socket.EndReceive(ar, ref obj.RemoteEP);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
 
             NetworkPacket packet = NetworkPacket.FromByteArray(obj.Buffer);
-
-            Debug.Log("PACKET");
-
-            Debug.Log($"Received packet with ID {packet.p_type}");
 
             if (packet.p_type == NPacketType.HELLO)
             {
