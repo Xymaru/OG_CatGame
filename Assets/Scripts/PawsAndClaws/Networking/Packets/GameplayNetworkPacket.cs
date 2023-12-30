@@ -60,8 +60,10 @@ namespace PawsAndClaws.Networking
         public override byte[] ToByteArray()
         {
             byte[] data = new byte[MAX_BUFFER_SIZE];
+
             BlobStreamWriter blob = new BlobStreamWriter(data);
             SetBasePacketData(ref blob);
+
             return blob.Data;
         }
     }

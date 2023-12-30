@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using PawsAndClaws.Game;
@@ -7,6 +8,7 @@ using PawsAndClaws.Player.Abilities;
 using PawsAndClaws.UI;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 
 namespace PawsAndClaws.Player
 {
@@ -58,8 +60,33 @@ namespace PawsAndClaws.Player
             playerInfoUI.Initialize();
             BindAbilitiesUI();
             NotifyUIStats();
+
+            StartCoroutine(RegenAbilities());
         }
 
+        private IEnumerator RegenAbilities()
+        {
+            while (true)
+            {
+
+                CharacterStats.Health += CharacterStats.TotalHealthRegen;
+                if (CharacterStats.Health >= CharacterStats.MaxHealth)
+                {
+                    CharacterStats.Health = CharacterStats.MaxHealth;
+                }
+
+                CharacterStats.Mana += CharacterStats.TotalManaRegen;
+                if (CharacterStats.Mana >= CharacterStats.MaxMana)
+                {
+                    CharacterStats.Mana = CharacterStats.MaxMana;
+                }
+
+                NotifyUIStats();
+                
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        
         private void BindAbilitiesUI()
         {
             for(int i = 0; i < abilities.Count; i++)
@@ -86,24 +113,33 @@ namespace PawsAndClaws.Player
 
         public void ActivateAbility1()
         {
+            // Calculate the direction from the player to the mouse position
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mousePos - transform.position).normalized;
             if (abilities.Count < 2)
                 return;
             var ab = abilities[1];
-            ab.Activate();
+            ab.Activate(direction);
         }
         public void ActivateAbility2()
         {
+            // Calculate the direction from the player to the mouse position
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mousePos - transform.position).normalized;
             if (abilities.Count < 3)
                 return;
             var ab = abilities[2];
-            ab.Activate();
+            ab.Activate(direction);
         }
         public void ActivateUltimate()
         {
+            // Calculate the direction from the player to the mouse position
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mousePos - transform.position).normalized;
             if (abilities.Count < 4)
                 return;
             var ab = abilities[3];
-            ab.Activate();
+            ab.Activate(direction);
         }
         
         public override void NotifyUIStats()
