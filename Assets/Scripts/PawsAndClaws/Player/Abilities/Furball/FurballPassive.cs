@@ -11,13 +11,13 @@ namespace PawsAndClaws.Player.Abilities.Furball
 
         
 
-        public override void Activate(Vector2 direction, float cooldown = 0)
+        public override void Activate(float cooldown = 0)
         {
             _attackCount++;
             var mult = manager.CharacterStats.DamageMultiplier;
             if(_attackCount > attacksToTrigger)
             {
-                base.Activate(Vector2.zero);
+                base.Activate();
                 _attackCount = 0;
                 manager.CharacterStats.DamageMultiplier = 2;
                 return;

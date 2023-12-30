@@ -13,7 +13,7 @@ namespace PawsAndClaws.Player.Abilities.Furball
         private float time = 0f;
         
 
-        public override void Activate(Vector2 direction, float cooldown = 0)
+        public override void Activate(float cooldown = 0)
         {
             if (manager.CharacterStats.Mana < cost || time > 0f)
             {
@@ -23,9 +23,11 @@ namespace PawsAndClaws.Player.Abilities.Furball
             time = this.cooldown;
             manager.CharacterStats.Mana -= cost;
             manager.onManaChange?.Invoke(manager.CharacterStats.Mana, manager.CharacterStats.MaxMana);
-            base.Activate(direction, this.cooldown);
+            base.Activate(this.cooldown);
             
-            
+            // Calculate the direction from the player to the mouse position
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mousePos - transform.position).normalized;
 
             // Instantiate a new bullet at the fire point
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
