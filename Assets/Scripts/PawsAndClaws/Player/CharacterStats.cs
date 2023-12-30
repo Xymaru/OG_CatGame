@@ -7,10 +7,12 @@
 
         public float Health;
         public float MaxHealth;
+        public float TotalHealthRegen => HealthRegen * HealthRegenMultiplier;
         public float HealthRegen;
 
         public float Mana;
         public float MaxMana;
+        public float TotalManaRegen => ManaRegen * ManaRegenMultiplier;
         public float ManaRegen;
 
         public float Range;
