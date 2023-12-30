@@ -14,7 +14,7 @@ namespace PawsAndClaws.Player.Abilities
         public int id;
 
 
-        public virtual void Activate(float cooldown = 0)
+        public virtual void Activate(Vector2 direction, float cooldown = 0)
         {
             onActivate?.Invoke(cooldown);
         }
