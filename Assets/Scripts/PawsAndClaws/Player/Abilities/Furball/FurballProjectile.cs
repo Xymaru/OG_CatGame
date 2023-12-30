@@ -8,7 +8,10 @@ namespace PawsAndClaws.Player.Abilities.Furball
     {
         protected override void OnCollisionWithOtherEnt(IGameEntity other)
         {
-            other.Damage(damage);
+            if (other != null)
+            {
+                other.Damage(damage);
+            }
         }
     }
 }

@@ -29,7 +29,36 @@ namespace PawsAndClaws.Player
         {
             rigidBody.MovePosition(pos);
         }
-        
+
+        public void ActivateAbility(int ability, Networking.NetworkPacket packet)
+        {
+            if (abilities.Count <= ability)
+                return;
+            var ab = abilities[ability];
+            ab.Activate(packet);
+        }
+
+        public void ActivateAbility1(Networking.NetworkPacket packet)
+        {
+            if (abilities.Count < 2)
+                return;
+            var ab = abilities[1];
+            ab.Activate(packet);
+        }
+        public void ActivateAbility2(Networking.NetworkPacket packet)
+        {
+            if (abilities.Count < 3)
+                return;
+            var ab = abilities[2];
+            ab.Activate(packet);
+        }
+        public void ActivateUltimate(Networking.NetworkPacket packet)
+        {
+            if (abilities.Count < 4)
+                return;
+            var ab = abilities[3];
+            ab.Activate(packet);
+        }
 
         public override void Attack(IGameEntity enemy)
         {

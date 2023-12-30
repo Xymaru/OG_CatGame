@@ -109,4 +109,50 @@ namespace PawsAndClaws.Networking
             return blob.Data;
         }
     }
+
+    [Serializable]
+    public class NPAbility : GameplayPacket
+    {
+        public int ab_number;
+        public Vector2 ab_direction;
+
+        public NPAbility(byte[] data) : base(data)
+        {
+            p_type = NPacketType.ABILITY;
+        }
+
+        public NPAbility()
+        {
+            p_type = NPacketType.ABILITY;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] data)
+        {
+            BlobStreamReader blob = new BlobStreamReader(data);
+            ReadBasePacketData(ref blob);
+
+            // Read data
+            ab_number = blob.Read<int>();
+
+            ab_direction.x = blob.Read<float>();
+            ab_direction.y = blob.Read<float>();
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
+            // Set type and size
+            SetBasePacketData(ref blob);
+
+            // Set data
+            blob.Write(ab_number);
+            blob.Write(ab_direction.x);
+            blob.Write(ab_direction.y);
+
+            return blob.Data;
+        }
+    }
 }

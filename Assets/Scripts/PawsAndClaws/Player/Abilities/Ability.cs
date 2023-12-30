@@ -18,5 +18,10 @@ namespace PawsAndClaws.Player.Abilities
         {
             onActivate?.Invoke(cooldown);
         }
+
+        public virtual void Activate(Networking.NetworkPacket packet, float cooldown = 0)
+        {
+            onActivate?.Invoke(cooldown);
+        }
     }
 }

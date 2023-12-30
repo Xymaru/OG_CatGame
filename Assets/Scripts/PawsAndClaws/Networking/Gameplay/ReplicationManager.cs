@@ -87,14 +87,34 @@ namespace PawsAndClaws.Networking
                 netObj.SetPosition(p.x, p.y);
         }
 
+        private void ProcessAbilityPacket(NPAbility p)
+        {
+            NetworkObject netObj = _networkObjects[p.net_id];
+
+            if (netObj == null) return;
+
+            Player.NetworkPlayerManager netPlayer = netObj.GetComponentInChildren<Player.NetworkPlayerManager>();
+
+            if (netPlayer == null) return;
+
+            netPlayer.ActivateAbility(p.ab_number, p);
+
+            if (NetworkData.NetSocket.NetCon == NetCon.Host)
+            {
+                _serv.BroadcastPacket(p);
+            }
+        }
+
         public void ProcessPacket(NetworkPacket packet)
         {
             switch (packet.p_type)
             {
                 case NPacketType.OBJECTPOS:
-                {
-                        ProcessPosPacket(packet as NPObjectPos);
-                } break;
+                    ProcessPosPacket(packet as NPObjectPos);
+                    break;
+                case NPacketType.ABILITY:
+                    ProcessAbilityPacket(packet as NPAbility);
+                    break;
                 default:
                     break;
             }
