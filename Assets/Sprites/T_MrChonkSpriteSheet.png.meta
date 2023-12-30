@@ -1,0 +1,1141 @@
+fileFormatVersion: 2
+guid: 7d5e11d9354b22245bf739498521a259
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1833
+        width: 280
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec631e8c3600530439f931ebcb1606da
+      internalID: 53989542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 1829
+        width: 279
+        height: 278
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21db22dce2c32334a8ed946800b8a1a4
+      internalID: -94473370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 1827
+        width: 280
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7455c3b72fe6ef24a8ceb3fe21efad5f
+      internalID: -1156004415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 1823
+        width: 279
+        height: 280
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9206aef5b884af94696436058b28cc0d
+      internalID: 1871112552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 1823
+        width: 279
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 562e52f0c35c91b409715eb37a43b5b4
+      internalID: -1456261390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 1649
+        y: 1820
+        width: 279
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab4d02654cb5a7040b2389b075db5b4b
+      internalID: 816345697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1820
+        width: 281
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 025da636c1fa73e4d871c3e16784984c
+      internalID: -1773991685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 2690
+        y: 1810
+        width: 273
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9b4fc6f583d8384f8f4401dbb8f191e
+      internalID: 176905062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 1482
+        width: 280
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48f6463025eb6e64a9ebd8f67523e48e
+      internalID: -1262046733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 1484
+        width: 280
+        height: 266
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35d4d77f3f7f88744850344d457dbe81
+      internalID: -941194908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1483
+        width: 280
+        height: 252
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0f24e570ada77746a66c97f5916b9a0
+      internalID: -609923123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 1450
+        width: 247
+        height: 318
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7a3c33b38c98364aa9b68a4112e4236
+      internalID: -585859206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 1438
+        width: 293
+        height: 305
+      alignment: 9
+      pivot: {x: 0.6200001, y: 0.5526071}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf3af9fefc0765a49b1ace8e58d3586a
+      internalID: -96453392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 1598
+        y: 1473
+        width: 235
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3949272b02806524ea1831aeb002efaa
+      internalID: -69153142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 1434
+        width: 283
+        height: 296
+      alignment: 9
+      pivot: {x: 0.5438556, y: 0.54658836}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8cc33c390f24e4db941d5483100786
+      internalID: -860723033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 2255
+        y: 1345
+        width: 340
+        height: 362
+      alignment: 9
+      pivot: {x: 0.532447, y: 0.6142831}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 637c8ab31780a5441922a322c671f945
+      internalID: 541907974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 2675
+        y: 1580
+        width: 212
+        height: 207
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32e12e5dd2fc95a49a3abf50e5900f1a
+      internalID: -235029615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_29
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1107
+        width: 280
+        height: 282
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2c09ee32a3a3b64991c02baa9b0f3cf
+      internalID: 305013726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_47
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 706
+        width: 280
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 727161c59667c4e4e8d3b2a182d5ab50
+      internalID: -44678852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_48
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 702
+        width: 318
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a6b05c34578033448db381a5d9a0c2e
+      internalID: 1288108843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_49
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 698
+        width: 289
+        height: 282
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caec8cc04f1acc848a6263e71ff6cebd
+      internalID: -2123293199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_50
+      rect:
+        serializedVersion: 2
+        x: 1132
+        y: 697
+        width: 288
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.38}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e3a5f2a47a869a459212690aef7c12e
+      internalID: -217344078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_52
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 693
+        width: 292
+        height: 289
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d722a579247a79c4b924e3c947df0cd9
+      internalID: -1110833024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_53
+      rect:
+        serializedVersion: 2
+        x: 1882
+        y: 695
+        width: 288
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7a411a97ddb7ca4884105d0b4839dcd
+      internalID: -55477395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_54
+      rect:
+        serializedVersion: 2
+        x: 2228
+        y: 689
+        width: 319
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c9756339d5790742a99d5e20ae3ee90
+      internalID: 45527886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_55
+      rect:
+        serializedVersion: 2
+        x: 2583
+        y: 685
+        width: 279
+        height: 282
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c0debb4f450a5d408ce068679aeb8fe
+      internalID: 1161954687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_56
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 378
+        width: 280
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11188d6e13a724744ad456b2ca5aca90
+      internalID: 792474196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_57
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 374
+        width: 281
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67956bfef8a10ab42ac5ee5d6d260669
+      internalID: 1843172421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_58
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 372
+        width: 279
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6b77e84e94f49146bc861f2eb7e43d6
+      internalID: 277107933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_59
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 376
+        width: 281
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf90dadb2213ea04a844756c8a711470
+      internalID: -16616705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_60
+      rect:
+        serializedVersion: 2
+        x: 1313
+        y: 368
+        width: 280
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77f800246537b73409663a96f18c05c8
+      internalID: 1307115402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_61
+      rect:
+        serializedVersion: 2
+        x: 1653
+        y: 372
+        width: 279
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 822c43e3a15815b499527d9f72c600b1
+      internalID: 979846000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_62
+      rect:
+        serializedVersion: 2
+        x: 1996
+        y: 374
+        width: 279
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6779876ab7514f40b8eb9ebc892391f
+      internalID: 1913845117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_63
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 72
+        width: 279
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f49f1396f72fc45a5fc82ec62a480d
+      internalID: -2093376261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_64
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 70
+        width: 261
+        height: 282
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db45f9c715333a748aafc62a1f781fba
+      internalID: -1982613263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_65
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 72
+        width: 312
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f21aa7130c88254294986ecb19b002f
+      internalID: -1154691241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_66
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 68
+        width: 305
+        height: 282
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c54581adfe2c6f498dbd816192f5a13
+      internalID: 1803104362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_67
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 70
+        width: 304
+        height: 280
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c81d5e4dd9bc4441a97665ad434a140
+      internalID: 1196059775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_68
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 68
+        width: 280
+        height: 280
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bced08bd692daad4aa3602c3bb8de594
+      internalID: -23944488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_30
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 1099
+        width: 280
+        height: 282
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71fb2497373814645a304d723d955ada
+      internalID: -796580374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_31
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1079
+        width: 280
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f04ce35a2b2cceb439dd3bb004df676a
+      internalID: -1178489066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_32
+      rect:
+        serializedVersion: 2
+        x: 977
+        y: 1079
+        width: 280
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a404636b3f8928747a73af2956c0eb7f
+      internalID: 1416106487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_33
+      rect:
+        serializedVersion: 2
+        x: 1276
+        y: 1079
+        width: 280
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a8f337a2b90ee246b5d17c1a2893a0f
+      internalID: 749994187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_34
+      rect:
+        serializedVersion: 2
+        x: 1596
+        y: 1079
+        width: 289
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d00478c2d8a81c942b056c90f4e37026
+      internalID: -1893378335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_MrChonkSpriteSheet_35
+      rect:
+        serializedVersion: 2
+        x: 1987
+        y: 1079
+        width: 289
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ef111e6ea6ac3846b1027c1e49cded3
+      internalID: -491325377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_MrChonkSpriteSheet_0: 53989542
+      T_MrChonkSpriteSheet_1: -94473370
+      T_MrChonkSpriteSheet_10: -609923123
+      T_MrChonkSpriteSheet_11: -585859206
+      T_MrChonkSpriteSheet_12: -96453392
+      T_MrChonkSpriteSheet_13: -69153142
+      T_MrChonkSpriteSheet_14: -860723033
+      T_MrChonkSpriteSheet_15: 541907974
+      T_MrChonkSpriteSheet_16: -235029615
+      T_MrChonkSpriteSheet_17: 85831942
+      T_MrChonkSpriteSheet_18: 274288184
+      T_MrChonkSpriteSheet_19: -1264260871
+      T_MrChonkSpriteSheet_2: -1156004415
+      T_MrChonkSpriteSheet_20: -485293448
+      T_MrChonkSpriteSheet_21: 250706545
+      T_MrChonkSpriteSheet_22: -2116099176
+      T_MrChonkSpriteSheet_23: -1576334824
+      T_MrChonkSpriteSheet_24: 223904428
+      T_MrChonkSpriteSheet_25: -499424554
+      T_MrChonkSpriteSheet_26: -275104087
+      T_MrChonkSpriteSheet_27: 2108250954
+      T_MrChonkSpriteSheet_28: -842085732
+      T_MrChonkSpriteSheet_29: 305013726
+      T_MrChonkSpriteSheet_3: 1871112552
+      T_MrChonkSpriteSheet_30: -796580374
+      T_MrChonkSpriteSheet_31: -1178489066
+      T_MrChonkSpriteSheet_32: 1416106487
+      T_MrChonkSpriteSheet_33: 749994187
+      T_MrChonkSpriteSheet_34: -1893378335
+      T_MrChonkSpriteSheet_35: -491325377
+      T_MrChonkSpriteSheet_36: -1867651022
+      T_MrChonkSpriteSheet_37: 1139947261
+      T_MrChonkSpriteSheet_38: -1075149057
+      T_MrChonkSpriteSheet_39: 1903700909
+      T_MrChonkSpriteSheet_4: -1456261390
+      T_MrChonkSpriteSheet_40: -590939656
+      T_MrChonkSpriteSheet_41: 1350580376
+      T_MrChonkSpriteSheet_42: 1757513834
+      T_MrChonkSpriteSheet_43: -881130396
+      T_MrChonkSpriteSheet_44: 1168025224
+      T_MrChonkSpriteSheet_45: 445209546
+      T_MrChonkSpriteSheet_46: -1403091300
+      T_MrChonkSpriteSheet_47: -44678852
+      T_MrChonkSpriteSheet_48: 1288108843
+      T_MrChonkSpriteSheet_49: -2123293199
+      T_MrChonkSpriteSheet_5: 816345697
+      T_MrChonkSpriteSheet_50: -217344078
+      T_MrChonkSpriteSheet_51: 900075323
+      T_MrChonkSpriteSheet_52: -1110833024
+      T_MrChonkSpriteSheet_53: -55477395
+      T_MrChonkSpriteSheet_54: 45527886
+      T_MrChonkSpriteSheet_55: 1161954687
+      T_MrChonkSpriteSheet_56: 792474196
+      T_MrChonkSpriteSheet_57: 1843172421
+      T_MrChonkSpriteSheet_58: 277107933
+      T_MrChonkSpriteSheet_59: -16616705
+      T_MrChonkSpriteSheet_6: -1773991685
+      T_MrChonkSpriteSheet_60: 1307115402
+      T_MrChonkSpriteSheet_61: 979846000
+      T_MrChonkSpriteSheet_62: 1913845117
+      T_MrChonkSpriteSheet_63: -2093376261
+      T_MrChonkSpriteSheet_64: -1982613263
+      T_MrChonkSpriteSheet_65: -1154691241
+      T_MrChonkSpriteSheet_66: 1803104362
+      T_MrChonkSpriteSheet_67: 1196059775
+      T_MrChonkSpriteSheet_68: -23944488
+      T_MrChonkSpriteSheet_7: 176905062
+      T_MrChonkSpriteSheet_8: -1262046733
+      T_MrChonkSpriteSheet_9: -941194908
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

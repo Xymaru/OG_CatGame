@@ -1,0 +1,1384 @@
+fileFormatVersion: 2
+guid: 4fc36d031f52f8d47b4c9a5082c0840a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfadfac100c96af44b51be42fc73bb47
+      internalID: 695454898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c49e2b528852b1b46851dbd5c7e2a1ad
+      internalID: -310136154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1eb2e32df8f5de54895a51a4470a2ac9
+      internalID: 541678990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bef72473cd8e0304685215a55595c173
+      internalID: -1135164920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd82ca0d3f4ed2841863884a09037c51
+      internalID: 2012911549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f328ba6dca177d9479966aeb035f8bb0
+      internalID: -703062396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ca32e2f23e1ccc4f9402a3771018641
+      internalID: 1219642950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 1624
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9273622976a98994a9ec09712aaee8a1
+      internalID: -1562092238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 1848
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b5185965fe3ca446b7934756b302c41
+      internalID: -345826330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 2487
+        y: 1875
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65d7ce9594055434a87f9a4932f82115
+      internalID: -1531836914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 1601
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8ea26c7ddf698143aa65bc86c5a0b27
+      internalID: -912109901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 2647
+        y: 1556
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccc008e9e1bfaaf4f9ab421b2dd99b20
+      internalID: -1662107309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 1283
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f54d89ddcdaf2d489c9a805a6f2c86b
+      internalID: -558922118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_32
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 980
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 320a9df9c25704b4abb2556f9f132f7e
+      internalID: -587911384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_46
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 701
+        width: 228
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bf0d625537b2f348a7e29f3925b9c1c
+      internalID: -504535676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_72
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 165
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275c05f82cf7282489313f8dfbc0df0e
+      internalID: -979313265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1601
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7473c40d3eae0924797ff16dd039b63b
+      internalID: 284312654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 1601
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ec06c76233889e4ea6bc7c8b0a90b80
+      internalID: 1579799316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1601
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c758be9c4691fe49a949b456ddcecea
+      internalID: 632204438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 1601
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55e06a8b562a2784f87952410861bd26
+      internalID: 365224111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 1601
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfe2404041b419c4caa1ca48cb34fe06
+      internalID: 1491130429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 1294
+        y: 1601
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50fabc00f0a77c64a837f3ee57cae3c5
+      internalID: -450920775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 1283
+        width: 260
+        height: 285
+      alignment: 9
+      pivot: {x: 0.41, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc4f530feb4f997428b03ac8f41ce7dd
+      internalID: -1177317478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 1283
+        width: 233
+        height: 285
+      alignment: 9
+      pivot: {x: 0.44, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d59676215584cfa40810b57f6f588ce7
+      internalID: 1317488186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 1283
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b83560c323efcdd42bdf9d677e308188
+      internalID: 1863520968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_24
+      rect:
+        serializedVersion: 2
+        x: 1055
+        y: 1283
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a40ef825a828ce541be58796cc24c360
+      internalID: 518328585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_25
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 1283
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9bc293f2a491924fb6f873ddb703b09
+      internalID: -808471021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_26
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 1283
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd66c2840cbc7934995e62259afa5254
+      internalID: 1933992712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_27
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 1283
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2b7146beec505247829868fcc7ed692
+      internalID: -1636147942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_28
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 1283
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7080bcfa25d4ba645a01860edd68bc46
+      internalID: 1675029325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_29
+      rect:
+        serializedVersion: 2
+        x: 2001
+        y: 1283
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e46b264101b2c9e45a97a91bcc460201
+      internalID: 2091647427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 980
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e70bfa06dfda7d6488391c15396d5b89
+      internalID: -585451272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_30
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a88af0c6d3c929429d6ef377e00dc89
+      internalID: -685652894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_31
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31551eeec9d47ba43b54cc9d18611760
+      internalID: 1844987309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_33
+      rect:
+        serializedVersion: 2
+        x: 1111
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9045ddd67e7330438ad7325d290f7ec
+      internalID: 509463603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_34
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 070d70f688569bd478371b4a2413a49f
+      internalID: -1427792623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_35
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 367f8469a5890b64d8ba36bb75eca7c1
+      internalID: -597636109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_36
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d65baa290bfb69c46b2c6076ab3eefa5
+      internalID: -1664534003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_37
+      rect:
+        serializedVersion: 2
+        x: 2145
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29c5e7260123153498af823c9102462e
+      internalID: -1992124186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_38
+      rect:
+        serializedVersion: 2
+        x: 2433
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 915bcdc1354ee4640b313337301526d6
+      internalID: 579474005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_39
+      rect:
+        serializedVersion: 2
+        x: 2705
+        y: 984
+        width: 210
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e39cdfbd416e1348ab65bed852de86e
+      internalID: -1817011955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_40
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 701
+        width: 334
+        height: 285
+      alignment: 9
+      pivot: {x: 0.34, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67aab14ab69d9994d9dbdb79ee4fb9a8
+      internalID: 385022706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_41
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 701
+        width: 375
+        height: 285
+      alignment: 9
+      pivot: {x: 0.31, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61184678d8d72af4caf79cd5b098b434
+      internalID: 2044714516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_42
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 701
+        width: 228
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67ed90f413f583e4e92f73ce3325cd07
+      internalID: 1327560522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_43
+      rect:
+        serializedVersion: 2
+        x: 1459
+        y: 701
+        width: 228
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89b840f15b0c58c468b469fb97150bca
+      internalID: -1923765990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_44
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 689
+        width: 228
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fa5cc0c3d20b36408cbd4a6691e88f2
+      internalID: -1468678514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_45
+      rect:
+        serializedVersion: 2
+        x: 2045
+        y: 689
+        width: 228
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0821aab5c26951e48ab6dec2f059e093
+      internalID: -1842248949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_47
+      rect:
+        serializedVersion: 2
+        x: 2331
+        y: 689
+        width: 228
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bbf1589ed142ea498183226d0aec507
+      internalID: -936752874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_48
+      rect:
+        serializedVersion: 2
+        x: 2602
+        y: 689
+        width: 228
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cac8e9174a830c45a16e7a17247c7fc
+      internalID: 1597994763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_49
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 165
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60e70a69d7be4904fab6e092679f7878
+      internalID: -1417176018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_50
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 165
+        width: 261
+        height: 285
+      alignment: 9
+      pivot: {x: 0.38, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e45b64b917edd1c448186aa76de7de16
+      internalID: 1200745477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_51
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 165
+        width: 261
+        height: 285
+      alignment: 9
+      pivot: {x: 0.38, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7afb5220c2942c468a40f26827100d1
+      internalID: -1703506343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_52
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 165
+        width: 261
+        height: 285
+      alignment: 9
+      pivot: {x: 0.38, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 734a3091c6128094b95a71c2388345e7
+      internalID: 931942627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_53
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 165
+        width: 261
+        height: 285
+      alignment: 9
+      pivot: {x: 0.38, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33c2c96bee3de99408b1420d5b081c0d
+      internalID: -1747096492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_54
+      rect:
+        serializedVersion: 2
+        x: 1513
+        y: 165
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 800e9824edf01b746ba6d517eaf0fdce
+      internalID: -1911378362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_ShrodingerSpriteSheet_55
+      rect:
+        serializedVersion: 2
+        x: 1816
+        y: 165
+        width: 210
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e36614a67154ecf4e9d68c9ed585a1d7
+      internalID: 879197402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      T_ShrodingerSpriteSheet_0: 695454898
+      T_ShrodingerSpriteSheet_1: -310136154
+      T_ShrodingerSpriteSheet_10: -1531836914
+      T_ShrodingerSpriteSheet_11: -912109901
+      T_ShrodingerSpriteSheet_12: 284312654
+      T_ShrodingerSpriteSheet_13: 1579799316
+      T_ShrodingerSpriteSheet_14: 632204438
+      T_ShrodingerSpriteSheet_15: 365224111
+      T_ShrodingerSpriteSheet_16: 1491130429
+      T_ShrodingerSpriteSheet_17: -450920775
+      T_ShrodingerSpriteSheet_18: -1839379370
+      T_ShrodingerSpriteSheet_19: -1662107309
+      T_ShrodingerSpriteSheet_2: 541678990
+      T_ShrodingerSpriteSheet_20: -558922118
+      T_ShrodingerSpriteSheet_21: -1177317478
+      T_ShrodingerSpriteSheet_22: 1317488186
+      T_ShrodingerSpriteSheet_23: 1863520968
+      T_ShrodingerSpriteSheet_24: 518328585
+      T_ShrodingerSpriteSheet_25: -808471021
+      T_ShrodingerSpriteSheet_26: 1933992712
+      T_ShrodingerSpriteSheet_27: -1636147942
+      T_ShrodingerSpriteSheet_28: 1675029325
+      T_ShrodingerSpriteSheet_29: 2091647427
+      T_ShrodingerSpriteSheet_3: -1135164920
+      T_ShrodingerSpriteSheet_30: -685652894
+      T_ShrodingerSpriteSheet_31: 1844987309
+      T_ShrodingerSpriteSheet_32: -587911384
+      T_ShrodingerSpriteSheet_33: 509463603
+      T_ShrodingerSpriteSheet_34: -1427792623
+      T_ShrodingerSpriteSheet_35: -597636109
+      T_ShrodingerSpriteSheet_36: -1664534003
+      T_ShrodingerSpriteSheet_37: -1992124186
+      T_ShrodingerSpriteSheet_38: 579474005
+      T_ShrodingerSpriteSheet_39: -1817011955
+      T_ShrodingerSpriteSheet_4: 2012911549
+      T_ShrodingerSpriteSheet_40: 385022706
+      T_ShrodingerSpriteSheet_41: 2044714516
+      T_ShrodingerSpriteSheet_42: 1327560522
+      T_ShrodingerSpriteSheet_43: -1923765990
+      T_ShrodingerSpriteSheet_44: -1468678514
+      T_ShrodingerSpriteSheet_45: -1842248949
+      T_ShrodingerSpriteSheet_46: -504535676
+      T_ShrodingerSpriteSheet_47: -936752874
+      T_ShrodingerSpriteSheet_48: 1597994763
+      T_ShrodingerSpriteSheet_49: -1417176018
+      T_ShrodingerSpriteSheet_5: -703062396
+      T_ShrodingerSpriteSheet_50: 1200745477
+      T_ShrodingerSpriteSheet_51: -1703506343
+      T_ShrodingerSpriteSheet_52: 931942627
+      T_ShrodingerSpriteSheet_53: -1747096492
+      T_ShrodingerSpriteSheet_54: -1911378362
+      T_ShrodingerSpriteSheet_55: 879197402
+      T_ShrodingerSpriteSheet_56: 1535316202
+      T_ShrodingerSpriteSheet_57: 2034917745
+      T_ShrodingerSpriteSheet_58: 261113039
+      T_ShrodingerSpriteSheet_59: 712366557
+      T_ShrodingerSpriteSheet_6: 1219642950
+      T_ShrodingerSpriteSheet_60: 1642422122
+      T_ShrodingerSpriteSheet_61: -1460942499
+      T_ShrodingerSpriteSheet_62: 2108692850
+      T_ShrodingerSpriteSheet_63: -1884689282
+      T_ShrodingerSpriteSheet_64: 929041997
+      T_ShrodingerSpriteSheet_65: -1268799309
+      T_ShrodingerSpriteSheet_66: 961736089
+      T_ShrodingerSpriteSheet_67: -1732391217
+      T_ShrodingerSpriteSheet_68: -1514013387
+      T_ShrodingerSpriteSheet_69: -1102423892
+      T_ShrodingerSpriteSheet_7: -1562092238
+      T_ShrodingerSpriteSheet_70: 1847338303
+      T_ShrodingerSpriteSheet_71: -528685662
+      T_ShrodingerSpriteSheet_72: -979313265
+      T_ShrodingerSpriteSheet_73: 610822895
+      T_ShrodingerSpriteSheet_74: 1592677711
+      T_ShrodingerSpriteSheet_75: -1487749063
+      T_ShrodingerSpriteSheet_76: 178513731
+      T_ShrodingerSpriteSheet_77: 964864114
+      T_ShrodingerSpriteSheet_78: -278945237
+      T_ShrodingerSpriteSheet_79: 528240
+      T_ShrodingerSpriteSheet_8: -345826330
+      T_ShrodingerSpriteSheet_80: -539540486
+      T_ShrodingerSpriteSheet_9: -585451272
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
