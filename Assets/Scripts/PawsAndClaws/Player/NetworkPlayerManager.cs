@@ -38,13 +38,13 @@ namespace PawsAndClaws.Player
         #region Gizmos
         private void OnMouseOver()
         {
-            if(GameManager.Instance.playerTeam != characterData.team)
+            if(GameManager.Instance.PlayerTeam != characterData.team)
                 PlayerInputHandler.SetCursorAttack();
         }
 
         private void OnMouseExit()
         {
-            if(GameManager.Instance.playerTeam != characterData.team)
+            if(GameManager.Instance.PlayerTeam != characterData.team)
                 PlayerInputHandler.SetCursorDefault();
         }
 

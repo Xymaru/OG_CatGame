@@ -7,14 +7,16 @@ using PawsAndClaws.Entities.Nexus;
 using PawsAndClaws.Entities.Tower;
 using PawsAndClaws.Networking;
 using PawsAndClaws.Player;
+using PawsAndClaws.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace PawsAndClaws.Game
 {
     public class GameManager : MonoBehaviour
     {
         public static Action<Team> OnTeamLose;
-        public static Action OnMinionsStartSpawn;
 
         [Header("Database")] 
         [SerializeField] private CharacterDatabaseSO database;
@@ -49,8 +51,19 @@ namespace PawsAndClaws.Game
         [SerializeField] private TowerController catInhibitorTower;
         [SerializeField] private TowerController catNexusTowerUp;
         [SerializeField] private TowerController catNexusTowerDown;
-        
-        public Team playerTeam;
+
+        public Team PlayerTeam
+        {
+            get => _playerTeam;
+            set
+            {
+                _playerTeam = value;
+                oppositeTeam = _playerTeam == Team.Cat ? Team.Hamster : Team.Cat;
+            }
+        }
+        public Team oppositeTeam;
+
+        private Team _playerTeam;
         public static GameManager Instance;
         public static LayerMask OppositeTeamLayer;
         public static GameObject LocalPlayer;
@@ -70,6 +83,8 @@ namespace PawsAndClaws.Game
             {
                 Destroy(this);
             }
+            
+            LeanTween.init(1500);
             
             Instance = this;
             DontDestroyOnLoad(this);
@@ -100,7 +115,7 @@ namespace PawsAndClaws.Game
         
         private void StartMatch()
         {
-            OppositeTeamLayer = playerTeam == Team.Cat ? LayerMask.NameToLayer("Hamsters") : LayerMask.NameToLayer("Cats");
+            OppositeTeamLayer = PlayerTeam == Team.Cat ? LayerMask.NameToLayer("Hamsters") : LayerMask.NameToLayer("Cats");
             _matchStarted = true;
 
             _startCoroutine ??= StartCoroutine(StartMinionTimer());
@@ -165,7 +180,6 @@ namespace PawsAndClaws.Game
             
             // Update match time
             _matchTime += Time.deltaTime;
-            
         }
 
         private IEnumerator StartMinionTimer()
@@ -175,14 +189,23 @@ namespace PawsAndClaws.Game
             hamsterMinionWaveManager.StartSpawningMinions();
             catMinionWaveManager.StartSpawningMinions();
             
-            OnMinionsStartSpawn?.Invoke();
+            NotificationsUI.Instance.PushNotification(new Notification("Minions have spawned", 1.5f));
             
             _startCoroutine = null;
         }
 
         public void LoseGame(Team losingTeam)
         {
+            OnTeamLose?.Invoke(losingTeam);
             
+            Time.timeScale = 0;
+            var text = losingTeam == PlayerTeam ? "Defeat" : "Victory";
+            
+            NotificationsUI.Instance.PushNotification(new Notification(text, "Exit game", () =>
+            {
+                Time.timeScale = 1f;
+                SceneManager.LoadScene("Scenes/Main");
+            }));
         }
     }
 }

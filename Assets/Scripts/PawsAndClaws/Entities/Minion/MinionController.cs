@@ -125,13 +125,13 @@ namespace PawsAndClaws.Entities.Minion
 
         private void SetMouseAttack()
         {
-            if (GameManager.Instance.playerTeam != team)
+            if (GameManager.Instance.PlayerTeam != team)
                 PlayerInputHandler.SetCursorAttack();
         }
 
         private void SetMouseDefault()
         {
-            if (GameManager.Instance.playerTeam != team)
+            if (GameManager.Instance.PlayerTeam != team)
                 PlayerInputHandler.SetCursorDefault();
         }
 

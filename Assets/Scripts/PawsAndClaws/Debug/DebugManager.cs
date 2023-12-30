@@ -7,9 +7,6 @@ namespace PawsAndClaws.Debugging
 {
     public class DebugManager : MonoBehaviour
     {
-        [SerializeField] private GameObject imguiRenderer;
-        [SerializeField] private GameObject debugConsole;
-
         public static DebugManager Instance { get; private set; }
         
         private void Start()
@@ -25,11 +22,6 @@ namespace PawsAndClaws.Debugging
 #else
             Destroy(this);
 #endif
-            if (GameManager.MatchStarted)
-            {
-                imguiRenderer.SetActive(true);
-            }
-            debugConsole.SetActive(true);
         }
     }
 }

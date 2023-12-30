@@ -44,7 +44,7 @@ namespace PawsAndClaws.Player
             inputHandler.Initialize();
             _playerCameraController.Initialize();
             
-            GameManager.Instance.playerTeam = characterData.team;
+            GameManager.Instance.PlayerTeam = characterData.team;
 
              gameObject.layer = characterData.team == Team.Cat ?
                 GameConstants.CatLayerMask:
@@ -124,13 +124,13 @@ namespace PawsAndClaws.Player
 
         private void OnMouseOver()
         {
-            if(GameManager.Instance.playerTeam != characterData.team)
+            if(GameManager.Instance.PlayerTeam != characterData.team)
                 PlayerInputHandler.SetCursorAttack();
         }
 
         private void OnMouseExit()
         {
-            if(GameManager.Instance.playerTeam != characterData.team)
+            if(GameManager.Instance.PlayerTeam != characterData.team)
                 PlayerInputHandler.SetCursorDefault();
         }
 

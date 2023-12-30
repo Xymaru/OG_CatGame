@@ -394,11 +394,76 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6938703141983788042}
     m_Modifications:
+    - target: {fileID: 164066014031102673, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 164066014031102673, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 164066014031102673, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 164066014031102673, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 164066014031102673, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 164066014031102673, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 682854639528070890, guid: d85d83c427ca3c3478c04abf49e799a7,
         type: 3}
       propertyPath: manager
       value: 
       objectReference: {fileID: 7265249002303086487}
+    - target: {fileID: 5230507804482321830, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230507804482321830, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230507804482321830, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230507804482321830, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230507804482321830, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230507804482321830, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194558349978883934, guid: d85d83c427ca3c3478c04abf49e799a7,
+        type: 3}
+      propertyPath: m_Name
+      value: NotificationsUI
+      objectReference: {fileID: 0}
     - target: {fileID: 8771655732102229728, guid: d85d83c427ca3c3478c04abf49e799a7,
         type: 3}
       propertyPath: m_AnchorMax.y

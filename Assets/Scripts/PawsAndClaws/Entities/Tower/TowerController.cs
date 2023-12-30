@@ -85,7 +85,7 @@ namespace PawsAndClaws.Entities.Tower
 
         public void Die()
         {
-            
+            Destroy(gameObject);
         }
 
         public float GetTimeToAttack()
@@ -110,13 +110,13 @@ namespace PawsAndClaws.Entities.Tower
 
         private void SetMouseAttack()
         {
-            if (GameManager.Instance.playerTeam != team)
+            if (GameManager.Instance.PlayerTeam != team)
                 PlayerInputHandler.SetCursorAttack();
         }
 
         private void SetMouseDefault()
         {
-            if (GameManager.Instance.playerTeam != team)
+            if (GameManager.Instance.PlayerTeam != team)
                 PlayerInputHandler.SetCursorDefault();
         }
 
