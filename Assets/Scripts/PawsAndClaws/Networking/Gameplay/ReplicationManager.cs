@@ -80,17 +80,20 @@ namespace PawsAndClaws.Networking
             }
         }
 
+        private void ProcessPosPacket(NPObjectPos p)
+        {
+            DynamicNetworkObject netObj = _networkObjects[p.net_id] as DynamicNetworkObject;
+            if (netObj != null)
+                netObj.SetPosition(p.x, p.y);
+        }
+
         public void ProcessPacket(NetworkPacket packet)
         {
             switch (packet.p_type)
             {
                 case NPacketType.OBJECTPOS:
                 {
-                    NPObjectPos p = packet as NPObjectPos;
-
-                    DynamicNetworkObject netObj = _networkObjects[p.net_id] as DynamicNetworkObject;
-                    if (netObj != null) 
-                        netObj.SetPosition(p.x, p.y);
+                        ProcessPosPacket(packet as NPObjectPos);
                 } break;
                 default:
                     break;

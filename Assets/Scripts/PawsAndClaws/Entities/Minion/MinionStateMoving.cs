@@ -52,7 +52,5 @@ namespace PawsAndClaws.Entities.Minion
             _stateMachine.Target = gameEntity;
             _stateMachine.ChangeState(_stateMachine.ChaseState);
         }
-
-        
     }
 }
