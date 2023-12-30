@@ -29,7 +29,7 @@ namespace PawsAndClaws.Networking
             // Port is 6969 + ID (1 to 5)
             m_Socket = new UdpClient(port);
 
-            m_ServerIPEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), NetworkData.PortUDP);
+            m_ServerIPEP = new IPEndPoint(IPAddress.Parse(NetworkData.NetSocket.IPAddrStr), NetworkData.PortUDP);
 
             // Connect to server
             m_Socket.Connect(m_ServerIPEP);
