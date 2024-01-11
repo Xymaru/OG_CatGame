@@ -50,8 +50,6 @@ namespace PawsAndClaws.Player
         {
             float speed = Mathf.Abs(rigidBody.velocity.magnitude);
 
-            Debug.Log(speed);
-
             if (animator != null)
                 animator.SetFloat(GameConstants.SpeedAnim, speed);
 
