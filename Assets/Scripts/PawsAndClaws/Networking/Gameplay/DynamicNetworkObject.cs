@@ -27,7 +27,10 @@ namespace PawsAndClaws.Networking.Gameplay
 
             if (rb)
             {
-                rb.MovePosition(new Vector2(x, y));
+                if (rb.velocity == Vector2.zero)
+                {
+                    rb.MovePosition(new Vector2(x, y));
+                }
             }
             else
             {
