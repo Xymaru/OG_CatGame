@@ -28,6 +28,14 @@ namespace PawsAndClaws.Networking.Gameplay
             ReplicationManager.Instance.SendPacket(packet);
         }
 
+        public override void SetPosition(float x, float y)
+        {
+            if (rb.velocity == Vector2.zero)
+            {
+                rb.MovePosition(new Vector2(x, y));
+            }
+        }
+
         public override void Move(float dx, float dy)
         {
             rb.velocity = new Vector2(dx * networkPlayerManager.CharacterStats.Speed, dy * networkPlayerManager.CharacterStats.Speed);
