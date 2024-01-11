@@ -14,7 +14,19 @@ namespace PawsAndClaws.Networking.Gameplay
             StartCoroutine(SendPacketCoroutine());
         }
 
-        protected override void SendPackets()
+        private void SendPosition()
+        {
+            NPObjectPos packet = new NPObjectPos();
+            packet.net_id = NetID;
+
+            var position = player.position;
+            packet.x = position.x;
+            packet.y = position.y;
+
+            ReplicationManager.Instance.SendPacket(packet);
+        }
+
+        private void SendMovement()
         {
             Vector2 movedir = playerInputHandler.GetDirection();
 
@@ -25,15 +37,15 @@ namespace PawsAndClaws.Networking.Gameplay
             packet.dy = movedir.y;
 
             ReplicationManager.Instance.SendPacket(packet);
-            
-            //NPObjectPos packet = new NPObjectPos();
-            //packet.net_id = NetID;
+        }
 
-            //var position = player.position;
-            //packet.x = position.x;
-            //packet.y = position.y;
+        protected override void SendPackets()
+        {
+            // Send direction packet
+            SendMovement();
 
-            //ReplicationManager.Instance.SendPacket(packet);
+            // Send position packet
+            SendPosition();
         }
     }
 }

@@ -83,8 +83,10 @@ namespace PawsAndClaws.Networking
         private void ProcessPosPacket(NPObjectPos p)
         {
             DynamicNetworkObject netObj = _networkObjects[p.net_id] as DynamicNetworkObject;
-            if (netObj != null)
-                netObj.SetPosition(p.x, p.y);
+
+            if (netObj == null) return;
+
+            netObj.SetPosition(p.x, p.y);
         }
 
         private void ProcessAbilityPacket(NPAbility p)
@@ -114,6 +116,11 @@ namespace PawsAndClaws.Networking
             DynamicNetworkObject dyn_obj = netObj as DynamicNetworkObject;
 
             dyn_obj.Move(p.dx, p.dy);
+
+            if (NetworkData.NetSocket.NetCon == NetCon.Host)
+            {
+                _serv.BroadcastPacket(p);
+            }
         }
 
         public void ProcessPacket(NetworkPacket packet)

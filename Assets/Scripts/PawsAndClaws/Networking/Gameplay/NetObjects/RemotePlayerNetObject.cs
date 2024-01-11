@@ -17,7 +17,15 @@ namespace PawsAndClaws.Networking.Gameplay
 
         protected override void SendPackets()
         {
-            // Player packets done only through replication manager in host
+            // Send only position, as move is only through replication
+            NPObjectPos packet = new NPObjectPos();
+            packet.net_id = NetID;
+
+            var position = transform.position;
+            packet.x = position.x;
+            packet.y = position.y;
+
+            ReplicationManager.Instance.SendPacket(packet);
         }
 
         public override void Move(float dx, float dy)
