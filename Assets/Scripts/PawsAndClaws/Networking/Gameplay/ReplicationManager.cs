@@ -68,6 +68,25 @@ namespace PawsAndClaws.Networking
             return netObject;
         }
 
+        public void RegisterNetObject(GameObject obj, int net_id)
+        {
+            // Resize array to fit net ids
+            if (_networkObjects.Count <= net_id)
+            {
+                int dif = net_id - _networkObjects.Count + 1;
+
+                for (int i = 0; i < dif; i++)
+                {
+                    _networkObjects.Add(null);
+                }
+            }
+
+            var netComp = obj.GetComponent<NetworkObject>();
+            netComp.NetID = net_id;
+
+            _networkObjects[net_id] = netComp;
+        }
+
         public void SendPacket(NetworkPacket packet)
         {
             if (NetworkData.NetSocket.NetCon == NetCon.Client)
