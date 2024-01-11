@@ -19,6 +19,7 @@ namespace PawsAndClaws.Networking
         // Gameplay packets
         HELLO,
         OBJECTPOS,
+        MOVEDIR,
         ABILITY
     }
 
@@ -79,6 +80,9 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.OBJECTPOS:
                     packet = new NPObjectPos(buffer);
+                    break;
+                case NPacketType.MOVEDIR:
+                    packet = new NPMoveDirection(buffer);
                     break;
                 case NPacketType.ABILITY:
                     packet = new NPAbility(buffer);

@@ -9,9 +9,19 @@ namespace PawsAndClaws.Player
 {
     public class NetworkPlayerManager : PlayerManager
     {
+        [SerializeField]
+        private Animator animator;
+
+        [SerializeField]
+        private SpriteRenderer _spriteRenderer;
+
+        private bool _wasRight = false;
+
         private void Start()
         {
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
+            animator = GetComponentInChildren<Animator>();
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
             // Spawn the character
             _character = characterData.Spawn(transform, ref CharacterStats);
@@ -23,6 +33,41 @@ namespace PawsAndClaws.Player
             
             _healthBar.UpdateBar(CharacterStats.Health, CharacterStats.MaxHealth);
             _healthBar.UpdateName(userName);
+        }
+
+        private void Update()
+        {
+            if (!animator)
+            {
+                animator = GetComponentInChildren<Animator>();
+                _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            }
+
+            UpdateAnimator();
+        }
+
+        private void UpdateAnimator()
+        {
+            float speed = Mathf.Abs(rigidBody.velocity.magnitude);
+
+            Debug.Log(speed);
+
+            if (animator != null)
+                animator.SetFloat(GameConstants.SpeedAnim, speed);
+
+            switch (rigidBody.velocity.x)
+            {
+                case > 0.1f when _wasRight:
+                case < -0.1f when !_wasRight:
+                    FlipX();
+                    break;
+            }
+        }
+
+        private void FlipX()
+        {
+            _wasRight = !_wasRight;
+            _spriteRenderer.flipX = _wasRight;
         }
 
         public void SetPosition(Vector2 pos)

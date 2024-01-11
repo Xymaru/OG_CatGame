@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 8928455702279885535}
   - component: {fileID: 9072097297513055302}
   - component: {fileID: 6154251962453669672}
-  - component: {fileID: -8453757277100320867}
   m_Layer: 7
   m_Name: HamsterMinion
   m_TagString: Untagged
@@ -259,20 +258,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-8453757277100320867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744957741004387552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2166da861043634eb3af8952e0da3ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetID: 0
-  isLocalOnly: 0
 --- !u!1 &4003311921137048345
 GameObject:
   m_ObjectHideFlags: 0

@@ -105,6 +105,17 @@ namespace PawsAndClaws.Networking
             }
         }
 
+        private void ProcessMovePacket(NPMoveDirection p)
+        {
+            NetworkObject netObj = _networkObjects[p.net_id];
+
+            if (netObj == null) return;
+
+            DynamicNetworkObject dyn_obj = netObj as DynamicNetworkObject;
+
+            dyn_obj.Move(p.dx, p.dy);
+        }
+
         public void ProcessPacket(NetworkPacket packet)
         {
             switch (packet.p_type)
@@ -114,6 +125,9 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.ABILITY:
                     ProcessAbilityPacket(packet as NPAbility);
+                    break;
+                case NPacketType.MOVEDIR:
+                    ProcessMovePacket(packet as NPMoveDirection);
                     break;
                 default:
                     break;

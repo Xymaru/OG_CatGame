@@ -19,7 +19,7 @@ namespace PawsAndClaws.Networking
         List<NetworkPacket> m_SendPacketQueue = new();
         object m_SendPacketMutex = new();
 
-        bool connected = false;
+        bool m_Connected = false;
         object m_ConMutex = new();
 
         private void Awake()
@@ -100,7 +100,7 @@ namespace PawsAndClaws.Networking
             {
                 lock (m_ConMutex)
                 {
-                    connected = true;
+                    m_Connected = true;
                 }
 
                 Debug.Log($"Correctly connected to server UDP");
@@ -137,7 +137,7 @@ namespace PawsAndClaws.Networking
 
                 lock (m_ConMutex)
                 {
-                    con = connected;
+                    con = m_Connected;
                 }
 
                 // Wait till next try

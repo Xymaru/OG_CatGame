@@ -106,5 +106,10 @@ namespace PawsAndClaws.Player
         {
             rb.velocity = new Vector2(moveDirection.x * playerManager.CharacterStats.Speed, moveDirection.y * playerManager.CharacterStats.Speed);
         }
+
+        public Vector2 GetDirection()
+        {
+            return moveDirection;
+        }
     }
 }

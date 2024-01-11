@@ -155,4 +155,46 @@ namespace PawsAndClaws.Networking
             return blob.Data;
         }
     }
+
+    [System.Serializable]
+    public class NPMoveDirection : GameplayPacket
+    {
+        public float dx;
+        public float dy;
+
+        public NPMoveDirection(byte[] data) : base(data)
+        {
+            p_type = NPacketType.MOVEDIR;
+        }
+
+        public NPMoveDirection()
+        {
+            p_type = NPacketType.MOVEDIR;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] data)
+        {
+            BlobStreamReader blob = new BlobStreamReader(data);
+            ReadBasePacketData(ref blob);
+
+            dx = blob.Read<float>();
+            dy = blob.Read<float>();
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
+            // Set type and size
+            SetBasePacketData(ref blob);
+
+            // Write the position
+            blob.Write(dx);
+            blob.Write(dy);
+
+            return blob.Data;
+        }
+    }
 }
