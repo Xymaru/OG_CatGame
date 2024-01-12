@@ -22,18 +22,18 @@ MonoBehaviour:
   speed: 5
   startingHealth: 100
   healthLevelMultiplier: 1
-  healthRegen: 1.1
+  healthRegen: 0.5
   healthRegenLevelMultiplier: 1
   attackType: 1
-  startingDamage: 10
-  damageLevelMultiplier: 1
-  startingShield: 10
-  shieldLevelMultiplier: 1
-  startingMana: 50
+  startingDamage: 5
+  damageLevelMultiplier: 0.5
+  startingShield: 1
+  shieldLevelMultiplier: 1.5
+  startingMana: 100
   manaLevelMultiplier: 1
-  manaRegen: 20
-  manaRegenLevelMultiplier: 20
-  range: 20
-  attackSpeed: 20
-  attackSpeedMultiplier: 20
+  manaRegen: 1
+  manaRegenLevelMultiplier: 1
+  range: 2
+  attackSpeed: 1
+  attackSpeedMultiplier: 1
   prefab: {fileID: 8164089564192595539, guid: 3d6f4f8b0128077429d0b2cb0f8da5d3, type: 3}
