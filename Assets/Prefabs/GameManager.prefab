@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c0525879640a9f418b4f7de1e91c867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToNextWave: 10
+  timeToNextWave: 12
   timeBetweenMinionSpawn: 0.5
-  minionsPerWave: 3
+  minionsPerWave: 1
   spawnPoint: {fileID: 0}
   checkPoint: {fileID: 0}
   team: 1
@@ -108,8 +108,10 @@ MonoBehaviour:
   timeToStartSpawn: 10
   hamsterMinionWaveManager: {fileID: 5578088481531275326}
   catMinionWaveManager: {fileID: 1091055981700614745}
-  hamsterSpawnPoint: {fileID: 0}
-  catSpawnPoint: {fileID: 0}
+  hamsterSpawnPoint:
+  - {fileID: 0}
+  catSpawnPoint:
+  - {fileID: 0}
   hamsterInhibitor: {fileID: 0}
   catInhibitor: {fileID: 0}
   hamsterNexus: {fileID: 0}
@@ -120,7 +122,7 @@ MonoBehaviour:
   catInhibitorTower: {fileID: 0}
   catNexusTowerUp: {fileID: 0}
   catNexusTowerDown: {fileID: 0}
-  playerTeam: 0
+  oppositeTeam: 0
 --- !u!1 &8871129731264691912
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,9 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c0525879640a9f418b4f7de1e91c867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToNextWave: 10
+  timeToNextWave: 12
   timeBetweenMinionSpawn: 0.5
-  minionsPerWave: 3
+  minionsPerWave: 1
   spawnPoint: {fileID: 0}
   checkPoint: {fileID: 0}
   team: 0

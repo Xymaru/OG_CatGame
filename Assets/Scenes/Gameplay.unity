@@ -779,6 +779,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1091055981700614745, guid: c574c0b801acbfb438bd0cefec53e19b,
         type: 3}
+      propertyPath: poolSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1091055981700614745, guid: c574c0b801acbfb438bd0cefec53e19b,
+        type: 3}
       propertyPath: checkPoint
       value: 
       objectReference: {fileID: 2136310672}
@@ -1046,6 +1051,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _camera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5578088481531275326, guid: c574c0b801acbfb438bd0cefec53e19b,
+        type: 3}
+      propertyPath: poolSize
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5578088481531275326, guid: c574c0b801acbfb438bd0cefec53e19b,
         type: 3}
