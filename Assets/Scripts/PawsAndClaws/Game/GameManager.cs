@@ -182,12 +182,27 @@ namespace PawsAndClaws.Game
             _matchTime += Time.deltaTime;
         }
 
+        public void SpawnMinion(Team team)
+        {
+            if(team == Team.Cat)
+            {
+                catMinionWaveManager.RequestMinion();
+            }
+            else
+            {
+                hamsterMinionWaveManager.RequestMinion();
+            }
+        }
+
         private IEnumerator StartMinionTimer()
         {
             yield return new WaitForSeconds(timeToStartSpawn);
-            
-            hamsterMinionWaveManager.StartSpawningMinions();
-            catMinionWaveManager.StartSpawningMinions();
+
+            if (NetworkData.NetSocket.NetCon == NetCon.Host)
+            {
+                hamsterMinionWaveManager.StartSpawningMinions();
+                catMinionWaveManager.StartSpawningMinions();
+            }
             
             NotificationsUI.Instance.PushNotification(new Notification("Minions have spawned", 1.5f));
             

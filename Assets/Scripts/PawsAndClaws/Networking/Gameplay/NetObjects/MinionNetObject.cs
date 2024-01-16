@@ -8,14 +8,14 @@ namespace PawsAndClaws.Networking.Gameplay
     {
         protected override void SendPackets()
         {
-            NPObjectPos packet = new NPObjectPos();
-            packet.net_id = NetID;
+            //NPObjectPos packet = new NPObjectPos();
+            //packet.net_id = NetID;
 
-            var position = transform.position;
-            packet.x = position.x;
-            packet.y = position.y;
+            //var position = transform.position;
+            //packet.x = position.x;
+            //packet.y = position.y;
 
-            ReplicationManager.Instance.SendPacket(packet);
+            //ReplicationManager.Instance.SendPacket(packet);
         }
     }
 }

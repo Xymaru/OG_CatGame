@@ -20,7 +20,9 @@ namespace PawsAndClaws.Networking
         HELLO,
         OBJECTPOS,
         MOVEDIR,
-        ABILITY
+        ABILITY,
+        MINIONSPAWN,
+        MINIONDEATH
     }
 
     [System.Serializable]
@@ -86,6 +88,12 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.ABILITY:
                     packet = new NPAbility(buffer);
+                    break;
+                case NPacketType.MINIONSPAWN:
+                    packet = new NPMinionSpawn(buffer);
+                    break;
+                case NPacketType.MINIONDEATH:
+                    packet = new NPMinionDeath(buffer);
                     break;
             }
 

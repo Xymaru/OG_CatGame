@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 35266245276980161}
   - component: {fileID: 8928455702279885535}
   - component: {fileID: 9072097297513055302}
+  - component: {fileID: 5678754280620831560}
   m_Layer: 6
   m_Name: CatMinion
   m_TagString: Untagged
@@ -205,6 +206,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5678754280620831560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744957741004387552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2166da861043634eb3af8952e0da3ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetID: 0
+  isLocalOnly: 0
 --- !u!1 &4003311921137048345
 GameObject:
   m_ObjectHideFlags: 0

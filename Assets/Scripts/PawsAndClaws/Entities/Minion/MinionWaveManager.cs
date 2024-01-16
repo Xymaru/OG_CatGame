@@ -18,11 +18,13 @@ namespace PawsAndClaws.Entities.Minion
         private bool _canSpawn = false;
         private Coroutine _spawnCoroutine;
 
-
         [Header("Pool")]
         [SerializeField] private int poolSize = 10;
         [SerializeField] private GameObject minionPrefab;
         [SerializeField] private List<GameObject> minionList = new List<GameObject>();
+
+        private List<Networking.NPMinionSequence> _packetsToSend = new();
+        private object _packetsMutex = new();
 
         private void Start()
         {
@@ -34,6 +36,16 @@ namespace PawsAndClaws.Entities.Minion
             if(_canSpawn)
             {
                 _spawnCoroutine ??= StartCoroutine(SpawnMinionCoroutine());
+            }
+
+            lock (_packetsMutex)
+            {
+                foreach(Networking.NPMinionSequence p in _packetsToSend)
+                {
+                    Networking.ReplicationManager.Instance.SendPacketMinion(p);
+                }
+
+                _packetsToSend.Clear();
             }
         }
 
@@ -47,6 +59,15 @@ namespace PawsAndClaws.Entities.Minion
             for(int i = 0; i < minionsPerWave; i++)
             {
                 var minion = RequestMinion();
+
+                Networking.NPMinionSpawn packet = new();
+                packet.team = team;
+
+                lock (_packetsMutex)
+                {
+                    _packetsToSend.Add(packet);
+                }
+
                 yield return new WaitForSeconds(timeBetweenMinionSpawn);
             }
             yield return new WaitForSeconds(timeToNextWave);
@@ -57,8 +78,8 @@ namespace PawsAndClaws.Entities.Minion
         {
             for(var i = 0; i < amount; i++) 
             {
-                var minion = Instantiate(minionPrefab, spawnPoint);
-                //var minion = Networking.ReplicationManager.Instance.CreateNetObject(minionPrefab, spawnPoint.position);
+                //var minion = Instantiate(minionPrefab, spawnPoint);
+                var minion = Networking.ReplicationManager.Instance.CreateNetObject(minionPrefab, spawnPoint.position);
                 Utils.GameUtils.SetEntityTeam(ref minion, team);
                 minion.GetComponent<MinionStateMachine>().checkPoint = checkPoint;
                 var minionMan = minion.GetComponent<MinionController>();
@@ -70,6 +91,7 @@ namespace PawsAndClaws.Entities.Minion
 
         public GameObject RequestMinion()
         {
+            // Take available minion
             foreach(var minion in minionList)
             {
                 if(!minion.activeSelf)
@@ -82,6 +104,7 @@ namespace PawsAndClaws.Entities.Minion
                     return minion;
                 }
             }
+            // If none available, add to pool and request again.
             AddMinionToPool(poolSize / 2);
             return RequestMinion();
         }

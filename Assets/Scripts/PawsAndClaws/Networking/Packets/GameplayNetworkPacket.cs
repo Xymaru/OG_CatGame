@@ -197,4 +197,101 @@ namespace PawsAndClaws.Networking
             return blob.Data;
         }
     }
+
+    [Serializable]
+    public abstract class NPMinionSequence : NetworkPacket
+    {
+        public int seq;
+
+        public NPMinionSequence(byte[] data) : base(data)
+        {
+            
+        }
+
+        public NPMinionSequence()
+        {
+        }
+
+        public override void ReadBasePacketData(ref BlobStreamReader blob)
+        {
+            base.ReadBasePacketData(ref blob);
+
+            seq = blob.Read<int>();
+        }
+
+        public override void SetBasePacketData(ref BlobStreamWriter blob)
+        {
+            base.SetBasePacketData(ref blob);
+
+            blob.Write(seq);
+        }
+    }
+
+    [Serializable]
+    public class NPMinionSpawn : NPMinionSequence
+    {
+        public Player.Team team;
+        public NPMinionSpawn(byte[] data) : base(data)
+        {
+            p_type = NPacketType.MINIONSPAWN;
+        }
+
+        public NPMinionSpawn()
+        {
+            p_type = NPacketType.MINIONSPAWN;
+        }
+        public override NetworkPacket LoadByteArray(byte[] data)
+        {
+            BlobStreamReader blob = new BlobStreamReader(data);
+            ReadBasePacketData(ref blob);
+
+            team = (Player.Team)blob.Read<byte>();
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
+            // Set type and size
+            SetBasePacketData(ref blob);
+
+            // Write the team
+            blob.Write((byte)team);
+
+            return blob.Data;
+        }
+    }
+
+    [Serializable]
+    public class NPMinionDeath : NPMinionSequence
+    {
+        public NPMinionDeath(byte[] data) : base(data)
+        {
+            p_type = NPacketType.MINIONDEATH;
+        }
+
+        public NPMinionDeath()
+        {
+            p_type = NPacketType.MINIONDEATH;
+        }
+        public override NetworkPacket LoadByteArray(byte[] data)
+        {
+            BlobStreamReader blob = new BlobStreamReader(data);
+            ReadBasePacketData(ref blob);
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
+            // Set type and size
+            SetBasePacketData(ref blob);           
+
+            return blob.Data;
+        }
+    }
 }

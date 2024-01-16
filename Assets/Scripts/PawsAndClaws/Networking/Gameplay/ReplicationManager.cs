@@ -10,6 +10,9 @@ namespace PawsAndClaws.Networking
     {
         public static ReplicationManager Instance { get; private set; }
         private readonly List<NetworkObject> _networkObjects = new List<NetworkObject>();
+
+        private List<NPMinionSequence> _minionPackets = new();
+        private int _curSequence = 0;
         
         private NetClientUDP _client;
         private NetServerUDP _serv;
@@ -87,6 +90,15 @@ namespace PawsAndClaws.Networking
             _networkObjects[net_id] = netComp;
         }
 
+        public void SendPacketMinion(NPMinionSequence packet)
+        {
+            packet.seq = _curSequence;
+
+            _serv.BroadcastPacket(packet);
+
+            _curSequence++;
+        }
+
         public void SendPacket(NetworkPacket packet)
         {
             if (NetworkData.NetSocket.NetCon == NetCon.Client)
@@ -142,6 +154,33 @@ namespace PawsAndClaws.Networking
             }
         }
 
+        private void CheckNextMinionPacket()
+        {
+            foreach(NPMinionSequence p in _minionPackets)
+            {
+                if(p.seq == _curSequence)
+                {
+                    ProcessPacket(p);
+                    break;
+                }
+            }
+        }
+
+        private void ProcessMinionSpawn(NPMinionSpawn p)
+        {
+            if (p.seq == _curSequence)
+            {
+                Game.GameManager.Instance.SpawnMinion(p.team);
+                _curSequence++;
+
+                CheckNextMinionPacket();
+            }
+            else
+            {
+                _minionPackets.Add(p);
+            }
+        }
+
         public void ProcessPacket(NetworkPacket packet)
         {
             switch (packet.p_type)
@@ -154,6 +193,9 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.MOVEDIR:
                     ProcessMovePacket(packet as NPMoveDirection);
+                    break;
+                case NPacketType.MINIONSPAWN:
+                    ProcessMinionSpawn(packet as NPMinionSpawn);
                     break;
                 default:
                     break;
