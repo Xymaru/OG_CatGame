@@ -6,16 +6,21 @@ namespace PawsAndClaws.Networking.Gameplay
 {
     public class MinionNetObject : DynamicNetworkObject
     {
+        Entities.Minion.MinionController _minionController = null;
+
+        protected override void Start()
+        {
+            _minionController = GetComponent<Entities.Minion.MinionController>();
+
+            base.Start();
+        }
         protected override void SendPackets()
         {
-            //NPObjectPos packet = new NPObjectPos();
-            //packet.net_id = NetID;
+            NPMinionHealth packet = new();
+            packet.net_id = NetID;
+            packet.health = _minionController.GetHealth();
 
-            //var position = transform.position;
-            //packet.x = position.x;
-            //packet.y = position.y;
-
-            //ReplicationManager.Instance.SendPacket(packet);
+            ReplicationManager.Instance.SendPacket(packet);
         }
     }
 }

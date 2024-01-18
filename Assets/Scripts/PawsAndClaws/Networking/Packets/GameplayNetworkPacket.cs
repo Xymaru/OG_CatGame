@@ -198,6 +198,45 @@ namespace PawsAndClaws.Networking
         }
     }
 
+    [System.Serializable]
+    public class NPMinionHealth : GameplayPacket
+    {
+        public float health;
+
+        public NPMinionHealth(byte[] data) : base(data)
+        {
+            p_type = NPacketType.MINIONHEALTH;
+        }
+
+        public NPMinionHealth()
+        {
+            p_type = NPacketType.MINIONHEALTH;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] data)
+        {
+            BlobStreamReader blob = new BlobStreamReader(data);
+            ReadBasePacketData(ref blob);
+
+            health = blob.Read<float>();
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
+            // Set type and size
+            SetBasePacketData(ref blob);
+
+            // Write health
+            blob.Write(health);
+
+            return blob.Data;
+        }
+    }
+
     [Serializable]
     public abstract class NPMinionSequence : NetworkPacket
     {
@@ -267,6 +306,7 @@ namespace PawsAndClaws.Networking
     [Serializable]
     public class NPMinionDeath : NPMinionSequence
     {
+        public int net_id;
         public NPMinionDeath(byte[] data) : base(data)
         {
             p_type = NPacketType.MINIONDEATH;
@@ -280,6 +320,8 @@ namespace PawsAndClaws.Networking
         {
             BlobStreamReader blob = new BlobStreamReader(data);
             ReadBasePacketData(ref blob);
+            
+            net_id = blob.Read<int>();
 
             return this;
         }
@@ -289,7 +331,9 @@ namespace PawsAndClaws.Networking
             byte[] data = new byte[MAX_BUFFER_SIZE];
             BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
             // Set type and size
-            SetBasePacketData(ref blob);           
+            SetBasePacketData(ref blob);
+
+            blob.Write(net_id);
 
             return blob.Data;
         }

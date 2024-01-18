@@ -27,7 +27,6 @@ namespace PawsAndClaws.UI
             _lerpTimer = 0;
         }
 
-
         private void Update()
         {
             UpdateHealthUI();

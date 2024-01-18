@@ -181,6 +181,31 @@ namespace PawsAndClaws.Networking
             }
         }
 
+        private void ProcessMinionDeath(NPMinionDeath p)
+        {
+            if (p.seq == _curSequence)
+            {
+                MinionNetObject netObj = _networkObjects[p.net_id] as MinionNetObject;
+
+                netObj.GetComponent<Entities.Minion.MinionController>().Die();
+
+                _curSequence++;
+
+                CheckNextMinionPacket();
+            }
+            else
+            {
+                _minionPackets.Add(p);
+            }
+        }
+
+        private void ProcessMinionHealth(NPMinionHealth p)
+        {
+            MinionNetObject netObj = _networkObjects[p.net_id] as MinionNetObject;
+
+            netObj.GetComponent<Entities.Minion.MinionController>().SetHealth(p.health);
+        }
+
         public void ProcessPacket(NetworkPacket packet)
         {
             switch (packet.p_type)
@@ -196,6 +221,12 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.MINIONSPAWN:
                     ProcessMinionSpawn(packet as NPMinionSpawn);
+                    break;
+                case NPacketType.MINIONDEATH:
+                    ProcessMinionDeath(packet as NPMinionDeath);
+                    break;
+                case NPacketType.MINIONHEALTH:
+                    ProcessMinionHealth(packet as NPMinionHealth);
                     break;
                 default:
                     break;

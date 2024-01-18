@@ -22,7 +22,8 @@ namespace PawsAndClaws.Networking
         MOVEDIR,
         ABILITY,
         MINIONSPAWN,
-        MINIONDEATH
+        MINIONDEATH,
+        MINIONHEALTH
     }
 
     [System.Serializable]
@@ -94,6 +95,9 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.MINIONDEATH:
                     packet = new NPMinionDeath(buffer);
+                    break;
+                case NPacketType.MINIONHEALTH:
+                    packet = new NPMinionHealth(buffer);
                     break;
             }
 

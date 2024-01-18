@@ -40,6 +40,8 @@ namespace PawsAndClaws.Entities.Minion
         private bool _isAlive;
         GameObject IGameEntity.GameObject { get => gameObject; set { } }
 
+        private Networking.Gameplay.MinionNetObject _minionNetObj = null;
+
         private void Awake()
         {
             gameObject.layer = team == Team.Cat ?
@@ -49,6 +51,8 @@ namespace PawsAndClaws.Entities.Minion
 
         public void Start()
         {
+            _minionNetObj = GetComponent<Networking.Gameplay.MinionNetObject>();
+
             var circleCollider2D = GetComponent<CircleCollider2D>();
             circleCollider2D.radius = visionRange;
 
@@ -86,24 +90,53 @@ namespace PawsAndClaws.Entities.Minion
             var stateMachine = GetComponent<MinionStateMachine>();
             stateMachine.Start();
         }
-    
+        
+        // Now only called through networking
         public void Die()
         {
             _isAlive = false;
             gameObject.SetActive(false);
+
+            if (Networking.NetworkData.NetSocket.NetCon == Networking.NetCon.Host)
+            {
+                Networking.NPMinionDeath packet = new();
+                packet.net_id = _minionNetObj.NetID;
+
+                Networking.ReplicationManager.Instance.SendPacketMinion(packet);
+            }
         }
 
         public bool Damage(float incomingDamage)
         {
+            if (_isAlive == false) return true;
+
+            if (Networking.NetworkData.NetSocket.NetCon == Networking.NetCon.Client) return false;
+
+            if (_currentHealth == 0) return false;
+
             _currentHealth -= incomingDamage;
             healthBar.UpdateBar(_currentHealth, maxHealth);
+
             if (_currentHealth <= 0)
             {
                 _currentHealth = 0;
+
                 Die();
                 return true;
             }
             return false;
+        }
+
+        // Used for networking health
+        public void SetHealth(float health)
+        {
+            _currentHealth = health;
+            healthBar.UpdateBar(_currentHealth, maxHealth);
+        }
+
+        public float GetHealth()
+        {
+            return _currentHealth;
         }
 
         
