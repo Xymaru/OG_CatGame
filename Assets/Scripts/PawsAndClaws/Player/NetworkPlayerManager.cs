@@ -17,8 +17,10 @@ namespace PawsAndClaws.Player
 
         private bool _wasRight = false;
 
-        private void Start()
+        override protected void Start()
         {
+            base.Start();
+
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();
             animator = GetComponentInChildren<Animator>();
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();

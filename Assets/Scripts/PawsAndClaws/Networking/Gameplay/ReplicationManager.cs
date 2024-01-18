@@ -206,6 +206,38 @@ namespace PawsAndClaws.Networking
             netObj.GetComponent<Entities.Minion.MinionController>().SetHealth(p.health);
         }
 
+        private void ProcessPlayerHealth(NPPlayerHealth p)
+        {
+            DynamicNetworkObject netObj = _networkObjects[p.net_id] as DynamicNetworkObject;
+
+            if (netObj == null) return;
+
+            Player.PlayerManager player = netObj.GetComponent<Player.PlayerManager>();
+
+            if (!player)
+            {
+                player = netObj.GetComponentInChildren<Player.PlayerManager>();
+            }
+
+            player.SetHealth(p.health);
+        }
+
+        private void ProcessPlayerDeath(NPPlayerDeath p)
+        {
+            DynamicNetworkObject netObj = _networkObjects[p.net_id] as DynamicNetworkObject;
+
+            if (netObj == null) return;
+
+            Player.PlayerManager player = netObj.GetComponent<Player.PlayerManager>();
+
+            if (!player)
+            {
+                player = netObj.GetComponentInChildren<Player.PlayerManager>();
+            }
+
+            player.Die();
+        }
+
         public void ProcessPacket(NetworkPacket packet)
         {
             switch (packet.p_type)
@@ -227,6 +259,12 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.MINIONHEALTH:
                     ProcessMinionHealth(packet as NPMinionHealth);
+                    break;
+                case NPacketType.PLAYERHEALTH:
+                    ProcessPlayerHealth(packet as NPPlayerHealth);
+                    break;
+                case NPacketType.PLAYERDEATH:
+                    ProcessPlayerDeath(packet as NPPlayerDeath);
                     break;
                 default:
                     break;

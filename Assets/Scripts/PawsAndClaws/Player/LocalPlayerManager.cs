@@ -24,8 +24,10 @@ namespace PawsAndClaws.Player
         private PlayerCameraController _playerCameraController;
         private Camera _playerCameraComp;
         
-        private void Start()
+        override protected void Start()
         {
+            base.Start();
+
             _playerCameraController = playerCamera.GetComponent<PlayerCameraController>();
             _playerCameraComp = playerCamera.GetComponent<Camera>();
             _healthBar = GetComponentInChildren<InGamePlayerHealthBarUI>();

@@ -10,14 +10,13 @@ namespace PawsAndClaws.Networking.Gameplay
 
         protected override void Start()
         {
-            base.Start();
-
             networkPlayerManager = GetComponent<Player.NetworkPlayerManager>();
+
+            base.Start();
         }
 
-        protected override void SendPackets()
+        private void SendPosition()
         {
-            // Send only position, as move is only through replication
             NPObjectPos packet = new NPObjectPos();
             packet.net_id = NetID;
 
@@ -26,6 +25,27 @@ namespace PawsAndClaws.Networking.Gameplay
             packet.y = position.y;
 
             ReplicationManager.Instance.SendPacket(packet);
+        }
+
+        private void SendHealth()
+        {
+            if (NetworkData.NetSocket.NetCon == NetCon.Client) return;
+
+            NPPlayerHealth packet = new();
+            packet.net_id = NetID;
+
+            packet.health = networkPlayerManager.GetHealth();
+
+            ReplicationManager.Instance.SendPacket(packet);
+        }
+
+        protected override void SendPackets()
+        {
+            // Send position packet
+            SendPosition();
+
+            // Send health packet
+            SendHealth();
         }
 
         public override void SetPosition(float x, float y)

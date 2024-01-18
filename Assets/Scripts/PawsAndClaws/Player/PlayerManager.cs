@@ -46,7 +46,19 @@ namespace PawsAndClaws.Player
         public bool IsAlive { get => _isAlive; set { } }
         protected bool _isAlive = true;
         GameObject IGameEntity.GameObject { get => gameObject; set {} }
-        
+
+        private Networking.Gameplay.DynamicNetworkObject _playerNetObj;
+
+        protected virtual void Start()
+        {
+            _playerNetObj = GetComponent<Networking.Gameplay.DynamicNetworkObject>();
+
+            if(_playerNetObj == null)
+            {
+                _playerNetObj = GetComponentInParent<Networking.Gameplay.DynamicNetworkObject>();
+            }
+        }
+
         protected void CollectAbilities()
         {
             var ab = _character.GetComponents<Ability>();
@@ -72,6 +84,9 @@ namespace PawsAndClaws.Player
         
         public virtual bool Damage(float damage)
         {
+            if (_isAlive == false) return true;
+            if (Networking.NetworkData.NetSocket.NetCon == Networking.NetCon.Client) return false;
+
             var finalDamage =  Mathf.Max(1f, damage - CharacterStats.Shield);
             CharacterStats.Health -= finalDamage;
             if (CharacterStats.Health <= 0)
@@ -86,6 +101,18 @@ namespace PawsAndClaws.Player
             Debug.Log($"Damaging player manager with {finalDamage} damage, {CharacterStats.Health} health remaining");
             return false;
         }
+
+        public void SetHealth(float health)
+        {
+            CharacterStats.Health = health;
+            UpdateHealthUI();
+        }
+
+        public float GetHealth()
+        {
+            return CharacterStats.Health;
+        }
+
         public virtual void Attack(IGameEntity enemy)
         {
             enemy.Damage(CharacterStats.TotalDamage);
@@ -99,6 +126,15 @@ namespace PawsAndClaws.Player
             Destroy(_character);
             _character = null;
             _respawnCoroutine ??= StartCoroutine(RespawnCoroutine());
+
+            // Send player death packet
+            if (Networking.NetworkData.NetSocket.NetCon == Networking.NetCon.Host)
+            {
+                Networking.NPPlayerDeath packet = new();
+                packet.net_id = _playerNetObj.NetID;
+
+                Networking.ReplicationManager.Instance.SendPacket(packet);
+            }
         }
         
         private IEnumerator RespawnCoroutine()

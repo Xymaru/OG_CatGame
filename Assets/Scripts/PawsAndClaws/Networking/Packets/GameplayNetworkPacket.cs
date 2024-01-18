@@ -199,6 +199,77 @@ namespace PawsAndClaws.Networking
     }
 
     [System.Serializable]
+    public class NPPlayerHealth : GameplayPacket
+    {
+        public float health;
+
+        public NPPlayerHealth(byte[] data) : base(data)
+        {
+            p_type = NPacketType.PLAYERHEALTH;
+        }
+
+        public NPPlayerHealth()
+        {
+            p_type = NPacketType.PLAYERHEALTH;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] data)
+        {
+            BlobStreamReader blob = new BlobStreamReader(data);
+            ReadBasePacketData(ref blob);
+
+            health = blob.Read<float>();
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
+            // Set type and size
+            SetBasePacketData(ref blob);
+
+            // Write health
+            blob.Write(health);
+
+            return blob.Data;
+        }
+    }
+
+    [Serializable]
+    public class NPPlayerDeath : GameplayPacket
+    {
+        public NPPlayerDeath(byte[] data) : base(data)
+        {
+            p_type = NPacketType.PLAYERDEATH;
+        }
+
+        public NPPlayerDeath()
+        {
+            p_type = NPacketType.PLAYERDEATH;
+        }
+
+        public override NetworkPacket LoadByteArray(byte[] data)
+        {
+            BlobStreamReader blob = new BlobStreamReader(data);
+            ReadBasePacketData(ref blob);
+
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            byte[] data = new byte[MAX_BUFFER_SIZE];
+            BlobStreamWriter blob = new BlobStreamWriter(data, MAX_BUFFER_SIZE);
+            // Set type and size
+            SetBasePacketData(ref blob);
+
+            return blob.Data;
+        }
+    }
+
+    [System.Serializable]
     public class NPMinionHealth : GameplayPacket
     {
         public float health;

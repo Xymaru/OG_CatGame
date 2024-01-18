@@ -21,6 +21,10 @@ namespace PawsAndClaws.Networking
         OBJECTPOS,
         MOVEDIR,
         ABILITY,
+
+        PLAYERHEALTH,
+        PLAYERDEATH,
+
         MINIONSPAWN,
         MINIONDEATH,
         MINIONHEALTH
@@ -98,6 +102,12 @@ namespace PawsAndClaws.Networking
                     break;
                 case NPacketType.MINIONHEALTH:
                     packet = new NPMinionHealth(buffer);
+                    break;
+                case NPacketType.PLAYERHEALTH:
+                    packet = new NPPlayerHealth(buffer);
+                    break;
+                case NPacketType.PLAYERDEATH:
+                    packet = new NPPlayerDeath(buffer);
                     break;
             }
 

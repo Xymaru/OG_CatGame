@@ -6,10 +6,12 @@ namespace PawsAndClaws.Networking.Gameplay
     {
         [SerializeField] private Transform player;
         private Player.PlayerInputHandler playerInputHandler;
+        private Player.PlayerManager playerManager;
 
         protected override void Start()
         {
             playerInputHandler = player.GetComponent<Player.PlayerInputHandler>();
+            playerManager = player.GetComponent<Player.PlayerManager>();
 
             StartCoroutine(SendPacketCoroutine());
         }
@@ -39,6 +41,18 @@ namespace PawsAndClaws.Networking.Gameplay
             ReplicationManager.Instance.SendPacket(packet);
         }
 
+        private void SendHealth()
+        {
+            if (NetworkData.NetSocket.NetCon == NetCon.Client) return;
+
+            NPPlayerHealth packet = new();
+            packet.net_id = NetID;
+
+            packet.health = playerManager.GetHealth();
+
+            ReplicationManager.Instance.SendPacket(packet);
+        }
+
         protected override void SendPackets()
         {
             // Send direction packet
@@ -46,6 +60,9 @@ namespace PawsAndClaws.Networking.Gameplay
 
             // Send position packet
             SendPosition();
+
+            // Send health packet
+            SendHealth();
         }
     }
 }
